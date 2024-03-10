@@ -9,6 +9,7 @@ import Course from "../pages/Admin/Course.jsx";
 import Pay from "../pages/Admin/Pay.jsx";
 import Cart from "../pages/Admin/Cart.jsx";
 import Video from "../pages/Admin/Video.jsx";
+import Profile from "../pages/Admin/Profile.jsx";
 function Dashboard() {
   return (
     <BrowserRouter basename="/">
@@ -22,6 +23,7 @@ function Dashboard() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/pay" element={<Pay />} />
           <Route path="/video" element={<Video />} /> 
+          <Route path="/profile" element={<Profile />} /> 
         </Routes>
       </div>
       <Footer />
