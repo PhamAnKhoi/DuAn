@@ -12,7 +12,7 @@ function Profile() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://nkduy.vn:88/api/account/loginp`, {
+      const response = await fetch(`http://api.course-selling.id.vn/api/account/loginp`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
@@ -31,6 +31,7 @@ function Profile() {
 
       // Assuming the API returns a token upon successful login
       const user = data;
+      
       // console.log(user);
       Cookies.set('user', JSON.stringify(user));
       // You can store the token in the state or context for future use (e.g., authentication)

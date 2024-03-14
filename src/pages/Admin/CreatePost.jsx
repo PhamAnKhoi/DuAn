@@ -24,7 +24,7 @@ function CreatePost() {
       formData.append("thumbnail", thumbnail);
 
       const response = await axios.post(
-        "http://nkduy.vn:88/api/post/create",
+        "http://api.course-selling.id.vn/api/post/create",
         formData,
         {
           headers: {
@@ -34,11 +34,9 @@ function CreatePost() {
         }
       );
 
-      if (!response.data.success) {
-        throw new Error("Có xẩy ra lỗi khi tạo bài viết");
+      if (response.data) {
+        console.log(response.data);
       }
-
-      console.log(response.data);
 
       // Clear form after successful submission
       setTitle("");
