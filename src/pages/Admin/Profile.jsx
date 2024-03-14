@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import Cookies from "js-cookie";
 
 
 function Profile() {
@@ -8,12 +8,12 @@ function Profile() {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
+  const url = process.env.REACT_APP_API_URL;
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await fetch('http://course-selling.id.vn/api/account/loginp', {
-        method: 'POST',
+      const response = await fetch(`http://nkduy.vn:88/api/account/loginp`, {
+        method: 'post',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -30,9 +30,9 @@ function Profile() {
       const data = await response.json();
 
       // Assuming the API returns a token upon successful login
-      const user = data.data;
-      console.log(user);
-
+      const user = data;
+      // console.log(user);
+      Cookies.set('user', JSON.stringify(user));
       // You can store the token in the state or context for future use (e.g., authentication)
     } catch (error) {
       console.error('Login failed:', error);
