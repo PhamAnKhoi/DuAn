@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Cookies from "js-cookie";
 
 
-function Profile() {
+function Login() {
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -64,4 +64,4 @@ return (
 );
 
 }
-export default Profile;
+export default Login;

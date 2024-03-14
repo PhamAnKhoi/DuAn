@@ -26,7 +26,11 @@ function Header() {
           </Space>
         </div>
         <div className="col-lg-3 d-flex align-items-center justify-content-end">
-          <button className="btn-login mx-1">Login</button>
+          <button className="btn-login mx-1" >
+          <Link to={"/login"}> 
+            Login
+          </Link>
+            </button>
           <button className="btn-register mx-1 py-1 px-3">Register</button>
         </div>
       </div>

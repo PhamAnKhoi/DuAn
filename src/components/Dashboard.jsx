@@ -9,7 +9,7 @@ import Course from "../pages/Admin/Course.jsx";
 import Pay from "../pages/Admin/Pay.jsx";
 import Cart from "../pages/Admin/Cart.jsx";
 import Video from "../pages/Admin/Video.jsx";
-import Profile from "../pages/Admin/Profile.jsx";
+import Login from "../pages/Admin/Login.jsx";
 import CreatePost from "../pages/Admin/CreatePost.jsx";
 import EditPost from "../pages/Admin/EditPost.jsx";
 function Dashboard() {
@@ -25,7 +25,7 @@ function Dashboard() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/pay" element={<Pay />} />
           <Route path="/video" element={<Video />} /> 
-          <Route path="/profile" element={<Profile />} /> 
+          <Route path="/login" element={<Login />} /> 
           <Route path="/create-post" element={<CreatePost />} /> 
           <Route path="/edit-post" element={<EditPost />} /> 
         </Routes>

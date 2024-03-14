@@ -1,5 +1,6 @@
 import React from "react";
 import Sidebar from "./Sidebar.jsx";
+import { Link } from "react-router-dom";
 
 function Post() {
   return (
@@ -8,7 +9,13 @@ function Post() {
       <div className="col-lg-11 Post">
         <div className="row">
           <div className="col-lg-11">
-            <div className="text-div1">Bài viết nổi bật</div>
+            <div className="text-div1">Bài viết nổi bật 
+            <a className="custom-link">
+            <Link to={"/create-post"}>
+                <p className="custom-center custom-text">Create-Post</p>
+              </Link>
+            </a>
+            </div>
             <div className="text-div2">
               Tổng hợp các bài viết chia sẻ về kinh nghiệm tự học lập trình
               online và các kỹ thuật lập trình web.
