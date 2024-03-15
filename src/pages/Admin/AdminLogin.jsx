@@ -1,6 +1,7 @@
 
-import { Link } from "react-router-dom";
-import React, { useEffect, useState } from 'react';
+// import { Link } from "react-router-dom";
+// import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Cookies from "js-cookie";
 
 
@@ -33,7 +34,7 @@ function AdminLogin() {
 
       // Assuming the API returns a token upon successful AdminLogin
       const user = data;
-      if (user.permission == 'ADMIN' || user.permission == 'TEACHER') {
+      if (user.permission === 'ADMIN' || user.permission === 'TEACHER') {
         Cookies.set('root', JSON.stringify(user));
         // chuyển trang về dashboard
         // document.location.href = "/admin/";

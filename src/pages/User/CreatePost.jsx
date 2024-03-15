@@ -3,9 +3,15 @@ import Cookies from "js-cookie";
 import axios from "axios";
 
 function CreatePost() {
-  const user = JSON.parse(Cookies.get('user'));
-  if (!user) {
-    alert('login giùm');
+  var user = Cookies.get("user");
+  // var showCreatePost = null;
+  if (user !== undefined) {
+    user = JSON.parse(user);
+    var auth = user.permission;
+    console.log(user);
+  }
+  if (!auth || auth !== "ADMIN" || auth !== "TEACHER") {
+    window.location.href = "/login";
   }
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -28,9 +34,9 @@ function CreatePost() {
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",//upload file
-            "Authorization": `Bearer ${user.access_token}`
-          }
+            "Content-Type": "multipart/form-data", //upload file
+            Authorization: `Bearer ${user.access_token}`,
+          },
         }
       );
 
