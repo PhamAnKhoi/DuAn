@@ -12,6 +12,10 @@ import Video from "../pages/Admin/Video.jsx";
 import Login from "../pages/Admin/Login.jsx";
 import CreatePost from "../pages/Admin/CreatePost.jsx";
 import EditPost from "../pages/Admin/EditPost.jsx";
+import CreateCourse from "../pages/Admin/Admin/CreateCourse.jsx";
+import EditCourse from "../pages/Admin/Admin/EditCourse.jsx";
+import AdminLogin from "../pages/Admin/Admin/AdminLogin.jsx";
+// import CreateCourse from 
 function Dashboard() {
   return (
     <BrowserRouter basename="/">
@@ -28,6 +32,12 @@ function Dashboard() {
           <Route path="/login" element={<Login />} /> 
           <Route path="/create-post" element={<CreatePost />} /> 
           <Route path="/edit-post" element={<EditPost />} /> 
+
+          {/* admin */}
+          <Route path="/admin/login" element={<AdminLogin />} /> 
+          <Route path="/admin/create-course" element={<CreateCourse />} /> 
+          <Route path="/admin/edit-course" element={<EditCourse />} /> 
+
         </Routes>
       </div>
       <Footer />
