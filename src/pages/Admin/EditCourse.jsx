@@ -48,7 +48,6 @@ function EditCourse() {
       );
       const { data } = response.data;
       setMessage(data.message);
-      // Xử lý dữ liệu trả về nếu cần thiết
     } catch (error) {
       console.error(error);
     }
@@ -108,9 +107,10 @@ function EditCourse() {
           <label>Video Demo:</label>
           <input type="file" name="videoDemo" onChange={handleFileChange} />
         </div>
-        <button type="submit">Save</button>
+        <button className="btn btn-primary" type="submit">Save</button>
+        {message && <p>{message}</p>}
       </form>
-      {message && <p>{message}</p>}
+      
     </div>
   );
 }

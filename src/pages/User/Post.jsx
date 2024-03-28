@@ -86,7 +86,7 @@ function Post() {
                           <div className="col-lg-4">
                             <img
                               className="img-content my-3"
-                              src="https://files.fullstack.edu.vn/f8-prod/blog_posts/7242/64424fe6e225f.jpg"
+                              src={post.thumbnail}
                               alt="thumbnail"
                             />
                           </div>

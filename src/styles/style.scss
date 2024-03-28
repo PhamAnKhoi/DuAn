@@ -711,7 +711,7 @@
   .HeaderAdmin,
   .SidebarAdmin {
     .sidebar .nav .nav-item .nav-link .menu-title {
-      color: inherit;
+      color: #000000;
       display: inline-block;
       font-size: 0.937rem;
       line-height: 1;
@@ -729,7 +729,7 @@
       -webkit-transition: width 0.25s ease, background 0.25s ease;
       -moz-transition: width 0.25s ease, background 0.25s ease;
       -ms-transition: width 0.25s ease, background 0.25s ease;
-      background: #181824;
+      background: #ced4da;
       width: 258px;
       height: 64px;
     }
@@ -777,7 +777,7 @@
     /* Sidebar */
     .sidebar {
       min-height: calc(100vh - 64px);
-      background: #181824;
+      background: #ced4da;
       font-family: "nunito-medium", sans-serif;
       padding: 0;
       width: 258px;
@@ -804,7 +804,7 @@
       align-items: center;
       white-space: nowrap;
       padding: 0.625rem 0 0.625rem 0;
-      color: #8e94a9;
+      color: #000000;
       -webkit-transition-duration: 0.45s;
       transition-duration: 0.45s;
       transition-property: color;
@@ -832,11 +832,19 @@
     }
   }
   .custom-form {
-    border: 1px solid black;
+    border: 1px solid #ced4da;
     padding: 40px;
     border-radius: 10px;
+    margin-top: 50px !important;
+    margin-bottom: 50px !important;
   }
   .custom-div-1 {
     text-align: center;
+  }
+  .custom-border-bottom {
+    border-bottom: 1px solid #ced4da;
+  }
+  .custom-link {
+    text-decoration: none;
   }
 }

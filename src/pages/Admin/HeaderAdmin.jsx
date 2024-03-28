@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function HeaderAdmin() {
   return (
     <div>
-      <nav className="navbar default-layout-navbar col-lg-12 p-0">
+      <nav className="navbar default-layout-navbar col-lg-12 p-0 custom-border-bottom">
         <Link to={"/admin"}>
           <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
             <a className="navbar-brand brand-logo" href="/#">

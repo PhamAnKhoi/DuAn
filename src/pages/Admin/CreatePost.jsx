@@ -36,7 +36,7 @@ function CreatePost() {
         {
           headers: {
             "Content-Type": "multipart/form-data", //upload file
-            "Authorization": `Bearer ${user.access_token}`,
+            Authorization: `Bearer ${user.access_token}`,
           },
         }
       );
@@ -63,60 +63,62 @@ function CreatePost() {
           <div className="container-fluid page-body-wrapper">
             <SidebarAdmin />
             <form className="custom-form m-auto" onSubmit={handleCreatePost}>
-              <div>
-                <div className="custom-div-1">Create Post</div>
-                <div className="mb-3">
-                  <label className="form-label">Tiêu đề: </label>
-                  <input
-                    className="form-control"
-                    placeholder="Tiêu đề"
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Content: </label>
-                  <textarea
-                    className="form-control"
-                    placeholder="Nội dung"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Thumbnail:</label>
-                  <input
-                    className="form-control"
-                    type="file"
-                    onChange={(e) => setThumbnail(e.target.files[0])}
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label"> Status: </label> <br />
+              <div className="custom-div-1">Tạo bài viết</div>
+              <div className="mb-3">
+                <label className="form-label">Tên bài viết: </label>
+                <input
+                  className="form-control"
+                  placeholder="Tên bài viết"
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Nội dung: </label>
+                <textarea
+                  className="form-control"
+                  placeholder="Nội dung của bài viết"
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Ảnh minh họa:</label>
+                <input
+                  className="form-control"
+                  type="file"
+                  onChange={(e) => setThumbnail(e.target.files[0])}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <div className="form-label">Trạng thái: </div>
+                <div className="mb-1">
                   <input
                     type="radio"
                     value="1"
                     checked={status === 1}
                     onChange={() => setStatus(1)}
                   />
-                  Hiện
+                  <span className="mx-2">Hiển thị bài viết</span>
+                </div>
+                <div className="mb-1">
                   <input
                     type="radio"
                     value="0"
                     checked={status === 0}
                     onChange={() => setStatus(0)}
                   />
-                  Ẩn
+                  <span className="mx-2">Ẩn bài viết</span>
                 </div>
-                <button className="btn btn-primary" type="submit">
-                  Lưu bài viết
-                </button>
-                {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
               </div>
+              <button className="btn btn-primary" type="submit">
+                Lưu bài viết
+              </button>
+              {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
             </form>
           </div>
         </div>

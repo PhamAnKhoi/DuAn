@@ -68,7 +68,7 @@ function Register() {
         <div className="d-flex justify-content-center align-items-center">
           <div className="custom-form">
             <div className="d-flex justify-content-center">
-              <h1 className="mb-3 custom-h1">Register Form</h1>
+              <h1 className="mb-3 custom-h1">TẠO TÀI KHOẢN</h1>
             </div>
             <form className="" onSubmit={handleLogin}>
               <div className="row">
@@ -91,7 +91,7 @@ function Register() {
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                     />
-                    <label htmlFor="">Username</label>
+                    <label htmlFor="">Tên đăng nhập</label>
                   </div>
                   <div className="form-floating mb-3">
                     <input
@@ -101,7 +101,7 @@ function Register() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
-                    <label htmlFor="">Password</label>
+                    <label htmlFor="">Mật khẩu</label>
                   </div>
                   <div className="form-floating mb-3">
                     <input
@@ -111,7 +111,7 @@ function Register() {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                     />
-                    <label htmlFor="">Phone</label>
+                    <label htmlFor="">Số điện thoại</label>
                   </div>
                   <div className="form-floating">
                     <input
@@ -133,7 +133,7 @@ function Register() {
                       value={firstname}
                       onChange={(e) => setFirstName(e.target.value)}
                     />
-                    <label htmlFor="">First Name</label>
+                    <label htmlFor="">Tên</label>
                   </div>
                   <div className="form-floating mb-3">
                     <input
@@ -143,7 +143,7 @@ function Register() {
                       value={lastname}
                       onChange={(e) => setLastName(e.target.value)}
                     />
-                    <label htmlFor="">Last Name</label>
+                    <label htmlFor="">Họ</label>
                   </div>
                   <div className="form-floating mb-3">
                     <input
@@ -161,9 +161,7 @@ function Register() {
                       <input
                         className="form-check-input"
                         type="radio"
-                        name="inlineRadioOptions"
                         id="inlineRadio1"
-                        defaultValue="Nam"
                         value="1"
                         checked={gender === 1}
                         onChange={() => setGender(1)}
@@ -179,9 +177,7 @@ function Register() {
                       <input
                         className="form-check-input"
                         type="radio"
-                        name="inlineRadioOptions"
                         id="inlineRadio2"
-                        defaultValue="Nữ"
                         value="0"
                         checked={gender === 0}
                         onChange={() => setGender(0)}

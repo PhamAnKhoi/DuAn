@@ -24,13 +24,13 @@ function Dashboard() {
         <Route path="/" exact element={<Home />} />
         <Route path="/progress" element={<Progress />} />
         <Route path="/post" element={<Post />} />
-        <Route path="/course/:courseId" element={<Course />} />
+        <Route path="/course" element={<Course />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/pay" element={<Pay />} />
         <Route path="/video" element={<Video />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/detail-course" element={<CourseDetails />} />
+        <Route path="/course/:courseId" element={<CourseDetails />} />
         {/* Admin */}
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/create-post" element={<CreatePost />} />

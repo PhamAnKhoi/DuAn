@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
+import HeaderAdmin from "./HeaderAdmin";
+import SidebarAdmin from "./SidebarAdmin";
 
 function EditPost() {
-  const user = JSON.parse(Cookies.get('user'));
+  const user = JSON.parse(Cookies.get("user"));
   if (!user) {
-    alert('Please login');
+    alert("Please login");
   }
-  
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [status, setStatus] = useState(1);
@@ -16,10 +18,11 @@ function EditPost() {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    // Fetch the post data to be edited
     const fetchPost = async () => {
       try {
-        const response = await axios.get("http://api.course-selling.id.vn/api/post/26"); // Replace 25 with the actual post ID
+        const response = await axios.get(
+          "http://api.course-selling.id.vn/api/post/26"
+        );
         const postData = response.data; // Assuming the response contains the post data
         setTitle(postData.title);
         setContent(postData.content);
@@ -65,15 +68,14 @@ function EditPost() {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            "Authorization": `Bearer ${user.access_token}`
-          }
+            Authorization: `Bearer ${user.access_token}`,
+          },
         }
       );
 
       if (response.data) {
         console.log(response.data);
       }
-
 
       // Clear form after successful submission
       setErrorMessage("");
@@ -84,61 +86,79 @@ function EditPost() {
   };
 
   return (
-    <div>
-      <h1>Edit Post</h1>
-      <form onSubmit={handleEditPost}>
-        <label>
-          Title:
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Content:
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Thumbnail: 
-          <br />
-          <img src={thumbnailUrl || thumbnail} alt="" width={200} style={{ objectFit: 'cover' }} />
-          <br />
-          <input
-            type="file"
-            onChange={handleThumbnailChange}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Status:
-          <input
-            type="radio"
-            value="1"
-            checked={status === 1}
-            onChange={() => setStatus(1)}
-          />{" "}
-          Hiện
-          <input
-            type="radio"
-            value="0"
-            checked={status === 0}
-            onChange={() => setStatus(0)}
-          />{" "}
-          Ẩn
-        </label>
-        <br />
-        <button type="submit">Lưu chỉnh sửa</button>
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-      </form>
+    <div className="Admin">
+      <div className="container-scroller">
+        <div className="HeaderAdmin SidebarAdmin">
+          <HeaderAdmin />
+          <div className="container-fluid page-body-wrapper">
+            <SidebarAdmin />
+
+            <form className="custom-form m-auto" onSubmit={handleEditPost}>
+              <div className="custom-div-1">Chỉnh sửa bài viết</div>
+              <div className="mb-3">
+                <label className="form-label">Tên bài viết: </label>
+                <input
+                  className="form-control"
+                  placeholder="Tên bài viết"
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Nội dung: </label>
+                <textarea
+                  className="form-control"
+                  placeholder="Nội dung của bài viết"
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Hình ảnh chỉnh sửa: </label>
+                <input
+                  className="form-control"
+                  type="file"
+                  onChange={handleThumbnailChange}
+                />
+                <img
+                  src={thumbnailUrl || thumbnail}
+                  alt=""
+                  width={200}
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+              <div className="mb-3">
+                <div className="form-label"> Trạng thái: </div>
+                <div className="mb-1">
+                  <input
+                    type="radio"
+                    value="1"
+                    checked={status === 1}
+                    onChange={() => setStatus(1)}
+                  />
+                  <span className="mx-2">Hiển thị khóa học</span>
+                </div>
+                <div className="mb-1">
+                  <input
+                    type="radio"
+                    value="0"
+                    checked={status === 0}
+                    onChange={() => setStatus(0)}
+                  />
+                  <span className="mx-2">Ẩn khóa học</span>
+                </div>
+              </div>
+              <button className="btn btn-primary" type="submit">
+                Lưu chỉnh sửa
+              </button>
+              {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

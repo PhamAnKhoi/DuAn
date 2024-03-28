@@ -8,11 +8,11 @@ import { Link } from "react-router-dom";
 function Home() {
   const [courses, setCourses] = useState([]);
   console.log(courses);
-  
+
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const limit = 10;
+        const limit = 8;
         const response = await axios.get(
           `http://api.course-selling.id.vn/api/course?sort=["created_at","desc"]&limit=${limit}`
         );
@@ -31,7 +31,6 @@ function Home() {
 
     fetchCourses();
   }, []);
-
 
   return (
     <div>
@@ -65,20 +64,26 @@ function Home() {
                 <div className="custom-text">
                   <span className="text-1">Khóa học Pro</span>
                   <span className="text-2">Mới</span>
+                  <span className="btn btn-secondary float-right">
+                    <Link to={"/course"} className="text-white">
+                      Xem tất cả khóa học
+                    </Link>
+                  </span>
                 </div>
+
                 <div className="row">
                   {courses.map((course) => (
                     <div key={course.id} className="col-lg-3">
-                       <Link to={"/course/" + course.id } >
-                      <div>
-                        <img
-                          className="img-item"
-                          src={course.thumbnail}
-                          alt={course.name}
-                        />
-                        <div className="name-course">{course.name}</div>
-                        <span className="price">{course.price}</span>
-                      </div>
+                      <Link to={"/course/" + course.id}>
+                        <div>
+                          <img
+                            className="img-item"
+                            src={course.thumbnail}
+                            alt={course.name}
+                          />
+                          <div className="name-course">{course.name}</div>
+                          <span className="price">{course.price}</span>
+                        </div>
                       </Link>
                     </div>
                   ))}

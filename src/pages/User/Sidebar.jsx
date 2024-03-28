@@ -60,6 +60,17 @@ function Sidebar() {
           </li>
           <li className="custom-center my-2">
             <div className="custom-box-1">
+              <Link className="custom-link" to={"/course"}>
+                <i
+                  className="fa fa-newspaper-o custom-center custom-icon"
+                  aria-hidden="true"
+                ></i>
+                <p className="custom-center custom-text">Khóa học</p>
+              </Link>
+            </div>
+          </li>
+          <li className="custom-center my-2">
+            <div className="custom-box-1">
               <Link className="custom-link" to={"/cart"}>
                 <i
                   className="fa fa-cart-plus custom-center custom-icon"
