@@ -34,7 +34,7 @@ function Dashboard() {
         {/* Admin */}
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/create-post" element={<CreatePost />} />
-        <Route path="/admin/edit-post" element={<EditPost />} />
+        <Route path="/admin/edit-post/:postId" element={<EditPost />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/create-course" element={<CreateCourse />} />
         <Route path="/admin/edit-course" element={<EditCourse />} />

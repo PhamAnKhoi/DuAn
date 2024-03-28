@@ -80,7 +80,6 @@ function CreateCourse() {
                 <textarea
                   className="form-control"
                   placeholder="Mô tả nội dung khóa học"
-                  type="text"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   required

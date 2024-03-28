@@ -3,42 +3,42 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import HeaderAdmin from "./HeaderAdmin";
 import SidebarAdmin from "./SidebarAdmin";
+import { useParams } from "react-router-dom";
 
 function EditPost() {
+  let param = useParams();
+  let postId = param.postId;
   const user = JSON.parse(Cookies.get("user"));
   if (!user) {
     alert("Please login");
   }
-
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [status, setStatus] = useState(1);
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnailUrl, setThumbnailUrl] = useState(""); // State để lưu trữ URL của thumbnail
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState([]);
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
         const response = await axios.get(
-          "http://api.course-selling.id.vn/api/post/26"
+          "http://api.course-selling.id.vn/api/post/" + postId
         );
-        const postData = response.data; // Assuming the response contains the post data
+        const postData = response.data.data;
+        console.log(postData);
         setTitle(postData.title);
         setContent(postData.content);
         setStatus(postData.status);
-        // Assuming thumbnail is a URL to the image
-        // You may need to handle thumbnail differently if it's a file
         setThumbnailUrl(postData.thumbnail);
       } catch (error) {
         console.error("Failed to fetch post data: ", error);
       }
     };
-
+  
     fetchPost();
-  }, []); // Run once when component mounts
+  }, [postId]);
 
-  // Hàm xử lý khi người dùng chọn hình ảnh mới
   const handleThumbnailChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -62,26 +62,18 @@ function EditPost() {
       formData.append("thumbnail", thumbnail);
 
       const response = await axios.post(
-        "http://api.course-selling.id.vn/api/post/edit/26", // Replace 25 with the actual post ID
-        // "http://nkduy.vn:88/api/post/edit/25", // Replace 25 with the actual post ID
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${user.access_token}`,
-          },
-        }
+        "http://api.course-selling.id.vn/api/post/edit/" + postId,
+        formData
       );
 
       if (response.data) {
         console.log(response.data);
       }
 
-      // Clear form after successful submission
       setErrorMessage("");
     } catch (error) {
-      setErrorMessage("Có xẩy ra lỗi khi chỉnh sửa bài viết.");
-      throw new Error("Có xẩy ra lỗi khi chỉnh sửa bài viết");
+      setErrorMessage("Có xảy ra lỗi khi chỉnh sửa bài viết.");
+      throw new Error("Có xảy ra lỗi khi chỉnh sửa bài viết");
     }
   };
 
@@ -92,7 +84,6 @@ function EditPost() {
           <HeaderAdmin />
           <div className="container-fluid page-body-wrapper">
             <SidebarAdmin />
-
             <form className="custom-form m-auto" onSubmit={handleEditPost}>
               <div className="custom-div-1">Chỉnh sửa bài viết</div>
               <div className="mb-3">
@@ -103,7 +94,6 @@ function EditPost() {
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  required
                 />
               </div>
               <div className="mb-3">
@@ -113,7 +103,6 @@ function EditPost() {
                   placeholder="Nội dung của bài viết"
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  required
                 />
               </div>
               <div className="mb-3">
