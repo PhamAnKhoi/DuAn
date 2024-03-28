@@ -1,94 +1,111 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Header from "./Header.jsx";
+import Footer from "./Footer.jsx";
 import Sidebar from "./Sidebar.jsx";
-// import Cookies from "js-cookie";
-// import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Post() {
-  // const user = JSON.parse(Cookies.get("user"));
-  // console.log(user.access_token);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://api.course-selling.id.vn/api/post/")
+      .then((response) => {
+        setPosts(response.data.posts);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  // const handleDelete = async (postId) => {
+  //   const confirmDelete = window.confirm(
+  //     "Bạn có chắc chắn muốn xóa bài viết này?"
+  //   );
+
+  //   if (confirmDelete) {
+  //     try {
+  //       const response = await axios.post(
+  //         `http://api.course-selling.id.vn/api/post/delete/${postId}`
+  //       );
+
+  //       const { status, message } = response.data;
+
+  //       if (status) {
+  //         alert(message);
+  //         setPosts((prevPosts) =>
+  //           prevPosts.filter((post) => post.id !== postId)
+  //         );
+  //       } else {
+  //         alert("Có lỗi xảy ra khi xóa bài viết");
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //       alert("Có lỗi xảy ra khi xóa bài viết");
+  //     }
+  //   }
+  // };
 
   return (
-    <div className="row">
-      <Sidebar />
-      <div className="col-lg-11 Post">
+    <div>
+      <div className="container-fluid">
+        <Header />
         <div className="row">
-          <div className="col-lg-11">
-            <div className="text-div1">Bài viết nổi bật</div>
-            <div className="text-div2">
-              Tổng hợp các bài viết chia sẻ về kinh nghiệm tự học lập trình
-              online và các kỹ thuật lập trình web.
-            </div>
+          <Sidebar />
+          <div className="col-lg-11 Post">
             <div className="row">
-              <div className="col-lg-8">
-                <div className="row box">
-                  <div className="col-lg-8">
-                    <div className="text-div3">
-                      Authentication & Authorization trong ReactJS
-                    </div>
-                    <div className="my-3">
-                      Authentication và Authorization là một phần quan trọng
-                      trong việc phát triển phần mềm, giúp chúng ta xác thực và
-                      phân quyền...
-                    </div>
-                  </div>
-                  <div className="col-lg-4">
-                    <img
-                      className="img-content"
-                      src="https://files.fullstack.edu.vn/f8-prod/blog_posts/7242/64424fe6e225f.jpg"
-                      alt=""
-                    />
-                  </div>
-                  <div className="text-div-a">
-                    <span className="custom-div">Ngôn ngữ</span>
-                    <span className="item-1">Thời gian</span>
-                    <span className="item-1">Tác giả</span>
-                  </div>
+              <div className="col-lg-11">
+                <div className="text-div1">Bài viết nổi bật</div>
+                <div className="text-div2">
+                  Tổng hợp các bài viết chia sẻ về kinh nghiệm tự học lập trình
+                  online và các kỹ thuật lập trình web.
                 </div>
-                <div className="row box">
-                  <div className="col-lg-8">
-                    <div className="text-div3">
-                      Authentication & Authorization trong ReactJS
-                    </div>
-                    <div className="my-3">
-                      Authentication và Authorization là một phần quan trọng
-                      trong việc phát triển phần mềm, giúp chúng ta xác thực và
-                      phân quyền...
-                    </div>
+                <div className="row">
+                  <div className="col">
+                    {posts.map((post) => (
+                      <div key={post.id}>
+                        <div className="row box">
+                          <div className="text-div3">{post.title}</div>
+                          <div className="col-lg-8">
+                            <div className="my-3">{post.content}</div>
+                            <div className="my-3">Likes: {post.likes}</div>
+                            <div className="my-3">Views: {post.views}</div>
+                            <div className="my-3">
+                              Created at: {post.created_at}
+                            </div>
+                            <div className="my-3">
+                              Updated at: {post.updated_at}
+                            </div>
+                            {/* <button
+                              className="custom-button-onclick my-3"
+                              onClick={() => handleDelete(post.id)}
+                            >
+                              Delete
+                            </button> */}
+                          </div>
+                          <div className="col-lg-4">
+                            <img
+                              className="img-content my-3"
+                              src="https://files.fullstack.edu.vn/f8-prod/blog_posts/7242/64424fe6e225f.jpg"
+                              alt="thumbnail"
+                            />
+                          </div>
+                          <div className="text-div-a">
+                            <span className="custom-div">Ngôn ngữ</span>
+                            <span className="item-1">Thời gian</span>
+                            <span className="item-1">Tác giả</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <div className="col-lg-4">
-                    <img
-                      className="img-content"
-                      src="https://files.fullstack.edu.vn/f8-prod/blog_posts/7242/64424fe6e225f.jpg"
-                      alt=""
-                    />
-                  </div>
-                  <div className="text-div-a">
-                    <span className="custom-div">Ngôn ngữ</span>
-                    <span className="item-1">Thời gian</span>
-                    <span className="item-1">Tác giả</span>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 mx-3">
-                <div className="title-1">CÁC CHỦ ĐỀ ĐƯỢC ĐỀ XUẤT</div>
-                <div>
-                  <div className="custom-div">Front-end / Mobile</div>
-                  <div className="custom-div">UX / UI / Design</div>
-                  <div className="custom-div">Back-end / Devops</div>
-                  <div className="custom-div">Others</div>
-                </div>
-                <div>
-                  <img
-                    className="img-propose"
-                    src="https://files.fullstack.edu.vn/f8-prod/banners/25/63dc61d4caec2.png"
-                    alt=""
-                  />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

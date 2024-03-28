@@ -1,4 +1,4 @@
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import React, { useEffect, useState } from "react";
 import React, { useState } from "react";
 import Cookies from "js-cookie";
@@ -50,37 +50,49 @@ function Login() {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center">
-      <form onSubmit={handleLogin}>
-        <h1>Login Form</h1>
-        <div className="form-floating mb-3">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Username"
-            value={account}
-            onChange={(e) => setAccount(e.target.value)}
-          />
-          <label htmlFor="">Username</label>
-        </div>
-        <div className="form-floating mb-3">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <label htmlFor="">Password</label>
-        </div>
-        <div className="form-floating mb-3">
-          <input type="checkbox" /> Remember me
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Login
-        </button>
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-      </form>
+    <div className="Login">
+      <div className="d-flex justify-content-center align-items-center vh-100 box-form">
+        <form className="custom-form" onSubmit={handleLogin}>
+          <h1 className="mb-3 custom-h1">Login Form</h1>
+          <div className="form-floating mb-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Username"
+              value={account}
+              onChange={(e) => setAccount(e.target.value)}
+            />
+            <label htmlFor="">Username</label>
+          </div>
+          <div className="form-floating mb-3">
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <label htmlFor="">Password</label>
+          </div>
+          <div className="form-floating mb-3">
+            <input type="checkbox" /> Remember me
+          </div>
+          <button type="submit" className="btn btn-primary mb-3">
+            Login
+          </button>
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+          <div className="mb-3">
+            <Link className="custom-link" to={"/register"}>
+              <p>Bạn chưa có tài khoản?</p>
+            </Link>
+          </div>
+          {/* <div>
+            <Link className="custom-link" to={"/admin/login"}>
+              <p className="custom-p">Đăng nhập với tư cách Admin</p>
+            </Link>
+          </div> */}
+        </form>
+      </div>
     </div>
   );
 }

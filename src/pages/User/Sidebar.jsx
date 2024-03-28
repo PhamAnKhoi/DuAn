@@ -2,21 +2,13 @@ import Cookies from "js-cookie";
 import React from "react";
 import { Link } from "react-router-dom";
 function Sidebar() {
-  // console.log(document.cookie.indexOf("user"));
-  // var user = null;
-  // if (document.cookie.indexOf("user") !== -1) {
-  //   var user = JSON.parse(Cookies.get("user"));
-  // }
-  var user = Cookies.get('user');
-var showCreatePost = null;
-if (user !== undefined) {
-  user = JSON.parse(user)
-  showCreatePost = user.permission
-  console.log(user);
-}
-
-
-// {showCreatePost && <h2>btn</h2>}
+  var user = Cookies.get("user");
+  var showCreatePost = null;
+  if (user !== undefined) {
+    user = JSON.parse(user);
+    showCreatePost = user.permission;
+    console.log(user);
+  }
   return (
     <div className="col-lg-1">
       <div className="Sidebar">
@@ -24,7 +16,7 @@ if (user !== undefined) {
           {showCreatePost && (
             <li className="custom-center my-2">
               <div className="custom-box-3">
-                <Link to={"/create-post"}>
+                <Link to={"/admin/create-post"}>
                   <i
                     className="fa fa-plus custom-center my-3"
                     aria-hidden="true"

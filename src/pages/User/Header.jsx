@@ -11,9 +11,7 @@ function Header() {
         <div className="col-lg-3 custom-div height-header">
           <Link className="custom-link" to={"/"}>
             <img className="logo mx-3" src={logo} alt="" />
-            <span className="custom-text">
-              Học lập trình để đi làm
-            </span>
+            <span className="custom-text">Học lập trình để đi làm</span>
           </Link>
         </div>
         <div className="col-lg-6 d-flex align-items-center justify-content-center">
@@ -26,12 +24,16 @@ function Header() {
           </Space>
         </div>
         <div className="col-lg-3 d-flex align-items-center justify-content-end">
-          <button className="btn-login mx-1" >
-          <Link to={"/login"}> 
-            Login
-          </Link>
-            </button>
-          <button className="btn-register mx-1 py-1 px-3">Register</button>
+          <button className="btn-login mx-1">
+            <Link className="custom-link" to={"/login"}>
+              Login
+            </Link>
+          </button>
+          <button className="btn-register mx-1 py-1 px-3">
+            <Link className="custom-link-2" to={"/register"}>
+              Register
+            </Link>
+          </button>
         </div>
       </div>
       <div className="border-bottom"></div>

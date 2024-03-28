@@ -1,116 +1,118 @@
-import { useState } from "react";
-import Cookies from "js-cookie";
+import React, { useState } from "react";
 import axios from "axios";
 
-function CreateCourse() {
-    const user = Cookies.get('user');
-    var auth = null;
-    if (user !== undefined) {
-        auth = user.permission;
-        if (auth !== "ADMIN" || auth !== 'TEACHER') {
-            alert(`Bạn là ${user.permission}. Tài khoản của bạn không có quyền truy cập chức năng này`);
-            document.location.href = '/'
-        }
-    } 
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
-    const [status, setStatus] = useState(1);
-    const [thumbnail, setThumbnail] = useState(null);
-    const [errorMessage, setErrorMessage] = useState("");
+function EditCourse() {
+  const [course, setCourse] = useState({
+    name: "",
+    description: "",
+    price: "",
+    views: "",
+    status: "",
+    thumbnail: null,
+    videoDemo: null,
+  });
+  const [message, setMessage] = useState("");
 
-    console.log(`Bearer ${user.access_token}`);
-    const handleCreateCourse = async (e) => {
-        e.preventDefault();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCourse((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
-        try {
-            const formData = new FormData();
-            formData.append("title", title);
-            formData.append("content", content);
-            formData.append("status", status);
-            formData.append("thumbnail", thumbnail);
+  const handleFileChange = (e) => {
+    const { name, files } = e.target;
+    setCourse((prevState) => ({
+      ...prevState,
+      [name]: files[0],
+    }));
+  };
 
-            const response = await axios.post(
-                "http://api.course-selling.id.vn/api/post/create",
-                formData,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",//upload file
-                        "Authorization": `Bearer ${user.access_token}`
-                    }
-                }
-            );
+  const handleEditCourse = async (e) => {
+    e.preventDefault();
 
-            if (response.data) {
-                console.log(response.data);
-            }
+    const formData = new FormData();
+    formData.append("name", course.name);
+    formData.append("description", course.description);
+    formData.append("price", course.price);
+    formData.append("views", course.views);
+    formData.append("status", course.status);
+    formData.append("thumbnail", course.thumbnail);
+    formData.append("video_demo_url", course.videoDemo);
 
-            // Clear form after successful submission
-            setTitle("");
-            setContent("");
-            setStatus(1);
-            setThumbnail(null);
-            setErrorMessage("");
-        } catch (error) {
-            console.error("Fail to create post: ", error);
-            setErrorMessage("Có xẩy ra lỗi khi tạo bài viết.");
-        }
-    };
+    try {
+      const response = await axios.post(
+        "http://api.course-selling.id.vn/api/course/edit/id_course",
+        formData
+      );
+      const { data } = response.data;
+      setMessage(data.message);
+      // Xử lý dữ liệu trả về nếu cần thiết
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-    return (
+  return (
+    <div>
+      <h3>Edit Course</h3>
+      <form onSubmit={handleEditCourse}>
         <div>
-            <h1>Create Course</h1>
-            <form onSubmit={handleCreateCourse}>
-                <label>
-                    Title:
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
-                </label>
-                <br />
-                <label>
-                    Content:
-                    <textarea
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        required
-                    />
-                </label>
-                <br />
-                <label>
-                    Thumbnail:
-                    <input
-                        type="file"
-                        onChange={(e) => setThumbnail(e.target.files[0])}
-                        required
-                    />
-                </label>
-                <br />
-                <label>
-                    Status:
-                    <input
-                        type="radio"
-                        value="1"
-                        checked={status === 1}
-                        onChange={() => setStatus(1)}
-                    />{" "}
-                    Hiện
-                    <input
-                        type="radio"
-                        value="0"
-                        checked={status === 0}
-                        onChange={() => setStatus(0)}
-                    />{" "}
-                    Ẩn
-                </label>
-                <br />
-                <button type="submit">Lưu bài viết</button>
-                {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-            </form>
+          <label>Name:</label>
+          <input
+            type="text"
+            name="name"
+            value={course.name}
+            onChange={handleChange}
+          />
         </div>
-    );
+        <div>
+          <label>Description:</label>
+          <textarea
+            name="description"
+            value={course.description}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Price:</label>
+          <input
+            type="number"
+            name="price"
+            value={course.price}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Views:</label>
+          <input
+            type="number"
+            name="views"
+            value={course.views}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Status:</label>
+          <select name="status" value={course.status} onChange={handleChange}>
+            <option value="1">Active</option>
+            <option value="0">Inactive</option>
+          </select>
+        </div>
+        <div>
+          <label>Thumbnail:</label>
+          <input type="file" name="thumbnail" onChange={handleFileChange} />
+        </div>
+        <div>
+          <label>Video Demo:</label>
+          <input type="file" name="videoDemo" onChange={handleFileChange} />
+        </div>
+        <button type="submit">Save</button>
+      </form>
+      {message && <p>{message}</p>}
+    </div>
+  );
 }
 
-export default CreateCourse;
+export default EditCourse;
