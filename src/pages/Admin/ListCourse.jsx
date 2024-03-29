@@ -1,27 +1,42 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 import HeaderAdmin from "./HeaderAdmin";
 import SidebarAdmin from "./SidebarAdmin";
 // import { Link } from "react-router-dom";
 
 function ListCourse() {
-  const [courses, setCourses] = useState([]);
-  console.log(courses);
-
+  const [courses, setCourses] = useState('');
+  var user = Cookies.get("user");
+  if (user !== undefined) {
+    user = JSON.parse(user);
+    var auth = user.permission;
+    // console.log(user.access_token);
+  }
+  if (auth !== "ADMIN" && auth !== "TEACHER") {
+    window.location.href = "/login";
+  }
   useEffect(() => {
     const fetchCourses = async () => {
       try {
         const response = await axios.get(
-          "http://api.course-selling.id.vn/api/course/list-owned-courses"
+          "http://api.course-selling.id.vn/api/course/list-owned-courses",
+          {
+            headers: {
+              "Content-Type": "multipart/form-data", //upload file
+              Authorization: `Bearer ${user.access_token}`,
+            },
+          }
         );
 
         if (response.status !== 200) {
           throw new Error("Failed to fetch courses");
         }
 
-        const coursesData = response.data.courses;
+        const coursesData = response.data;
 
-        setCourses(coursesData);
+        setCourses(coursesData.course);
+        console.log(coursesData.course);
       } catch (error) {
         console.error("Error while fetching courses:", error);
       }
@@ -51,7 +66,7 @@ function ListCourse() {
                 </tr>
               </thead>
               <tbody>
-                {courses.map((course, index) => (
+                {/* {courses.map((course, index) => (
                   <tr key={course.id}>
                     <td>{index + 1}</td>
                     <td>
@@ -63,7 +78,7 @@ function ListCourse() {
                     <td>{course.creator}</td>
                     <td>{course.status}</td>
                   </tr>
-                ))}
+                ))} */}
               </tbody>
             </table>
           </div>
