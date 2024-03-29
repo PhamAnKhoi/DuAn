@@ -16,6 +16,7 @@ import EditCourse from "../pages/Admin/EditCourse.jsx";
 import Register from "../pages/User/Register.jsx";
 import CourseDetails from "../pages/User/DetailCourse.jsx";
 import Admin from "../pages/Admin/Admin.jsx";
+import ListCourse from "../pages/Admin/ListCourse.jsx";
 function Dashboard() {
   return (
     <BrowserRouter basename="/">
@@ -33,6 +34,7 @@ function Dashboard() {
         <Route path="/course/:courseId" element={<CourseDetails />} />
         {/* Admin */}
         <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/list-course" element={<ListCourse />} />
         <Route path="/admin/create-post" element={<CreatePost />} />
         <Route path="/admin/edit-post/:postId" element={<EditPost />} />
         <Route path="/admin/login" element={<AdminLogin />} />

@@ -58,7 +58,7 @@ function SidebarAdmin() {
         </Link>
         <li className="nav-item sidebar-user-actions">
           <div className="sidebar-user-menu">
-            <a href="/admin" className="nav-link">
+            <a href="/" className="nav-link">
               <span className="btn btn-primary">
                 <i className="mx-2 fa fa-chevron-left" aria-hidden="true"></i>
                 <span>Quay về trang User</span>
