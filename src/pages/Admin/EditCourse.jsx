@@ -64,7 +64,9 @@ function EditCourse() {
     formData.append("price", price);
     formData.append("views", views);
     formData.append("status", status);
-    formData.append("thumbnail", thumbnail);
+    if (thumbnail !== null) {
+      formData.append("thumbnail", thumbnail);
+    }
 
     try {
       const response = await axios.post(

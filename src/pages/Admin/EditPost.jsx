@@ -58,7 +58,9 @@ function EditPost() {
       formData.append("title", title);
       formData.append("content", content);
       formData.append("status", status);
-      formData.append("thumbnail", thumbnail);
+      if (thumbnail !== null) {
+        formData.append("thumbnail", thumbnail);
+      }
 
       const response = await axios.post(
         "http://api.course-selling.id.vn/api/post/edit/" + postId,

@@ -16,16 +16,7 @@ function ListPost() {
   if (auth !== "ADMIN" && auth !== "TEACHER") {
     window.location.href = "/login";
   }
-  // useEffect(() => {
-  //   axios
-  //     .get("http://api.course-selling.id.vn/api/post/list-owned-posts")
-  //     .then((response) => {
-  //       setPosts(response.data.posts);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // }, []);
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
