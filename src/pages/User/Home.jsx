@@ -11,9 +11,9 @@ function Home() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const limit = 8;
+        // const limit = 8;
         const response = await axios.get(
-          `http://api.course-selling.id.vn/api/course?sort=["created_at","desc"]&limit=${limit}`
+          `http://api.course-selling.id.vn/api/course?sort=["created_at","desc"]`
         );
 
         if (response.status !== 200) {
@@ -70,8 +70,8 @@ function Home() {
                   </span>
                 </div>
                 <div className="row">
-                  {courses.map((course) => (
-                    <div key={course.id} className="col-lg-3">
+                  {courses.slice(-8).map((course) => (
+                    <div key={course.id} className="col-lg-3 mb-3">
                       <Link to={"/course/" + course.id}>
                         <div>
                           <img
@@ -80,7 +80,10 @@ function Home() {
                             alt={course.name}
                           />
                           <div className="name-course">{course.name}</div>
-                          <span className="price">{course.price}</span>
+                          <span className="price">
+                            <span className="text-black">Giá khóa học:</span>{" "}
+                            {Number(course.price).toLocaleString("vi")} VND
+                          </span>
                         </div>
                       </Link>
                     </div>

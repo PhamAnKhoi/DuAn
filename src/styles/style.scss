@@ -1,3 +1,8 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 .Header {
   .logo {
     width: 40px;
@@ -146,7 +151,6 @@
   .price {
     color: #f05123;
     font-weight: 500;
-    padding: 0px 15px;
   }
 }
 
@@ -888,6 +892,9 @@
   }
   .custom-img {
     width: 150px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 5px;
   }
   .custom-nav-item {
     color: #ffffff;
@@ -895,7 +902,7 @@
     font-size: x-large;
   }
   .custom-btn {
-    background: #000000;
+    background: #e99a9a;
   }
   .btn-logout {
     background-color: #ff7731;
@@ -910,7 +917,7 @@
   }
   .box-col {
     border: 1px solid black;
-    height: 450px !important;
+    // height: 450px !important;
   }
   .custom-icon {
     width: 80%;
@@ -929,5 +936,26 @@
   }
   .navbar {
     padding: 0px !important;
+  }
+  .custom-td {
+    max-height: 50px;
+    overflow: hidden;
+  }
+  .list-course {
+    tr td {
+      vertical-align: middle !important;
+      p {
+        margin-bottom: 0px !important;
+      }
+    }
+    
+    }
+    .list-post {
+      tr td {
+        vertical-align: middle !important;
+        p {
+          margin-bottom: 0px !important;
+        }
+      }
   }
 }

@@ -61,12 +61,12 @@ function CreatePost() {
     <div className="Admin">
       <div className="container-fluid">
         <div className=" HeaderAdmin SidebarAdmin">
-          <div className="row">
+          <div className="row vh-100">
             <div className="col-lg-3 p-0">
               <SidebarAdmin />
             </div>
 
-            <div className="col p-0">
+            <div className="col-lg-9">
               <HeaderAdmin />
               <div className="custom-border-top">
                 <form
