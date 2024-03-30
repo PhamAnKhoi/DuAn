@@ -27,6 +27,7 @@ function Header() {
     Cookies.remove("user");
     setIsLoggedIn(false);
     setUserData(null);
+    window.location.href = "/";
   };
 
   return (
@@ -59,6 +60,7 @@ function Header() {
                 onClick={handleLogout}
               >
                 Logout
+                
               </button>
             </>
           ) : (
