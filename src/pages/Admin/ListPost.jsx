@@ -70,12 +70,12 @@ function ListPost() {
               <table className="table table-striped table-bordered">
                 <thead>
                   <tr>
-                    <th className="col-0 text-center">STT</th>
+                    <th className="col-1 text-center">STT</th>
                     <th className="col-2 text-center">Hình ảnh</th>
                     <th className="col-2 text-center">Tên bài viết</th>
                     <th className="col-3 text-center">Nội dung bài viết</th>
-                    <th className="col-1 text-center">Tác giả</th>
-                    <th className="col-1 text-center">Đã xem</th>
+                    {/* <th className="col-1 text-center">Tác giả</th> */}
+                    {/* <th className="col-1 text-center">Đã xem</th> */}
                     <th className="col-2 text-center">Chức năng</th>
                   </tr>
                 </thead>

@@ -68,7 +68,7 @@ function EditCourse() {
 
     try {
       const response = await axios.post(
-        "http://api.course-selling.id.vn/api/course/edit/"+ courseId,
+        "http://api.course-selling.id.vn/api/course/edit/" + courseId,
         formData,
         {
           headers: {
@@ -79,7 +79,7 @@ function EditCourse() {
       );
       if (response.data) {
         alert("Chỉnh sửa khóa học thành công!");
-        window.location.href = "/admin/list-course";;
+        window.location.href = "/admin/list-course";
       }
       const { data } = response.data;
       setErrorMessage(data.message);
@@ -90,94 +90,98 @@ function EditCourse() {
 
   return (
     <div className="Admin">
-      <div className="container-scroller">
+      <div className="container-fluid">
         <div className="HeaderAdmin SidebarAdmin">
           <HeaderAdmin />
-          <div className="container-fluid page-body-wrapper">
-            <SidebarAdmin />
-            <form className="custom-form m-auto" onSubmit={handleEditCourse}>
-              <div className="custom-div-1">Chỉnh sửa khóa học</div>
-              <div className="mb-3">
-                <label className="form-label">Tên khóa học: </label>
-                <input
-                  className="form-control"
-                  placeholder="Chỉnh sửa tên"
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Mô tả: </label>
-                <textarea
-                  className="form-control"
-                  placeholder="Chỉnh sửa mô tả"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Giá: (VND)</label>
-                <input
-                  min={0}
-                  className="form-control"
-                  placeholder="Chỉnh sửa giá"
-                  type="number"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Lượt xem: </label>
-                <input
-                  min={0}
-                  className="form-control"
-                  placeholder="Chỉnh sửa lượt xem"
-                  type="number"
-                  value={views}
-                  onChange={(e) => setViews(e.target.value)}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Hình ảnh chỉnh sửa: </label>
-                <input
-                  className="form-control"
-                  type="file"
-                  onChange={handleThumbnailChange}
-                />
-                <img
-                  src={thumbnailUrl || thumbnail}
-                  alt=""
-                  width={200}
-                  style={{ objectFit: "cover" }}
-                />
-              </div>
-              <div className="mb-3">
-                <div className="form-label"> Trạng thái: </div>
-                <div className="mb-1">
+          <div className="row">
+            <div className="col-lg-3 p-0">
+              <SidebarAdmin />
+            </div>
+            <div className="col custom-border-top">
+              <form className="custom-form m-auto" onSubmit={handleEditCourse}>
+                <div className="custom-div-1">Chỉnh sửa khóa học</div>
+                <div className="mb-3">
+                  <label className="form-label">Tên khóa học: </label>
                   <input
-                    type="radio"
-                    value="1"
-                    checked={status === 1}
-                    onChange={() => setStatus(1)}
+                    className="form-control"
+                    placeholder="Chỉnh sửa tên"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                   />
-                  <span className="mx-2">Hiển thị khóa học</span>
                 </div>
-                <div className="mb-1">
+                <div className="mb-3">
+                  <label className="form-label">Mô tả: </label>
+                  <textarea
+                    className="form-control"
+                    placeholder="Chỉnh sửa mô tả"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Giá: (VND)</label>
                   <input
-                    type="radio"
-                    value="0"
-                    checked={status === 0}
-                    onChange={() => setStatus(0)}
+                    min={0}
+                    className="form-control"
+                    placeholder="Chỉnh sửa giá"
+                    type="number"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
                   />
-                  <span className="mx-2">Ẩn khóa học</span>
                 </div>
-              </div>
-              <button className="btn btn-primary" type="submit">
-                Lưu chỉnh sửa
-              </button>
-              {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-            </form>
+                <div className="mb-3">
+                  <label className="form-label">Lượt xem: </label>
+                  <input
+                    min={0}
+                    className="form-control"
+                    placeholder="Chỉnh sửa lượt xem"
+                    type="number"
+                    value={views}
+                    onChange={(e) => setViews(e.target.value)}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Hình ảnh chỉnh sửa: </label>
+                  <input
+                    className="form-control"
+                    type="file"
+                    onChange={handleThumbnailChange}
+                  />
+                  <img
+                    src={thumbnailUrl || thumbnail}
+                    alt=""
+                    width={200}
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
+                <div className="mb-3">
+                  <div className="form-label"> Trạng thái: </div>
+                  <div className="mb-1">
+                    <input
+                      type="radio"
+                      value="1"
+                      checked={status === 1}
+                      onChange={() => setStatus(1)}
+                    />
+                    <span className="mx-2">Hiển thị khóa học</span>
+                  </div>
+                  <div className="mb-1">
+                    <input
+                      type="radio"
+                      value="0"
+                      checked={status === 0}
+                      onChange={() => setStatus(0)}
+                    />
+                    <span className="mx-2">Ẩn khóa học</span>
+                  </div>
+                </div>
+                <button className="btn btn-primary" type="submit">
+                  Lưu chỉnh sửa
+                </button>
+                {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+              </form>
+            </div>
           </div>
         </div>
       </div>
