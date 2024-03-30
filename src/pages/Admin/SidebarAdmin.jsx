@@ -3,20 +3,17 @@ import { Link } from "react-router-dom";
 import logo from "./logo.png";
 function SidebarAdmin() {
   return (
-    <div className="">
-      <div className="col-lg-3 p-0">
-        
-      </div>
+    <>
       <nav className="sidebar sidebar-offcanvas" id="sidebar">
         <ul className="nav">
-        <Link className="text-decoration-none" to={"/admin"}>
-          <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-            <a className="navbar-brand brand-logo" href="/#">
-              <img className="logo mx-3" src={logo} alt="logo" />
-              <span className="custom-text">Học lập trình để đi làm</span>
-            </a>
-          </div>
-        </Link>
+          <Link className="text-decoration-none" to={"/admin"}>
+            <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+              <a className="navbar-brand brand-logo" href="/#">
+                <img className="logo mx-3" src={logo} alt="logo" />
+                <span className="custom-text">Học lập trình để đi làm</span>
+              </a>
+            </div>
+          </Link>
           <li className="nav-item nav-category mt-3 mb-3 custom-nav-item">
             Thanh công cụ
           </li>
@@ -92,7 +89,7 @@ function SidebarAdmin() {
           </li>
         </ul>
       </nav>
-    </div>
+    </>
   );
 }
 export default SidebarAdmin;

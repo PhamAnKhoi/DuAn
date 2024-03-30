@@ -768,7 +768,7 @@
       -moz-transition: width 0.25s ease, background 0.25s ease;
       -ms-transition: width 0.25s ease, background 0.25s ease;
       background: #808080;
-      width: 337.25px;
+      // width: 337.25px;
       height: 64px;
     }
     .navbar .navbar-menu-wrapper .navbar-nav.navbar-nav-right {
@@ -926,5 +926,8 @@
   }
   .margin-top-bottom {
     margin: 50px 50px;
+  }
+  .navbar {
+    padding: 0px !important;
   }
 }

@@ -49,7 +49,7 @@ function CreateCourse() {
 
       if (response.data) {
         alert("Tạo khóa học thành công!");
-        window.location.href = "/admin/create-course";;
+        window.location.href = "/admin/create-course";
       }
     } catch (error) {
       // console.error("Fail to create course: ", error);
@@ -59,73 +59,75 @@ function CreateCourse() {
   return (
     <div className="Admin">
       <div className="container-fluid">
-        <div className="HeaderAdmin SidebarAdmin">
-          <HeaderAdmin />
+        <div className=" HeaderAdmin SidebarAdmin">
           <div className="row">
             <div className="col-lg-3 p-0">
               <SidebarAdmin />
             </div>
-            <div className="col custom-border-top">
-              <form
-                className="custom-form m-auto"
-                onSubmit={handleCreateCourse}
-              >
-                <div className="custom-div-1">Tạo khóa học</div>
-                <div className="mb-3">
-                  <label className="form-label">Tên khóa học: </label>
-                  <input
-                    className="form-control"
-                    placeholder="Tên khóa học"
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Mô tả: </label>
-                  <textarea
-                    className="form-control"
-                    placeholder="Mô tả nội dung khóa học"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Giá: (VND)</label>
-                  <input
-                    min={0}
-                    className="form-control"
-                    placeholder="Giá khóa học"
-                    type="number"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Lượt xem: </label>
-                  <input
-                    min={0}
-                    className="form-control"
-                    placeholder="Số lượt xem"
-                    type="number"
-                    value={views}
-                    onChange={(e) => setViews(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Ảnh minh họa: </label>
-                  <input
-                    className="form-control"
-                    type="file"
-                    onChange={(e) => setThumbnail(e.target.files[0])}
-                    required
-                  />
-                </div>
-                {/* <div className="mb-3">
+
+            <div className="col p-0">
+              <HeaderAdmin />
+              <div className="custom-border-top">
+                <form
+                  className="custom-form m-auto"
+                  onSubmit={handleCreateCourse}
+                >
+                  <div className="custom-div-1">Tạo khóa học</div>
+                  <div className="mb-3">
+                    <label className="form-label">Tên khóa học: </label>
+                    <input
+                      className="form-control"
+                      placeholder="Tên khóa học"
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label">Mô tả: </label>
+                    <textarea
+                      className="form-control"
+                      placeholder="Mô tả nội dung khóa học"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label">Giá: (VND)</label>
+                    <input
+                      min={0}
+                      className="form-control"
+                      placeholder="Giá khóa học"
+                      type="number"
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label">Lượt xem: </label>
+                    <input
+                      min={0}
+                      className="form-control"
+                      placeholder="Số lượt xem"
+                      type="number"
+                      value={views}
+                      onChange={(e) => setViews(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label">Ảnh minh họa: </label>
+                    <input
+                      className="form-control"
+                      type="file"
+                      onChange={(e) => setThumbnail(e.target.files[0])}
+                      required
+                    />
+                  </div>
+                  {/* <div className="mb-3">
                 <label className="form-label">
                   Video giới thiệu khóa học:{" "}
                 </label>
@@ -135,32 +137,35 @@ function CreateCourse() {
                   onChange={(e) => setVideoDemoUrl(e.target.files[0])}
                 />
               </div> */}
-                <div className="mb-3">
-                  <div className="form-label"> Trạng thái: </div>
-                  <div className="mb-1">
-                    <input
-                      type="radio"
-                      value="1"
-                      checked={status === 1}
-                      onChange={() => setStatus(1)}
-                    />
-                    <span className="mx-2">Hiển thị khóa học</span>
+                  <div className="mb-3">
+                    <div className="form-label"> Trạng thái: </div>
+                    <div className="mb-1">
+                      <input
+                        type="radio"
+                        value="1"
+                        checked={status === 1}
+                        onChange={() => setStatus(1)}
+                      />
+                      <span className="mx-2">Hiển thị khóa học</span>
+                    </div>
+                    <div className="mb-1">
+                      <input
+                        type="radio"
+                        value="0"
+                        checked={status === 0}
+                        onChange={() => setStatus(0)}
+                      />
+                      <span className="mx-2">Ẩn khóa học</span>
+                    </div>
                   </div>
-                  <div className="mb-1">
-                    <input
-                      type="radio"
-                      value="0"
-                      checked={status === 0}
-                      onChange={() => setStatus(0)}
-                    />
-                    <span className="mx-2">Ẩn khóa học</span>
-                  </div>
-                </div>
-                <button className="btn btn-primary" type="submit">
-                  Lưu khóa học
-                </button>
-                {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-              </form>
+                  <button className="btn btn-primary" type="submit">
+                    Lưu khóa học
+                  </button>
+                  {errorMessage && (
+                    <p style={{ color: "red" }}>{errorMessage}</p>
+                  )}
+                </form>
+              </div>
             </div>
           </div>
         </div>

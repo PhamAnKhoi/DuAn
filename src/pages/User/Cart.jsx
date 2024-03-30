@@ -36,7 +36,7 @@ function Cart(prop) {
       .catch((error) => {
         console.error("Error fetching courses:", error);
       });
-  }, []);
+  }, [user.access_token]);
   // Gửi yêu cầu GET đến API
   function removeItem(id) {
     console.log(user.access_token);
@@ -96,7 +96,7 @@ function Cart(prop) {
               <p className="custom-p">Giỏ hàng</p>
               <div className="row">
                 <div className="col-lg-7 border-cart">
-                  {courses.length == 0 && (
+                  {courses.length === 0 && (
                     <div className="box-cart ">
                       <div className="custom-center">
                         Chưa có sản phẩm nào trong giỏ hàng
