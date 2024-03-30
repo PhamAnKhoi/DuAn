@@ -170,6 +170,7 @@ function Register() {
                       <label
                         className="form-check-label"
                         htmlFor="inlineRadio1"
+                        
                       >
                         Nam
                       </label>
@@ -184,6 +185,7 @@ function Register() {
                         onChange={() => setGender(0)}
                       />
                       <label
+                      checked
                         className="form-check-label"
                         htmlFor="inlineRadio2"
                       >

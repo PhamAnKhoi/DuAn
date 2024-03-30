@@ -58,6 +58,16 @@ function SidebarAdmin() {
             </a>
           </li>
         </Link>
+        <Link className="custom-link" to={"/admin/list-user"}>
+          <li className="nav-item">
+            <a className="nav-link" href="/#">
+              <span className="icon-bg">
+                <i className="fa fa-list" aria-hidden="true"></i>
+              </span>
+              <span className="menu-title">Danh sách tài khoản</span>
+            </a>
+          </li>
+        </Link>
         <li className="nav-item sidebar-user-actions">
           <div className="sidebar-user-menu">
             <a href="/" className="nav-link">

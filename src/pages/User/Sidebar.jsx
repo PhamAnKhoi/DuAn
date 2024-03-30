@@ -14,12 +14,13 @@ function Sidebar() {
         <ul className="list-unstyled">
           {showCreatePost && (
             <li className="custom-center my-2">
-              <div className="custom-box-3">
-                <Link className="custom-link text-white" to={"/admin"}>
+              <div className="custom-box-1">
+                <Link className="custom-link text-black" to={"/admin"}>
                   <i
-                    className="fa fa-plus custom-center my-3"
+                    className="fa fa-plus custom-center custom-icon"
                     aria-hidden="true"
                   ></i>
+                  <p className="custom-center custom-text">Trang ADMIN</p>
                 </Link>
               </div>
             </li>
