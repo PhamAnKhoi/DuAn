@@ -16,7 +16,7 @@ function EditPost() {
   const [content, setContent] = useState("");
   const [status, setStatus] = useState(1);
   const [thumbnail, setThumbnail] = useState(null);
-  const [thumbnailUrl, setThumbnailUrl] = useState(""); // State để lưu trữ URL của thumbnail
+  const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState([]);
 
   useEffect(() => {
@@ -26,7 +26,6 @@ function EditPost() {
           "http://api.course-selling.id.vn/api/post/" + postId
         );
         const postData = response.data.data;
-        console.log(postData);
         setTitle(postData.title);
         setContent(postData.content);
         setStatus(postData.status);
@@ -63,17 +62,18 @@ function EditPost() {
 
       const response = await axios.post(
         "http://api.course-selling.id.vn/api/post/edit/" + postId,
-        formData
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", //upload file
+            Authorization: `Bearer ${user.access_token}`,
+          },
+        }
       );
-
-      if (response.data) {
-        console.log(response.data);
-      }
-
-      setErrorMessage("");
+      const { data } = response.data;
+      setErrorMessage(data.message);
     } catch (error) {
-      setErrorMessage("Có xảy ra lỗi khi chỉnh sửa bài viết.");
-      throw new Error("Có xảy ra lỗi khi chỉnh sửa bài viết");
+      console.error(error);
     }
   };
 

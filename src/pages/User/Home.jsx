@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 
 function Home() {
   const [courses, setCourses] = useState([]);
-  console.log(courses);
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -70,7 +69,6 @@ function Home() {
                     </Link>
                   </span>
                 </div>
-
                 <div className="row">
                   {courses.map((course) => (
                     <div key={course.id} className="col-lg-3">

@@ -3,8 +3,11 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import HeaderAdmin from "./HeaderAdmin";
 import SidebarAdmin from "./SidebarAdmin";
+import { useParams } from "react-router-dom";
 
 function EditCourse() {
+  let param = useParams();
+  let courseId = param.courseId;
   const user = JSON.parse(Cookies.get("user"));
   if (!user) {
     alert("Please login");
@@ -23,9 +26,9 @@ function EditCourse() {
     const fetchCourse = async () => {
       try {
         const response = await axios.get(
-          "http://api.course-selling.id.vn/api/course/edit/id_course"
+          "http://api.course-selling.id.vn/api/course/" + courseId
         );
-        const courseData = response.data;
+        const courseData = response.data.data;
         setName(courseData.name);
         setDescription(courseData.description);
         setPrice(courseData.price);
@@ -38,7 +41,7 @@ function EditCourse() {
     };
 
     fetchCourse();
-  }, []);
+  }, [courseId]);
 
   const handleThumbnailChange = (event) => {
     const file = event.target.files[0];
@@ -62,12 +65,17 @@ function EditCourse() {
     formData.append("views", views);
     formData.append("status", status);
     formData.append("thumbnail", thumbnail);
-    // formData.append("video_demo_url", videoDemo);
 
     try {
       const response = await axios.post(
-        "http://api.course-selling.id.vn/api/course/edit/id_course",
-        formData
+        "http://api.course-selling.id.vn/api/course/edit/"+ courseId,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", //upload file
+            Authorization: `Bearer ${user.access_token}`,
+          },
+        }
       );
       const { data } = response.data;
       setErrorMessage(data.message);

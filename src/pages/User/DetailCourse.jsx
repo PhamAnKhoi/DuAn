@@ -174,14 +174,14 @@ function Course() {
                         className="fa fa-film size-item"
                         aria-hidden="true"
                       ></i>
-                      <span>Tổng số ... bài học</span>
+                      <span>Kho kiến thức vững chắc</span>
                     </div>
                     <div>
                       <i
                         className="fa fa-clock-o size-item"
                         aria-hidden="true"
                       ></i>
-                      <span>Thời lượng 29 giờ 12 phút</span>
+                      <span>Thời gian học linh hoạt</span>
                     </div>
                     <div>
                       <i

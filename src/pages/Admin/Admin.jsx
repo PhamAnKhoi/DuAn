@@ -4,13 +4,27 @@ import SidebarAdmin from "./SidebarAdmin";
 
 function Admin() {
   return (
-    <div className="Admin">
-      <div className="container-scroller">
-      <div className="HeaderAdmin SidebarAdmin">
+    <div className="Admin ">
+      <div className="container-fluid">
+        <div className="HeaderAdmin SidebarAdmin">
           <HeaderAdmin />
-          <div className="container-fluid page-body-wrapper">
-            <SidebarAdmin />
-            <h1>Đây là trang chủ</h1>
+          <div className="row">
+            <div className="col-lg-3 p-0">
+              <SidebarAdmin />
+            </div>
+            <div className="col custom-border-top">
+              <div className="row">
+                <div className="col-lg-4">
+                  <div>h1</div>
+                </div>
+                <div className="col-lg-4">
+                  <div>h1</div>
+                </div>
+                <div className="col-lg-4">
+                  <div>h1</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

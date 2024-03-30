@@ -7,7 +7,6 @@ function Sidebar() {
   if (user !== undefined) {
     user = JSON.parse(user);
     showCreatePost = user.permission;
-    console.log(user);
   }
   return (
     <div className="col-lg-1">
@@ -16,7 +15,7 @@ function Sidebar() {
           {showCreatePost && (
             <li className="custom-center my-2">
               <div className="custom-box-3">
-                <Link to={"/admin/create-post"}>
+                <Link className="custom-link text-white" to={"/admin"}>
                   <i
                     className="fa fa-plus custom-center my-3"
                     aria-hidden="true"
@@ -62,7 +61,7 @@ function Sidebar() {
             <div className="custom-box-1">
               <Link className="custom-link" to={"/course"}>
                 <i
-                  className="fa fa-newspaper-o custom-center custom-icon"
+                  className="fa fa-graduation-cap custom-center custom-icon"
                   aria-hidden="true"
                 ></i>
                 <p className="custom-center custom-text">Khóa học</p>

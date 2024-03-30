@@ -163,7 +163,7 @@
     text-decoration: none;
     color: #a9b3bb;
   }
-  .logofb-gmail {
+  .logo-fb-gmail {
     width: 30px;
     height: 30px;
     border-radius: 100%;
@@ -289,6 +289,35 @@
 
 .Course {
   margin-bottom: 50px;
+  .custom-text {
+    margin: 15px 0px;
+  }
+  .text-1 {
+    font-weight: 800;
+    font-size: large;
+  }
+  .text-2 {
+    padding: 1px 5px;
+    margin-left: 10px;
+    background: #1473e6;
+    color: #ffffff;
+    border-radius: 5px;
+  }
+  .price {
+    color: #f05123;
+    font-weight: 500;
+    padding: 0px 15px;
+  }
+  .img-item {
+    width: 100%;
+    height: 160px;
+    border-radius: 10px;
+  }
+  .name-course {
+    font-weight: bold;
+    padding: 10px 0px;
+    color: black;
+  }
   .text-div1 {
     font-weight: 800;
     font-size: x-large;
@@ -676,6 +705,11 @@
   .custom-h1 {
     color: #ffffff;
   }
+  .custom-link {
+    text-decoration: none;
+    color: #000000;
+    float: right;
+  }
 }
 
 .AdminLogin {
@@ -711,7 +745,7 @@
   .HeaderAdmin,
   .SidebarAdmin {
     .sidebar .nav .nav-item .nav-link .menu-title {
-      color: #000000;
+      // color: #ffffff !important;
       display: inline-block;
       font-size: 0.937rem;
       line-height: 1;
@@ -729,8 +763,8 @@
       -webkit-transition: width 0.25s ease, background 0.25s ease;
       -moz-transition: width 0.25s ease, background 0.25s ease;
       -ms-transition: width 0.25s ease, background 0.25s ease;
-      background: #46154a;
-      width: 258px;
+      background: #808080;
+      width: 341.5px;
       height: 64px;
     }
     .navbar .navbar-menu-wrapper .navbar-nav.navbar-nav-right {
@@ -742,7 +776,7 @@
       border-radius: 100%;
     }
     .navbar .navbar-menu-wrapper .navbar-nav .nav-item .nav-link {
-      color: inherit;
+      color: #ffffff;
       font-size: 0.875rem;
       margin-left: 0.625rem;
       margin-right: 0.625rem;
@@ -762,10 +796,10 @@
       -webkit-transition: width 0.25s ease;
       -moz-transition: width 0.25s ease;
       -ms-transition: width 0.25s ease;
-      color: #111111;
+      color: #ffffff;
       padding-left: 24px;
       padding-right: 24px;
-      width: calc(100% - 258px);
+      width: 100%;
       height: 64px;
     }
 
@@ -776,11 +810,11 @@
 
     /* Sidebar */
     .sidebar {
-      min-height: calc(100vh - 64px);
-      background: #46154a;
+      height: 100%;
+      background: #808080;
       font-family: "nunito-medium", sans-serif;
       padding: 0;
-      width: 258px;
+      width: 341.5px;
       z-index: 11;
       transition: width 0.25s ease, background 0.25s ease;
       -webkit-transition: width 0.25s ease, background 0.25s ease;
@@ -804,7 +838,7 @@
       align-items: center;
       white-space: nowrap;
       padding: 0.625rem 0 0.625rem 0;
-      color: #000000;
+      color: #ffffff;
       -webkit-transition-duration: 0.45s;
       transition-duration: 0.45s;
       transition-property: color;
@@ -837,14 +871,26 @@
     border-radius: 10px;
     margin-top: 50px !important;
     margin-bottom: 50px !important;
+    width: 500px;
   }
   .custom-div-1 {
     text-align: center;
   }
-  .custom-border-bottom {
-    border-bottom: 1px solid #ced4da;
+  .custom-border-top {
+    border-top: 1px solid #808080;
   }
   .custom-link {
     text-decoration: none;
+  }
+  .custom-img {
+    width: 150px;
+  }
+  .custom-nav-item {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: x-large;
+  }
+  .custom-btn {
+    background: #000000;
   }
 }

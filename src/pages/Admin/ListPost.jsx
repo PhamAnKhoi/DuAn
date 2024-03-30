@@ -4,23 +4,33 @@ import Cookies from "js-cookie";
 import HeaderAdmin from "./HeaderAdmin";
 import SidebarAdmin from "./SidebarAdmin";
 
-function ListCourse() {
-  const [courses, setCourses] = useState([]);
+function ListPost() {
+  const [posts, setPosts] = useState([]);
+  // console.log(posts);
 
   var user = Cookies.get("user");
   if (user !== undefined) {
     user = JSON.parse(user);
     var auth = user.permission;
   }
-  // console.log(user);
   if (auth !== "ADMIN" && auth !== "TEACHER") {
     window.location.href = "/login";
   }
+  // useEffect(() => {
+  //   axios
+  //     .get("http://api.course-selling.id.vn/api/post/list-owned-posts")
+  //     .then((response) => {
+  //       setPosts(response.data.posts);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
   useEffect(() => {
-    const fetchCourses = async () => {
+    const fetchPosts = async () => {
       try {
         const response = await axios.get(
-          "http://api.course-selling.id.vn/api/course/list-owned-courses",
+          "http://api.course-selling.id.vn/api/post/list-owned-posts",
           {
             headers: {
               "Content-Type": "multipart/form-data",
@@ -30,22 +40,22 @@ function ListCourse() {
         );
 
         if (response.status !== 200) {
-          throw new Error("Failed to fetch courses");
+          throw new Error("Failed to fetch posts");
         }
 
-        const coursesData = response.data;
-
-        setCourses(coursesData.course);
+        const postsData = response.data;
+        // console.log(postsData);
+        setPosts(postsData.posts);
       } catch (error) {
-        console.error("Error while fetching courses:", error);
+        console.error("Error while fetching posts:", error);
       }
     };
 
-    fetchCourses();
+    fetchPosts();
   }, [user.access_token]);
-  function handleEditCourse(e) {
+  function handleEditPost(e) {
     console.log(e);
-    window.location.href = `/admin/edit-course/${e}`;
+    window.location.href = `/admin/edit-post/${e}`;
   }
   return (
     <div className="Admin">
@@ -60,7 +70,6 @@ function ListCourse() {
                   <th className="col-0 text-center">STT</th>
                   <th className="col-2 text-center">Hình ảnh</th>
                   <th className="col-2 text-center">Tên bài viết</th>
-                  <th className="col-1 text-center">Giá</th>
                   <th className="col-3 text-center">Nội dung bài viết</th>
                   <th className="col-1 text-center">Tác giả</th>
                   <th className="col-1 text-center">Đã xem</th>
@@ -68,32 +77,21 @@ function ListCourse() {
                 </tr>
               </thead>
               <tbody>
-                {courses.map((course, index) => (
-                  <tr key={course.id}>
+                {posts.map((post, index) => (
+                  <tr key={post.id}>
                     <td>{index + 1}</td>
                     <td>
-                      <img
-                        className="custom-img"
-                        src={course.thumbnail}
-                        alt=""
-                      />
+                      <img className="custom-img" src={post.thumbnail} alt="" />
                     </td>
-                    <td>{course.name}</td>
-                    <td>{course.price}</td>
-                    <td>{course.description}</td>
-                    <td>{course.creator}</td>
-                    <td>
-                      {course.views}
-                      {"  "}
-                      <i className="fa fa-eye" aria-hidden="true"></i>
-                    </td>
+                    <td>{post.title}</td>
+                    <td>{post.content}</td>
                     <td>
                       <button>
                         <i className="fa fa-trash" aria-hidden="true"></i>
                       </button>
                       <button
-                        value={course.id}
-                        onClick={() => handleEditCourse(course.id)}
+                        value={post.id}
+                        onClick={() => handleEditPost(post.id)}
                       >
                         <i className="fa fa-pencil" aria-hidden="true"></i>
                       </button>
@@ -109,4 +107,4 @@ function ListCourse() {
   );
 }
 
-export default ListCourse;
+export default ListPost;

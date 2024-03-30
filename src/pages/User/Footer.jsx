@@ -85,20 +85,20 @@ function Footer() {
                 <div className="col-lg-2">
                   <a href="/#">
                     <img
-                      className="logofb-gmail"
+                      className="logo-fb-gmail"
                       src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png"
                       alt=""
                     />
                   </a>
                   <a href="/#">
                     <img
-                      className="logofb-gmail"
+                      className="logo-fb-gmail"
                       src="https://logowik.com/content/uploads/images/gmail-new-icon5198.jpg"
                       alt=""
                     />
                   </a>
                   <a href="/#">
-                    <img className="logofb-gmail" src={logo} alt="" />
+                    <img className="logo-fb-gmail" src={logo} alt="" />
                   </a>
                 </div>
               </div>

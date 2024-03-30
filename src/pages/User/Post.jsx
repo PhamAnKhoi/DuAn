@@ -68,20 +68,14 @@ function Post() {
                           <div className="text-div3">{post.title}</div>
                           <div className="col-lg-8">
                             <div className="my-3">{post.content}</div>
-                            <div className="my-3">Likes: {post.likes}</div>
-                            <div className="my-3">Views: {post.views}</div>
                             <div className="my-3">
-                              Created at: {post.created_at}
+                              Lượt yêu thích: {post.likes}
                             </div>
+                            <div className="my-3">Lượt xem: {post.views}</div>
                             <div className="my-3">
-                              Updated at: {post.updated_at}
+                              Chỉnh sửa lần cuối:{" "}
+                              {new Date(post.updated_at).toLocaleDateString()}
                             </div>
-                            {/* <button
-                              className="custom-button-onclick my-3"
-                              onClick={() => handleDelete(post.id)}
-                            >
-                              Delete
-                            </button> */}
                           </div>
                           <div className="col-lg-4">
                             <img
@@ -92,7 +86,9 @@ function Post() {
                           </div>
                           <div className="text-div-a">
                             <span className="custom-div">Ngôn ngữ</span>
-                            <span className="item-1">Thời gian</span>
+                            <span className="item-1">
+                              {new Date(post.created_at).toLocaleDateString()}
+                            </span>
                             <span className="item-1">Tác giả</span>
                           </div>
                         </div>

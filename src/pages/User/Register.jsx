@@ -1,6 +1,7 @@
 // import React, { useEffect, useState } from "react";
 import React, { useState } from "react";
 import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -199,7 +200,7 @@ function Register() {
                       onChange={(e) => setRole(e.target.value)}
                     />
                   </div>
-                  <div className="form-floating">
+                  <div className="form-floating mb-3">
                     <button
                       type="submit"
                       className="btn btn-primary custom-button"
@@ -207,10 +208,13 @@ function Register() {
                       Register
                     </button>
                   </div>
+                  <div className="mb-3">
+                    <Link className="custom-link" to={"/login"}>
+                      <p>Bạn chưa có tài khoản?</p>
+                    </Link>
+                  </div>
                 </div>
               </div>
-
-              {/* {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>} */}
             </form>
           </div>
         </div>

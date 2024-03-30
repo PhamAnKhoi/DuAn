@@ -53,7 +53,7 @@ function Login() {
     <div className="Login">
       <div className="d-flex justify-content-center align-items-center vh-100 box-form">
         <form className="custom-form" onSubmit={handleLogin}>
-          <h1 className="mb-3 custom-h1">Login Form</h1>
+          <h1 className="mb-3 custom-h1 text-center">Đăng nhập</h1>
           <div className="form-floating mb-3">
             <input
               type="text"
@@ -86,11 +86,6 @@ function Login() {
               <p>Bạn chưa có tài khoản?</p>
             </Link>
           </div>
-          {/* <div>
-            <Link className="custom-link" to={"/admin/login"}>
-              <p className="custom-p">Đăng nhập với tư cách Admin</p>
-            </Link>
-          </div> */}
         </form>
       </div>
     </div>
