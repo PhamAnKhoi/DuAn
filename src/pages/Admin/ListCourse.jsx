@@ -32,7 +32,7 @@ function ListCourse() {
         if (response.status !== 200) {
           throw new Error("Failed to fetch courses");
         }
-
+        
         const coursesData = response.data;
 
         setCourses(coursesData.course);

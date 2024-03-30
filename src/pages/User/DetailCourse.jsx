@@ -4,6 +4,7 @@ import Footer from "./Footer.jsx";
 import Sidebar from "./Sidebar.jsx";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 function Course() {
   const [collapsed, setCollapsed] = useState(Array(99).fill(true));
@@ -26,6 +27,35 @@ function Course() {
   }, [courseId]);
   // Gửi yêu cầu GET đến API
 
+  const addToCart = (id) => {
+    var user = Cookies.get("user");
+    if (user !== undefined) {
+      user = JSON.parse(user);
+    } else {
+      alert("Bạn cần đăng nhập để thực hiện chức năng này.");
+      window.location.href = "/login";
+    }
+    axios
+      .post(
+        `http://api.course-selling.id.vn/api/cart/add-item/${id}`,
+        {},
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", //upload file
+            Authorization: `Bearer ${user.access_token}`,
+          },
+        }
+      )
+      .then((response) => {
+        // handle response
+        // console.log(response.data);
+        alert(response.data.message);
+      })
+      .catch((error) => {
+        // handle error
+        console.error("Error removing item:", error);
+      });
+  };
   const toggleCollapse = (index) => {
     const updatedCollapsed = [...collapsed];
     updatedCollapsed[index] = !collapsed[index];
@@ -161,6 +191,12 @@ function Course() {
                   <Link to={"/video"} className="text-decoration-none">
                     <div className="custom-div-2 m-auto">Đăng ký học</div>
                   </Link>
+                  <div
+                    className="custom-div-2 m-auto"
+                    onClick={() => addToCart(courseId)}
+                  >
+                    Thêm vào giỏ hàng
+                  </div>
                   <div className="custom-div">
                     <div>
                       <i
