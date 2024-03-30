@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import logo from "./logo.png";
+// import logo from "./logo.png";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 
@@ -21,17 +21,8 @@ function HeaderAdmin() {
   };
   return (
     <div>
-      <nav className="navbar default-layout-navbar col-lg-12 p-0 row">
-        <div className="col-lg-3 p-0">
-          <Link className="text-decoration-none" to={"/admin"}>
-            <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-              <a className="navbar-brand brand-logo" href="/#">
-                <img className="logo mx-3" src={logo} alt="logo" />
-                <span className="custom-text">Học lập trình để đi làm</span>
-              </a>
-            </div>
-          </Link>
-        </div>
+      <div className="col-lg-3"></div>
+      <nav className="navbar default-layout-navbar col row">
         <div className="col">
           <div className="navbar-menu-wrapper d-flex align-items-stretch">
             <div className="search-field d-none d-xl-block">
