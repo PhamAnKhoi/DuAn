@@ -8,12 +8,12 @@ function Admin() {
     <div className="Admin">
       <div className="container-fluid">
         <div className=" HeaderAdmin SidebarAdmin">
-          <div className="row">
+          <div className="row vh-100">
             <div className="col-lg-3 p-0">
               <SidebarAdmin />
             </div>
 
-            <div className="col p-0">
+            <div className="col-lg-9">
               <HeaderAdmin />
               <div className="custom-border-top">
                 <div className="main-panel my-3">
@@ -120,7 +120,7 @@ function Admin() {
                                 </div>
                               </div>
                             </div>
-                            <div className="row">
+                            {/* <div className="row">
                               <div className="col-sm-4 grid-margin stretch-card">
                                 <div className="card card-danger-gradient">
                                   <div className="card-body mb-4">
@@ -156,18 +156,13 @@ function Admin() {
                                   <div className="card-body">
                                     <div className="d-xl-flex justify-content-between mb-2">
                                       <h4 className="card-title">
-                                        Page views analytics
+                                        Thống kê doanh thu
                                       </h4>
-                                      <div
-                                        className="graph-custom-legend primary-dot"
-                                        id="pageViewAnalyticLengend"
-                                      />
                                     </div>
-                                    <canvas id="page-view-analytic" />
                                   </div>
                                 </div>
                               </div>
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </div>

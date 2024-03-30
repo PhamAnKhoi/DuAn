@@ -52,13 +52,13 @@ function ListPost() {
     <div className="Admin">
       <div className="container-fluid">
         <div className=" HeaderAdmin SidebarAdmin">
-          <div className="row">
+          <div className="row vh-100">
             <div className="col-lg-3 p-0">
               <SidebarAdmin />
             </div>
-            <div className="col">
+            <div className="col-lg-9">
               <HeaderAdmin />
-              <div className="custom-border-top">
+              <div className="custom-border-top list-post">
                 <table className="table table-striped table-bordered">
                   <thead>
                     <tr>
@@ -66,8 +66,6 @@ function ListPost() {
                       <th className="col-2 text-center">Hình ảnh</th>
                       <th className="col-2 text-center">Tên bài viết</th>
                       <th className="col-3 text-center">Nội dung bài viết</th>
-                      {/* <th className="col-1 text-center">Tác giả</th> */}
-                      {/* <th className="col-1 text-center">Đã xem</th> */}
                       <th className="col-2 text-center">Chức năng</th>
                     </tr>
                   </thead>
@@ -83,12 +81,17 @@ function ListPost() {
                           />
                         </td>
                         <td>{post.title}</td>
-                        <td>{post.content}</td>
                         <td>
-                          <button>
+                          <p style={{ height: "100px", overflow: "hidden" }}>
+                            {post.content}
+                          </p>
+                        </td>
+                        <td className="text-center">
+                          <button className="btn btn-warning me-2">
                             <i className="fa fa-trash" aria-hidden="true"></i>
                           </button>
                           <button
+                            className="btn btn-success me-2"
                             value={post.id}
                             onClick={() => handleEditPost(post.id)}
                           >
