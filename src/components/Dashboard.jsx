@@ -10,7 +10,7 @@ import Video from "../pages/User/Video.jsx";
 import Login from "../pages/User/Login.jsx";
 import CreatePost from "../pages/Admin/CreatePost.jsx";
 import EditPost from "../pages/Admin/EditPost.jsx";
-import AdminLogin from "../pages/Admin/AdminLogin.jsx";
+// import AdminLogin from "../pages/Admin/AdminLogin.jsx";
 import CreateCourse from "../pages/Admin/CreateCourse.jsx";
 import EditCourse from "../pages/Admin/EditCourse.jsx";
 import Register from "../pages/User/Register.jsx";
@@ -39,7 +39,7 @@ function Dashboard() {
         <Route path="/admin/list-post" element={<ListPost />} />
         <Route path="/admin/create-post" element={<CreatePost />} />
         <Route path="/admin/edit-post/:postId" element={<EditPost />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
+        {/* <Route path="/admin/login" element={<AdminLogin />} /> */}
         <Route path="/admin/create-course" element={<CreateCourse />} />
         <Route path="/admin/edit-course/:courseId" element={<EditCourse />} />
       </Routes>

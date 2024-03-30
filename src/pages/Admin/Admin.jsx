@@ -5,15 +5,15 @@ import SidebarAdmin from "./SidebarAdmin";
 
 function Admin() {
   return (
-    <div className="Admin">
-      <div className="container-fluid">
+    <div className="Admin ">
+      <div className="container-fluid p-0">
         <div className=" HeaderAdmin SidebarAdmin">
-          <div className="row vh-100">
-            <div className="col-lg-3 p-0">
-              <SidebarAdmin />
+          <div className="row vh-100 mx-auto">
+            <div className="col-lg-2 col-md-2 p-0">
+              <SidebarAdmin page="/"/>
             </div>
 
-            <div className="col-lg-9">
+            <div className="col">
               <HeaderAdmin />
               <div className="custom-border-top">
                 <div className="main-panel my-3">

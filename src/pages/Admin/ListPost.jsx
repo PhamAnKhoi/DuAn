@@ -50,28 +50,28 @@ function ListPost() {
   }
   return (
     <div className="Admin">
-      <div className="container-fluid">
+       <div className="container-fluid p-0">
         <div className=" HeaderAdmin SidebarAdmin">
-          <div className="row vh-100">
-            <div className="col-lg-3 p-0">
-              <SidebarAdmin />
+          <div className="row vh-100 mx-auto">
+            <div className="col-lg-2 col-md-2 p-0">
+              <SidebarAdmin page="listPost" />
             </div>
-            <div className="col-lg-9">
+            <div className="col">
               <HeaderAdmin />
               <div className="custom-border-top list-post">
                 <table className="table table-striped table-bordered">
                   <thead>
                     <tr>
-                      <th className="col-1 text-center">STT</th>
-                      <th className="col-2 text-center">Hình ảnh</th>
-                      <th className="col-2 text-center">Tên bài viết</th>
-                      <th className="col-3 text-center">Nội dung bài viết</th>
-                      <th className="col-2 text-center">Chức năng</th>
+                      <th className="text-center">#</th>
+                      <th className="text-center">Hình ảnh</th>
+                      <th className="text-center">Tên bài viết</th>
+                      <th className="text-center col-5">Nội dung bài viết</th>
+                      <th className="text-center">Chức năng</th>
                     </tr>
                   </thead>
                   <tbody>
                     {posts.map((post, index) => (
-                      <tr key={post.id}>
+                      <tr className="text-center" key={post.id}>
                         <td>{index + 1}</td>
                         <td>
                           <img
@@ -86,17 +86,19 @@ function ListPost() {
                             {post.content}
                           </p>
                         </td>
-                        <td className="text-center">
-                          <button className="btn btn-warning me-2">
-                            <i className="fa fa-trash" aria-hidden="true"></i>
-                          </button>
-                          <button
-                            className="btn btn-success me-2"
-                            value={post.id}
-                            onClick={() => handleEditPost(post.id)}
-                          >
-                            <i className="fa fa-pencil" aria-hidden="true"></i>
-                          </button>
+                        <td className="text-center ">
+                          <div className="d-flex align-items-center">
+                            <button className="btn btn-warning me-2">
+                              <i className="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                            <button
+                              className="btn btn-success"
+                              value={post.id}
+                              onClick={() => handleEditPost(post.id)}
+                            >
+                              <i className="fa fa-pencil" aria-hidden="true"></i>
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}

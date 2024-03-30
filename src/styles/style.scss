@@ -873,12 +873,17 @@
       text-align: center;
     }
   }
+// active link
+  .sidebar .nav .nav-item .nav-link.active span {
+    color: #ff7731 !important;
+  }
+
   .custom-form {
     border: 1px solid #ced4da;
     padding: 40px;
     border-radius: 10px;
-    margin-top: 50px !important;
-    margin-bottom: 50px !important;
+    margin-top: 50px;
+    margin-bottom: 50px;
     width: 500px;
   }
   .custom-div-1 {
@@ -891,8 +896,9 @@
     text-decoration: none;
   }
   .custom-img {
-    width: 150px;
-    height: 90px;
+    // width: 220px;
+    width: 90%;
+    height: 150px;
     object-fit: cover;
     border-radius: 5px;
   }

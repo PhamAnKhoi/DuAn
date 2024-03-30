@@ -3,7 +3,8 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import HeaderAdmin from "./HeaderAdmin";
 import SidebarAdmin from "./SidebarAdmin";
-
+// import { Editor } from "@tinymce/tinymce-react";
+import TinyEditor from '../../components/editor'
 function CreateCourse() {
   var user = Cookies.get("user");
   if (user !== undefined) {
@@ -15,7 +16,7 @@ function CreateCourse() {
     window.location.href = "/login";
   }
   const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState("description");
   const [price, setPrice] = useState("");
   const [views, setViews] = useState("");
   const [status, setStatus] = useState(1);
@@ -56,76 +57,91 @@ function CreateCourse() {
       setErrorMessage("Có xảy ra lỗi khi tạo khóa học này.");
     }
   };
+
+  const handleEditorChange = (description) => {
+    setDescription(description);
+  };
   return (
     <div className="Admin">
       <div className="container-fluid">
         <div className=" HeaderAdmin SidebarAdmin">
           <div className="row vh-100">
             <div className="col-lg-3 p-0">
-              <SidebarAdmin />
+              <SidebarAdmin page="createCourse" />
             </div>
 
-            <div className="col-lg-9">
+            <div className="col">
               <HeaderAdmin />
-              <div className="custom-border-top">
+              <div className="custom-border-top w-100">
                 <form
-                  className="custom-form m-auto"
+                  className="custom-form mt-3 w-100 py-3 px-4"
                   onSubmit={handleCreateCourse}
                 >
-                  <div className="custom-div-1">Tạo khóa học</div>
-                  <div className="mb-3">
-                    <label className="form-label">Tên khóa học: </label>
-                    <input
-                      className="form-control"
-                      placeholder="Tên khóa học"
-                      type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      required
-                    />
+                  <div className="custom-div-1 fs-4 mb-2" >Thêm khóa học mới</div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="mb-3">
+                        <label className="form-label">Tên khóa học: </label>
+                        <input
+                          className="form-control"
+                          placeholder="Tên khóa học"
+                          type="text"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div className="col">
+                      <div className="mb-3">
+                        <label className="form-label">Giá: (VND)</label>
+                        <input
+                          min={0}
+                          className="form-control"
+                          placeholder="Giá khóa học"
+                          type="number"
+                          value={price}
+                          onChange={(e) => setPrice(e.target.value)}
+                          required
+                        />
+                      </div>
+                    </div>
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Mô tả: </label>
-                    <textarea
+                    {/* <textarea
                       className="form-control"
                       placeholder="Mô tả nội dung khóa học"
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                       required
-                    />
+                    /> */}
+                    {/* <textarea name="" id="cotnent"></textarea> */}
+                    <TinyEditor initialValue={description} onChange={handleEditorChange} height={300} />
                   </div>
-                  <div className="mb-3">
-                    <label className="form-label">Giá: (VND)</label>
-                    <input
-                      min={0}
-                      className="form-control"
-                      placeholder="Giá khóa học"
-                      type="number"
-                      value={price}
-                      onChange={(e) => setPrice(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Lượt xem: </label>
-                    <input
-                      min={0}
-                      className="form-control"
-                      placeholder="Số lượt xem"
-                      type="number"
-                      value={views}
-                      onChange={(e) => setViews(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Ảnh minh họa: </label>
-                    <input
-                      className="form-control"
-                      type="file"
-                      onChange={(e) => setThumbnail(e.target.files[0])}
-                      required
-                    />
+
+                  <div className="row">
+                    <div className="mb-3 col">
+                      <label className="form-label">Lượt xem: </label>
+                      <input
+                        min={0}
+                        className="form-control"
+                        placeholder="Số lượt xem"
+                        type="number"
+                        value={views}
+                        onChange={(e) => setViews(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="mb-3 col">
+                      <label className="form-label">Ảnh minh họa: </label>
+                      <input
+                        className="form-control"
+                        type="file"
+                        onChange={(e) => setThumbnail(e.target.files[0])}
+                        required
+                      />
+                    </div>
                   </div>
                   {/* <div className="mb-3">
                 <label className="form-label">

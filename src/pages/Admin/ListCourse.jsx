@@ -91,33 +91,33 @@ function ListCourse() {
   };
   return (
     <div className="Admin">
-      <div className="container-fluid">
+       <div className="container-fluid p-0">
         <div className=" HeaderAdmin SidebarAdmin">
-          <div className="row vh-100">
-            <div className="col-lg-3 p-0">
-              <SidebarAdmin />
+          <div className="row vh-100 mx-auto">
+            <div className="col-lg-2 col-md-2 p-0">
+              <SidebarAdmin page="listCourse" />
             </div>
-            <div className="col-lg-9">
+            <div className="col">
               <HeaderAdmin />
               <div className="custom-border-top list-course">
                 <table className="table table-striped table-bordered">
                   <thead>
                     <tr>
-                      <th className="col-0 text-center">STT</th>
-                      <th className="col-2 text-center">Hình ảnh</th>
-                      <th className="col-2 text-center">Tên bài viết</th>
-                      <th className="col-1 text-center">Giá</th>
-                      <th className="col-3 text-center">Nội dung bài viết</th>
-                      <th className="col-1 text-center">Tác giả</th>
-                      <th className="col-1 text-center">Đã xem</th>
-                      <th className="col-2 text-center">Chức năng</th>
+                      <th className="text-center">#</th>
+                      <th className="text-center">Ảnh bìa</th>
+                      <th className="text-center">Tên khóa học</th>
+                      <th className="text-center">Giá (VNĐ)</th>
+                      <th className="text-center col-4">Nội dung khóa học</th>
+                      <th className="text-center">Tác giả</th>
+                      <th className="text-center">Lượt xem</th>
+                      <th className="text-center">Chức năng</th>
                     </tr>
                   </thead>
                   <tbody>
                     {currentCourses.map((course, index) => (
                       <tr key={course.id}>
                         <td>{getCourseIndex(index)}</td>
-                        <td>
+                        <td className="p-2 text-center">
                           <img
                             className="custom-img"
                             src={course.thumbnail}
@@ -125,19 +125,18 @@ function ListCourse() {
                           />
                         </td>
                         <td>{course.name}</td>
-                        <td>{course.price}</td>
+                        <td className="text-end">{Number(course.price).toLocaleString("vi")}</td>
                         <td>
                           <p style={{ height: "100px", overflow: "hidden" }}>
                             {course.description}
                           </p>
                         </td>
                         <td>{course.creator}</td>
-                        <td>
+                        <td className="text-center">
                           {course.views}
-                          {"  "}
-                          <i className="fa fa-eye" aria-hidden="true"></i>
+                          <i className="fa fa-eye ms-1" aria-hidden="true"></i>
                         </td>
-                        <td>
+                        <td className="text-center">
                           <button
                             className="btn btn-warning me-2"
                             onClick={() => handleDelete(course.id)}
