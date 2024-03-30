@@ -70,6 +70,10 @@ function EditPost() {
           },
         }
       );
+      if (response.data) {
+        alert("Chỉnh sửa bài viết thành công!");
+        window.location.href = "/admin/list-post";;
+      }
       const { data } = response.data;
       setErrorMessage(data.message);
     } catch (error) {

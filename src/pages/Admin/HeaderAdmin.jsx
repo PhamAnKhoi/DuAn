@@ -23,10 +23,11 @@ function HeaderAdmin() {
     <div>
       <nav className="navbar default-layout-navbar col-lg-12 p-0 row">
         <div className="col-lg-3 p-0">
-          <Link to={"/admin"}>
+          <Link className="text-decoration-none" to={"/admin"}>
             <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
               <a className="navbar-brand brand-logo" href="/#">
-                <img src={logo} alt="logo" />
+                <img className="logo mx-3" src={logo} alt="logo" />
+                <span className="custom-text">Học lập trình để đi làm</span>
               </a>
             </div>
           </Link>
@@ -52,25 +53,25 @@ function HeaderAdmin() {
                 <div className="nav-link">
                   <div className="nav-profile-text">
                     <p className="mb-1 text-black">
-                    {isLoggedIn ? (
-                      <>
-                        <button className="btn-login mx-1">
-                          <i
-                            className="fa fa-user-circle-o mx-1"
-                            aria-hidden="true"
-                          ></i>
-                          {userData && userData.username}
-                        </button>
-                        <button
-                          className="btn-register mx-1 py-1 px-3"
-                          onClick={handleLogout}
-                        >
-                          Logout
-                        </button>
-                      </>
-                    ) : (
-                      <></>
-                    )}
+                      {isLoggedIn ? (
+                        <>
+                          <button className="btn-login mx-1">
+                            <i
+                              className="fa fa-user-circle-o mx-1"
+                              aria-hidden="true"
+                            ></i>
+                            {userData && userData.username}
+                          </button>
+                          <button
+                            className="btn-logout mx-1 py-1 px-3"
+                            onClick={handleLogout}
+                          >
+                            Logout
+                          </button>
+                        </>
+                      ) : (
+                        <></>
+                      )}
                     </p>
                   </div>
                 </div>

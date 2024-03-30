@@ -77,6 +77,10 @@ function EditCourse() {
           },
         }
       );
+      if (response.data) {
+        alert("Chỉnh sửa khóa học thành công!");
+        window.location.href = "/admin/list-course";;
+      }
       const { data } = response.data;
       setErrorMessage(data.message);
     } catch (error) {

@@ -17,6 +17,7 @@
   .btn-login {
     background-color: #ffffff;
     border: none;
+    font-weight: bold;
   }
   .btn-register {
     background-color: #ff7731;
@@ -97,6 +98,7 @@
     width: 100%;
     height: 160px;
     border-radius: 10px;
+    object-fit: cover;
   }
   h2 a {
     color: #ffffff;
@@ -312,6 +314,7 @@
     width: 100%;
     height: 160px;
     border-radius: 10px;
+    object-fit: cover;
   }
   .name-course {
     font-weight: bold;
@@ -348,6 +351,7 @@
     width: 100%;
     max-height: 250px;
     border-radius: 15px;
+    object-fit: cover;
   }
   .custom-div-1 {
     font-size: xx-large;
@@ -752,9 +756,9 @@
       vertical-align: middle;
     }
     .navbar .navbar-brand-wrapper .navbar-brand img {
-      width: 50px;
-      max-width: 100%;
-      height: 50px;
+      // width: 50px;
+      // max-width: 100%;
+      // height: 50px;
       margin: auto;
       vertical-align: middle;
     }
@@ -764,7 +768,7 @@
       -moz-transition: width 0.25s ease, background 0.25s ease;
       -ms-transition: width 0.25s ease, background 0.25s ease;
       background: #808080;
-      width: 341.5px;
+      width: 337.25px;
       height: 64px;
     }
     .navbar .navbar-menu-wrapper .navbar-nav.navbar-nav-right {
@@ -814,7 +818,7 @@
       background: #808080;
       font-family: "nunito-medium", sans-serif;
       padding: 0;
-      width: 341.5px;
+      // width: 341.5px;
       z-index: 11;
       transition: width 0.25s ease, background 0.25s ease;
       -webkit-transition: width 0.25s ease, background 0.25s ease;
@@ -892,5 +896,35 @@
   }
   .custom-btn {
     background: #000000;
+  }
+  .btn-logout {
+    background-color: #ff7731;
+    color: #ffffff;
+    border-radius: 30px;
+    border: none;
+  }
+  .btn-login {
+    background-color: #ffffff;
+    border: none;
+    font-weight: bold;
+  }
+  .box-col {
+    border: 1px solid black;
+    height: 450px !important;
+  }
+  .custom-icon {
+    width: 80%;
+  }
+  .custom-text {
+    color: black;
+    font-weight: 700;
+  }
+  .logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+  }
+  .margin-top-bottom {
+    margin: 50px 50px;
   }
 }
