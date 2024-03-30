@@ -85,11 +85,12 @@ function Post() {
                             />
                           </div>
                           <div className="text-div-a">
-                            <span className="custom-div">Ngôn ngữ</span>
+                            <span className="custom-div">Tác giả</span>
                             <span className="item-1">
+                              Được khởi tạo:{" "}
                               {new Date(post.created_at).toLocaleDateString()}
                             </span>
-                            <span className="item-1">Tác giả</span>
+                            {/* <span className="item-1">Tác giả</span> */}
                           </div>
                         </div>
                       </div>

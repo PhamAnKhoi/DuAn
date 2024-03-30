@@ -42,7 +42,9 @@ function CreatePost() {
       );
 
       if (response.data) {
-        console.log(response.data);
+        // console.log(response.data);
+        alert("Tạo bài viết thành công!");
+        window.location.href = "/admin/create-post";
       }
       setTitle("");
       setContent("");
