@@ -98,7 +98,7 @@ function ListCourse() {
               <SidebarAdmin page="listCourse" />
             </div>
             <div className="col">
-              <HeaderAdmin />
+              <HeaderAdmin page="2"/>
               <div className="custom-border-top list-course">
                 <table className="table table-striped table-bordered">
                   <thead>

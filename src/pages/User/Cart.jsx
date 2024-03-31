@@ -129,7 +129,7 @@ function Cart(prop) {
                                 <img
                                   src={v.thumbnail}
                                   width={120}
-                                  class="rounded object-fit-cover"
+                                  className="rounded object-fit-cover"
                                   alt=""
                                 />
                               </td>
@@ -173,9 +173,9 @@ function Cart(prop) {
                     <span className="pay-2-2">123123đ</span>
                   </div>
                   <div className="mt-2">
-                    <div class="form-check">
+                    <div className="form-check">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="radio"
                         name="payment"
                         id="momoatm"
@@ -183,36 +183,36 @@ function Cart(prop) {
                         onChange={() => setPayment("MOMO_ATM")}
                       />
                       <label
-                        class="form-check-label"
+                        className="form-check-label"
                         for="momoatm"
                         onChange={() => setPayment("MOMO_ATM")}
                       >
                         MOMO ATM
                       </label>
                     </div>
-                    <div class="form-check">
+                    <div className="form-check">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="radio"
                         name="payment"
                         id="vnpatm"
                         checked={payment === "VNPAY"}
                         onChange={() => setPayment("VNPAY")}
                       />
-                      <label class="form-check-label" for="vnpatm">
+                      <label className="form-check-label" for="vnpatm">
                         VNPAY ATM
                       </label>
                     </div>
-                    <div class="form-check">
+                    <div className="form-check">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="radio"
                         name="payment"
                         id="momoqr"
                         checked={payment === "MOMO"}
                         onChange={() => setPayment("MOMO")}
                       />
-                      <label class="form-check-label" for="momoqr">
+                      <label className="form-check-label" for="momoqr">
                         MOMO QR
                       </label>
                     </div>
@@ -221,7 +221,7 @@ function Cart(prop) {
                     Tiến hành thanh toán
                   </div>
                   <div className="pay-1">
-                    <i class="fa fa-tag" aria-hidden="true">
+                    <i className="fa fa-tag" aria-hidden="true">
                       {" "}
                     </i>
                     <span> Phiếu ưu đãi</span>

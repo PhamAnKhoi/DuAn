@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../pages/User/Home.jsx";
 import Post from "../pages/User/Post.jsx";
@@ -18,7 +18,17 @@ import CourseDetails from "../pages/User/DetailCourse.jsx";
 import Admin from "../pages/Admin/Admin.jsx";
 import ListCourse from "../pages/Admin/ListCourse.jsx";
 import ListPost from "../pages/Admin/ListPost.jsx";
+import Cookies from "js-cookie";
 function Dashboard() {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+  useEffect(() => {
+    if (Cookies.get("user") !== undefined) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
   return (
     <BrowserRouter basename="/">
       <Routes>
@@ -34,14 +44,19 @@ function Dashboard() {
         <Route path="/register" element={<Register />} />
         <Route path="/course/:courseId" element={<CourseDetails />} />
         {/* Admin */}
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/admin/list-course" element={<ListCourse />} />
-        <Route path="/admin/list-post" element={<ListPost />} />
-        <Route path="/admin/create-post" element={<CreatePost />} />
-        <Route path="/admin/edit-post/:postId" element={<EditPost />} />
-        {/* <Route path="/admin/login" element={<AdminLogin />} /> */}
-        <Route path="/admin/create-course" element={<CreateCourse />} />
-        <Route path="/admin/edit-course/:courseId" element={<EditCourse />} />
+        {isLoggedIn ?
+          (
+            <>
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin/list-course" element={<ListCourse />} />
+              <Route path="/admin/list-post" element={<ListPost />} />
+              <Route path="/admin/create-post" element={<CreatePost />} />
+              <Route path="/admin/edit-post/:postId" element={<EditPost />} />
+              <Route path="/admin/create-course" element={<CreateCourse />} />
+              <Route path="/admin/edit-course/:courseId" element={<EditCourse />} />
+            </>
+          ) : ('')
+        }
       </Routes>
     </BrowserRouter>
   );

@@ -39,9 +39,8 @@ function Login() {
 
       // Assuming the API returns a token upon successful login
       const user = data;
-
-      // console.log(user);
-      Cookies.set("user", JSON.stringify(user));
+      let exprire = user.expires_in === "7200 second" ? 2/24 : 7;
+      Cookies.set("user", JSON.stringify(user), { expires: exprire });
       // You can store the token in the state or context for future use (e.g., authentication)
     } catch (error) {
       console.error("Login failed:", error);

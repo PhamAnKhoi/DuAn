@@ -63,15 +63,15 @@ function CreateCourse() {
   };
   return (
     <div className="Admin">
-      <div className="container-fluid">
+      <div className="container-fluid p-0">
         <div className=" HeaderAdmin SidebarAdmin">
-          <div className="row vh-100">
-            <div className="col-lg-3 p-0">
+          <div className="row vh-100 w-100">
+            <div className="col-lg-2 col-md-2 p-0">
               <SidebarAdmin page="createCourse" />
             </div>
 
             <div className="col">
-              <HeaderAdmin />
+              <HeaderAdmin page="create" />
               <div className="custom-border-top w-100">
                 <form
                   className="custom-form mt-3 w-100 py-3 px-4"

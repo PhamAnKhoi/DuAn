@@ -100,7 +100,7 @@ function EditCourse() {
             </div>
 
             <div className="col">
-              <HeaderAdmin />
+              <HeaderAdmin page="edit"/>
               <div className="custom-border-top">
                 <form
                   className="custom-form m-auto"

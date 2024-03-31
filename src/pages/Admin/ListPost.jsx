@@ -57,7 +57,7 @@ function ListPost() {
               <SidebarAdmin page="listPost" />
             </div>
             <div className="col">
-              <HeaderAdmin />
+            <HeaderAdmin page="2"/>
               <div className="custom-border-top list-post">
                 <table className="table table-striped table-bordered">
                   <thead>

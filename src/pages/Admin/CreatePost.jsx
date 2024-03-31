@@ -70,7 +70,7 @@ function CreatePost() {
             </div>
 
             <div className="col">
-              <HeaderAdmin />
+            <HeaderAdmin page="create"/>
               <div className="custom-border-top w-100">
                 <form
                   className="custom-form w-100 m-0 mt-3 w-100 py-3 px-4"

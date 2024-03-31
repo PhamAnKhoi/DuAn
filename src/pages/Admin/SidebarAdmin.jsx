@@ -4,7 +4,7 @@ import logo from "./logo.png";
 const SidebarAdmin = ({page = '/'}) => {
   return (
     <>
-      <nav className="sidebar sidebar-offcanvas" id="sidebar">
+      <nav className="sidebar sidebar-offcanvas ps-3" id="sidebar">
         <ul className="nav d-flex flex-column">
           <Link className="text-decoration-none" to={"/admin"}>
             {/* <div className="navbar-brand-wrapper d-flex align-items-center">
@@ -22,7 +22,7 @@ const SidebarAdmin = ({page = '/'}) => {
             <li className="nav-item px-3">
               <a className={`nav-link ${page ==='/' ? 'active' : ''}`} href="/#">
                 <span className="icon-bg">
-                  <i class="fa fa-home" aria-hidden="true"></i>
+                  <i className="fa fa-home" aria-hidden="true"></i>
                 </span>
                 <span className="menu-title fs-5">Trang chủ</span>
               </a>
@@ -32,7 +32,7 @@ const SidebarAdmin = ({page = '/'}) => {
             <li className="nav-item px-3">
               <a className={`nav-link ${page === 'createPost' ? 'active' : ''}`} href="/#">
                 <span className="icon-bg">
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                  <i className="fa fa-pencil" aria-hidden="true"></i>
                 </span>
                 <span className="menu-title fs-5">Tạo bài viết</span>
               </a>
@@ -42,7 +42,7 @@ const SidebarAdmin = ({page = '/'}) => {
             <li className="nav-item px-3">
               <a className={`nav-link ${page === 'listPost' ? 'active' : ''}`} href="/#">
                 <span className="icon-bg">
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                  <i className="fa fa-pencil" aria-hidden="true"></i>
                 </span>
                 <span className="menu-title fs-5">Danh sách bài viết</span>
               </a>
@@ -52,7 +52,7 @@ const SidebarAdmin = ({page = '/'}) => {
             <li className="nav-item px-3">
               <a className={`nav-link ${page === 'createCourse' ? 'active' : ''}`} href="/#">
                 <span className="icon-bg">
-                  <i class="fa fa-book" aria-hidden="true"></i>
+                  <i className="fa fa-book" aria-hidden="true"></i>
                 </span>
                 <span className="menu-title fs-5">Tạo khóa học</span>
               </a>

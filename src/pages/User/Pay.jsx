@@ -10,28 +10,28 @@ function Pay() {
             <div className="col-lg-7">
               <div className="custom-div-1">Thông tin thanh toán</div>
               <div>
-                <div class="form-floating mb-3">
+                <div className="form-floating mb-3">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="floatingName"
                     placeholder="Name"
                   />
                   <label for="floatingName">Tên khách hàng</label>
                 </div>
-                <div class="form-floating mb-3">
+                <div className="form-floating mb-3">
                   <input
                     type="email"
-                    class="form-control"
+                    className="form-control"
                     id="floatingInput"
                     placeholder="name@example.com"
                   />
                   <label for="floatingInput">Địa chỉ Email</label>
                 </div>
-                <div class="form-floating">
+                <div className="form-floating">
                   <input
                     type="password"
-                    class="form-control"
+                    className="form-control"
                     id="floatingPassword"
                     placeholder="Password"
                   />
@@ -41,7 +41,7 @@ function Pay() {
             </div>
             <div className="col pay-0">
               <div className="pay-1">Đơn hàng của bạn</div>
-              <table class="table">
+              <table className="table">
                 <thead className="border-n">
                   <tr className="thead-tr">
                     <th className="border-n">Sản phẩm</th>
