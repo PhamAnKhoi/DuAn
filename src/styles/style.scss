@@ -1013,8 +1013,19 @@
   }
 
   // active link
-  .sidebar .nav .nav-item .nav-link.active span {
-    color: #ff7731 !important;
+  // .col-auto.col-md-3.col-xl-2.px-sm-2.px-0.bg-light {
+    
+  // }
+  .nav .nav-item .nav-link {
+    color: #222;
+  }
+  .nav .nav-item .nav-link:hover {
+    background-color: #ffae42 !important;
+    color: #fff;
+  }
+  .nav .nav-item .nav-link.active {
+    color: #fff;
+    background-color: #ff7731 !important;
   }
 
   .custom-form {
@@ -1131,4 +1142,9 @@
   }
 
   /* Tùy chỉnh màu nền header của bảng */
+}
+span.hr-tag {
+  border: .5px solid #dbdbdb90 !important;
+  display: block;
+  width: 100% !important;
 }

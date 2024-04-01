@@ -85,80 +85,76 @@ function EditPost() {
 
   return (
     <div className="Admin">
-       <div className="container-fluid p-0">
-        <div className=" HeaderAdmin SidebarAdmin">
-          <div className="row vh-100 mx-auto">
-            <div className="col-lg-2 col-md-2 p-0">
-              <SidebarAdmin page="null" />
-            </div>
+      <div className="container-fluid">
+        <div className="row flex-nowrap">
+          <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
+            <SidebarAdmin page="/" />
+          </div>
+          <div className="col py-1">
+            <HeaderAdmin />
 
-            <div className="col">
-              <HeaderAdmin />
-              <div className="custom-border-top">
-                <form className="custom-form m-auto" onSubmit={handleEditPost}>
-                  <div className="custom-div-1">Chỉnh sửa bài viết</div>
-                  <div className="mb-3">
-                    <label className="form-label">Tên bài viết: </label>
+            <div className="custom-border-top">
+              <form className="custom-form m-auto" onSubmit={handleEditPost}>
+                <div className="custom-div-1">Chỉnh sửa bài viết</div>
+                <div className="mb-3">
+                  <label className="form-label">Tên bài viết: </label>
+                  <input
+                    className="form-control"
+                    placeholder="Tên bài viết"
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Nội dung: </label>
+                  <textarea
+                    className="form-control"
+                    placeholder="Nội dung của bài viết"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Hình ảnh chỉnh sửa: </label>
+                  <input
+                    className="form-control"
+                    type="file"
+                    onChange={handleThumbnailChange}
+                  />
+                  <img
+                    src={thumbnailUrl || thumbnail}
+                    alt=""
+                    width={200}
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
+                <div className="mb-3">
+                  <div className="form-label"> Trạng thái: </div>
+                  <div className="mb-1">
                     <input
-                      className="form-control"
-                      placeholder="Tên bài viết"
-                      type="text"
-                      value={title}
-                      onChange={(e) => setTitle(e.target.value)}
+                      type="radio"
+                      value="1"
+                      checked={status === 1}
+                      onChange={() => setStatus(1)}
                     />
+                    <span className="mx-2">Hiển thị khóa học</span>
                   </div>
-                  <div className="mb-3">
-                    <label className="form-label">Nội dung: </label>
-                    <textarea
-                      className="form-control"
-                      placeholder="Nội dung của bài viết"
-                      value={content}
-                      onChange={(e) => setContent(e.target.value)}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Hình ảnh chỉnh sửa: </label>
+                  <div className="mb-1">
                     <input
-                      className="form-control"
-                      type="file"
-                      onChange={handleThumbnailChange}
+                      type="radio"
+                      value="0"
+                      checked={status === 0}
+                      onChange={() => setStatus(0)}
                     />
-                    <img
-                      src={thumbnailUrl || thumbnail}
-                      alt=""
-                      width={200}
-                      style={{ objectFit: "cover" }}
-                    />
+                    <span className="mx-2">Ẩn khóa học</span>
                   </div>
-                  <div className="mb-3">
-                    <div className="form-label"> Trạng thái: </div>
-                    <div className="mb-1">
-                      <input
-                        type="radio"
-                        value="1"
-                        checked={status === 1}
-                        onChange={() => setStatus(1)}
-                      />
-                      <span className="mx-2">Hiển thị khóa học</span>
-                    </div>
-                    <div className="mb-1">
-                      <input
-                        type="radio"
-                        value="0"
-                        checked={status === 0}
-                        onChange={() => setStatus(0)}
-                      />
-                      <span className="mx-2">Ẩn khóa học</span>
-                    </div>
-                  </div>
-                  <button className="btn btn-primary" type="submit">
-                    Lưu chỉnh sửa
-                  </button>
-                  {errorMessage && (
-                    <p style={{ color: "red" }}>{errorMessage}</p>
-                  )}
-                </form>
-              </div>
+                </div>
+                <button className="btn btn-primary" type="submit">
+                  Lưu chỉnh sửa
+                </button>
+                {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+              </form>
             </div>
           </div>
         </div>

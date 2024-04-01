@@ -49,62 +49,122 @@ function ListPost() {
     window.location.href = `/admin/edit-post/${e}`;
   }
   return (
+    // <div className="Admin">
+    //    <div className="container-fluid p-0">
+    //     <div className=" HeaderAdmin SidebarAdmin">
+    //       <div className="row vh-100 mx-auto">
+    //         <div className="col-lg-2 col-md-2 p-0">
+    //           <SidebarAdmin page="listPost" />
+    //         </div>
+    //         <div className="col">
+    //         <HeaderAdmin page="2"/>
+    //           <div className="custom-border-top list-post">
+    //             <table className="table table-striped table-bordered">
+    //               <thead>
+    //                 <tr>
+    //                   <th className="text-center">#</th>
+    //                   <th className="text-center">Hình ảnh</th>
+    //                   <th className="text-center">Tên bài viết</th>
+    //                   <th className="text-center col-5">Nội dung bài viết</th>
+    //                   <th className="text-center">Chức năng</th>
+    //                 </tr>
+    //               </thead>
+    //               <tbody>
+    //                 {posts.map((post, index) => (
+    //                   <tr className="text-center" key={post.id}>
+    //                     <td>{index + 1}</td>
+    //                     <td>
+    //                       <img
+    //                         className="custom-img"
+    //                         src={post.thumbnail}
+    //                         alt=""
+    //                       />
+    //                     </td>
+    //                     <td>{post.title}</td>
+    //                     <td>
+    //                       <p style={{ height: "100px", overflow: "hidden" }}>
+    //                         {post.content}
+    //                       </p>
+    //                     </td>
+    //                     <td className="text-center ">
+    //                       <div className="d-flex align-items-center">
+    //                         <button className="btn btn-warning me-2">
+    //                           <i className="fa fa-trash" aria-hidden="true"></i>
+    //                         </button>
+    //                         <button
+    //                           className="btn btn-success"
+    //                           value={post.id}
+    //                           onClick={() => handleEditPost(post.id)}
+    //                         >
+    //                           <i className="fa fa-pencil" aria-hidden="true"></i>
+    //                         </button>
+    //                       </div>
+    //                     </td>
+    //                   </tr>
+    //                 ))}
+    //               </tbody>
+    //             </table>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
     <div className="Admin">
-       <div className="container-fluid p-0">
-        <div className=" HeaderAdmin SidebarAdmin">
-          <div className="row vh-100 mx-auto">
-            <div className="col-lg-2 col-md-2 p-0">
-              <SidebarAdmin page="listPost" />
-            </div>
-            <div className="col">
-            <HeaderAdmin page="2"/>
-              <div className="custom-border-top list-post">
-                <table className="table table-striped table-bordered">
-                  <thead>
-                    <tr>
-                      <th className="text-center">#</th>
-                      <th className="text-center">Hình ảnh</th>
-                      <th className="text-center">Tên bài viết</th>
-                      <th className="text-center col-5">Nội dung bài viết</th>
-                      <th className="text-center">Chức năng</th>
+      <div className="container-fluid">
+        <div className="row flex-nowrap">
+          <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
+            <SidebarAdmin page="listPost" />
+          </div>
+          <div className="col py-1">
+            <HeaderAdmin />
+
+            <div className="custom-border-top list-post">
+              <table className="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th className="text-nowrap text-center">#</th>
+                    <th className="text-nowrap text-center">Hình ảnh</th>
+                    <th className="text-nowrap text-center">Tên bài viết</th>
+                    <th className="text-nowrap text-center col-5">Nội dung bài viết</th>
+                    <th className="text-nowrap text-center">Chức năng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {posts.map((post, index) => (
+                    <tr className="text-center" key={post.id}>
+                      <td>{index + 1}</td>
+                      <td>
+                        <img
+                          className="custom-img"
+                          src={post.thumbnail}
+                          alt=""
+                        />
+                      </td>
+                      <td>{post.title}</td>
+                      <td>
+                        <p style={{ height: "100px", overflow: "hidden" }}>
+                          {post.content}
+                        </p>
+                      </td>
+                      <td className="text-center ">
+                        <div className="d-flex align-items-center">
+                          <button className="btn btn-warning me-2">
+                            <i className="fa fa-trash" aria-hidden="true"></i>
+                          </button>
+                          <button
+                            className="btn btn-success"
+                            value={post.id}
+                            onClick={() => handleEditPost(post.id)}
+                          >
+                            <i className="fa fa-pencil" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {posts.map((post, index) => (
-                      <tr className="text-center" key={post.id}>
-                        <td>{index + 1}</td>
-                        <td>
-                          <img
-                            className="custom-img"
-                            src={post.thumbnail}
-                            alt=""
-                          />
-                        </td>
-                        <td>{post.title}</td>
-                        <td>
-                          <p style={{ height: "100px", overflow: "hidden" }}>
-                            {post.content}
-                          </p>
-                        </td>
-                        <td className="text-center ">
-                          <div className="d-flex align-items-center">
-                            <button className="btn btn-warning me-2">
-                              <i className="fa fa-trash" aria-hidden="true"></i>
-                            </button>
-                            <button
-                              className="btn btn-success"
-                              value={post.id}
-                              onClick={() => handleEditPost(post.id)}
-                            >
-                              <i className="fa fa-pencil" aria-hidden="true"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

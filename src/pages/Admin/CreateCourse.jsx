@@ -4,7 +4,7 @@ import axios from "axios";
 import HeaderAdmin from "./HeaderAdmin";
 import SidebarAdmin from "./SidebarAdmin";
 // import { Editor } from "@tinymce/tinymce-react";
-import TinyEditor from '../../components/editor'
+import TinyEditor from "../../components/editor";
 function CreateCourse() {
   var user = Cookies.get("user");
   if (user !== undefined) {
@@ -62,88 +62,216 @@ function CreateCourse() {
     setDescription(description);
   };
   return (
-    <div className="Admin">
-      <div className="container-fluid p-0">
-        <div className=" HeaderAdmin SidebarAdmin">
-          <div className="row vh-100 w-100">
-            <div className="col-lg-2 col-md-2 p-0">
-              <SidebarAdmin page="createCourse" />
-            </div>
+    // <div className="Admin">
+    //   <div className="container-fluid p-0">
+    //     <div className=" HeaderAdmin SidebarAdmin">
+    //       <div className="row vh-100 w-100">
+    //         <div className="col-lg-2 col-md-2 p-0">
+    //           <SidebarAdmin page="createCourse" />
+    //         </div>
 
-            <div className="col">
-              <HeaderAdmin page="create" />
-              <div className="custom-border-top w-100">
-                <form
-                  className="custom-form mt-3 w-100 py-3 px-4"
-                  onSubmit={handleCreateCourse}
-                >
-                  <div className="custom-div-1 fs-4 mb-2" >Thêm khóa học mới</div>
-                  <div className="row">
-                    <div className="col">
-                      <div className="mb-3">
-                        <label className="form-label">Tên khóa học: </label>
-                        <input
-                          className="form-control"
-                          placeholder="Tên khóa học"
-                          type="text"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          required
-                        />
-                      </div>
-                    </div>
-                    <div className="col">
-                      <div className="mb-3">
-                        <label className="form-label">Giá: (VND)</label>
-                        <input
-                          min={0}
-                          className="form-control"
-                          placeholder="Giá khóa học"
-                          type="number"
-                          value={price}
-                          onChange={(e) => setPrice(e.target.value)}
-                          required
-                        />
-                      </div>
+    //         <div className="col">
+    //           <HeaderAdmin page="create" />
+    //           <div className="custom-border-top w-100">
+    //             <form
+    //               className="custom-form mt-3 w-100 py-3 px-4"
+    //               onSubmit={handleCreateCourse}
+    //             >
+    //               <div className="custom-div-1 fs-4 mb-2" >Thêm khóa học mới</div>
+    //               <div className="row">
+    //                 <div className="col">
+    //                   <div className="mb-3">
+    //                     <label className="form-label">Tên khóa học: </label>
+    //                     <input
+    //                       className="form-control"
+    //                       placeholder="Tên khóa học"
+    //                       type="text"
+    //                       value={name}
+    //                       onChange={(e) => setName(e.target.value)}
+    //                       required
+    //                     />
+    //                   </div>
+    //                 </div>
+    //                 <div className="col">
+    //                   <div className="mb-3">
+    //                     <label className="form-label">Giá: (VND)</label>
+    //                     <input
+    //                       min={0}
+    //                       className="form-control"
+    //                       placeholder="Giá khóa học"
+    //                       type="number"
+    //                       value={price}
+    //                       onChange={(e) => setPrice(e.target.value)}
+    //                       required
+    //                     />
+    //                   </div>
+    //                 </div>
+    //               </div>
+    //               <div className="mb-3">
+    //                 <label className="form-label">Mô tả: </label>
+    //                 {/* <textarea
+    //                   className="form-control"
+    //                   placeholder="Mô tả nội dung khóa học"
+    //                   value={description}
+    //                   onChange={(e) => setDescription(e.target.value)}
+    //                   required
+    //                 /> */}
+    //                 {/* <textarea name="" id="cotnent"></textarea> */}
+    //                 <TinyEditor initialValue={description} onChange={handleEditorChange} height={300} />
+    //               </div>
+
+    //               <div className="row">
+    //                 <div className="mb-3 col">
+    //                   <label className="form-label">Lượt xem: </label>
+    //                   <input
+    //                     min={0}
+    //                     className="form-control"
+    //                     placeholder="Số lượt xem"
+    //                     type="number"
+    //                     value={views}
+    //                     onChange={(e) => setViews(e.target.value)}
+    //                     required
+    //                   />
+    //                 </div>
+    //                 <div className="mb-3 col">
+    //                   <label className="form-label">Ảnh minh họa: </label>
+    //                   <input
+    //                     className="form-control"
+    //                     type="file"
+    //                     onChange={(e) => setThumbnail(e.target.files[0])}
+    //                     required
+    //                   />
+    //                 </div>
+    //               </div>
+    //               {/* <div className="mb-3">
+    //             <label className="form-label">
+    //               Video giới thiệu khóa học:{" "}
+    //             </label>
+    //             <input
+    //               className="form-control"
+    //               type="file"
+    //               onChange={(e) => setVideoDemoUrl(e.target.files[0])}
+    //             />
+    //           </div> */}
+    //               <div className="mb-3">
+    //                 <div className="form-label"> Trạng thái: </div>
+    //                 <div className="mb-1">
+    //                   <input
+    //                     type="radio"
+    //                     value="1"
+    //                     checked={status === 1}
+    //                     onChange={() => setStatus(1)}
+    //                   />
+    //                   <span className="mx-2">Hiển thị khóa học</span>
+    //                 </div>
+    //                 <div className="mb-1">
+    //                   <input
+    //                     type="radio"
+    //                     value="0"
+    //                     checked={status === 0}
+    //                     onChange={() => setStatus(0)}
+    //                   />
+    //                   <span className="mx-2">Ẩn khóa học</span>
+    //                 </div>
+    //               </div>
+    //               <button className="btn btn-primary" type="submit">
+    //                 Lưu khóa học
+    //               </button>
+    //               {errorMessage && (
+    //                 <p style={{ color: "red" }}>{errorMessage}</p>
+    //               )}
+    //             </form>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
+    <div className="Admin">
+      <div className="container-fluid">
+        <div className="row flex-nowrap">
+          <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
+            <SidebarAdmin page="createCourse" />
+          </div>
+          <div className="col py-1">
+            <HeaderAdmin />
+
+            <div className="custom-border-top w-100">
+              <form
+                className="custom-form mt-3 w-100 py-3 px-4"
+                onSubmit={handleCreateCourse}
+              >
+                <div className="custom-div-1 fs-4 mb-2">Thêm khóa học mới</div>
+                <div className="row">
+                  <div className="col">
+                    <div className="mb-3">
+                      <label className="form-label">Tên khóa học: </label>
+                      <input
+                        className="form-control"
+                        placeholder="Tên khóa học"
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                      />
                     </div>
                   </div>
-                  <div className="mb-3">
-                    <label className="form-label">Mô tả: </label>
-                    {/* <textarea
+                  <div className="col">
+                    <div className="mb-3">
+                      <label className="form-label">Giá: (VND)</label>
+                      <input
+                        min={0}
+                        className="form-control"
+                        placeholder="Giá khóa học"
+                        type="number"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Mô tả: </label>
+                  {/* <textarea
                       className="form-control"
                       placeholder="Mô tả nội dung khóa học"
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                       required
                     /> */}
-                    {/* <textarea name="" id="cotnent"></textarea> */}
-                    <TinyEditor initialValue={description} onChange={handleEditorChange} height={300} />
-                  </div>
+                  {/* <textarea name="" id="cotnent"></textarea> */}
+                  <TinyEditor
+                    initialValue={description}
+                    onChange={handleEditorChange}
+                    height={300}
+                  />
+                </div>
 
-                  <div className="row">
-                    <div className="mb-3 col">
-                      <label className="form-label">Lượt xem: </label>
-                      <input
-                        min={0}
-                        className="form-control"
-                        placeholder="Số lượt xem"
-                        type="number"
-                        value={views}
-                        onChange={(e) => setViews(e.target.value)}
-                        required
-                      />
-                    </div>
-                    <div className="mb-3 col">
-                      <label className="form-label">Ảnh minh họa: </label>
-                      <input
-                        className="form-control"
-                        type="file"
-                        onChange={(e) => setThumbnail(e.target.files[0])}
-                        required
-                      />
-                    </div>
+                <div className="row">
+                  <div className="mb-3 col">
+                    <label className="form-label">Lượt xem: </label>
+                    <input
+                      min={0}
+                      className="form-control"
+                      placeholder="Số lượt xem"
+                      type="number"
+                      value={views}
+                      onChange={(e) => setViews(e.target.value)}
+                      required
+                    />
                   </div>
-                  {/* <div className="mb-3">
+                  <div className="mb-3 col">
+                    <label className="form-label">Ảnh minh họa: </label>
+                    <input
+                      className="form-control"
+                      type="file"
+                      onChange={(e) => setThumbnail(e.target.files[0])}
+                      required
+                    />
+                  </div>
+                </div>
+                {/* <div className="mb-3">
                 <label className="form-label">
                   Video giới thiệu khóa học:{" "}
                 </label>
@@ -153,35 +281,32 @@ function CreateCourse() {
                   onChange={(e) => setVideoDemoUrl(e.target.files[0])}
                 />
               </div> */}
-                  <div className="mb-3">
-                    <div className="form-label"> Trạng thái: </div>
-                    <div className="mb-1">
-                      <input
-                        type="radio"
-                        value="1"
-                        checked={status === 1}
-                        onChange={() => setStatus(1)}
-                      />
-                      <span className="mx-2">Hiển thị khóa học</span>
-                    </div>
-                    <div className="mb-1">
-                      <input
-                        type="radio"
-                        value="0"
-                        checked={status === 0}
-                        onChange={() => setStatus(0)}
-                      />
-                      <span className="mx-2">Ẩn khóa học</span>
-                    </div>
+                <div className="mb-3">
+                  <div className="form-label"> Trạng thái: </div>
+                  <div className="mb-1">
+                    <input
+                      type="radio"
+                      value="1"
+                      checked={status === 1}
+                      onChange={() => setStatus(1)}
+                    />
+                    <span className="mx-2">Hiển thị khóa học</span>
                   </div>
-                  <button className="btn btn-primary" type="submit">
-                    Lưu khóa học
-                  </button>
-                  {errorMessage && (
-                    <p style={{ color: "red" }}>{errorMessage}</p>
-                  )}
-                </form>
-              </div>
+                  <div className="mb-1">
+                    <input
+                      type="radio"
+                      value="0"
+                      checked={status === 0}
+                      onChange={() => setStatus(0)}
+                    />
+                    <span className="mx-2">Ẩn khóa học</span>
+                  </div>
+                </div>
+                <button className="btn btn-primary" type="submit">
+                  Lưu khóa học
+                </button>
+                {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+              </form>
             </div>
           </div>
         </div>
