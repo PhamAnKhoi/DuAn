@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 const CourseSalesChart = ({
   label,
@@ -25,32 +26,42 @@ const CourseSalesChart = ({
       }
 
       const labels = data.map((item) => item.keys);
-      const sales = data.map((item) => item.values);
+      const values = data.map((item) => item.values);
 
       const ctx = chartRef.current.getContext("2d");
       chartRef.current.chart = new Chart(ctx, {
         type: type,
         data: {
           labels: labels,
+          // datalabels: {
+          //   color: '#FFCE56'
+          // },
           datasets: [
             {
               label: label,
-              data: sales,
-            //   barPercentage: 0.5,
-            //   barThickness: 30,
-            //   maxBarThickness: 30,
+              data: values,
               backgroundColor: bg,
               borderColor: border,
               borderWidth: 2,
             },
           ],
         },
+        // plugins: {
+        //   ChartDataLabels: {},
+        // },
         options: {
           scales: {
             y: {
               beginAtZero: true,
             },
-            
+            x: {
+              ticks: {
+                // display: false, // Hides only the labels of the x-axis
+                callback: function(value) {
+                  return truncateLabel(value); // Truncate label if needed
+                }
+              },
+            },
           },
           animations: {
             tension: {
