@@ -56,6 +56,25 @@ function Admin() {
       console.error("Failed to fetch data: ", error);
     }
   };
+
+  // api export
+  const handleExportClick = async () => {
+    console.log('export');
+    // try {
+    //   const response = await axios.get(
+    //     "http://api.course-selling.id.vn/api/admin?export=1",
+    //     {
+    //       headers: {
+    //         "Content-Type": "multipart/form-data", //upload file
+    //         Authorization: `Bearer ${user.access_token}`,
+    //       },
+    //     }
+    //   );
+    // } catch (error) {
+    //   console.error("Failed to export data: ", error);
+    // }
+  }
+
   return (
     // <div className="Admin ">
     //   <div className="container-fluid p-0">
@@ -303,23 +322,33 @@ function Admin() {
 
               {/* begin table and chart */}
               <div className="row border border-primary rounded m-0 mt-3 p-2">
-                <div className=".row d-flex flex-column">
-                  <div className="col-6">
+                <div className=".row d-flex">
+                  <div className="col-md-6 col-lg-6 col-12">
+                    <h5 className="text-center mt-2">Đã bán trong 30 ngày</h5>
                     <CourseSalesChart
                       label={"Đã bán trong 30 ngày"}
                       data={sold30d}
                       margin={"mt-2"}
                     />
                   </div>
-                  <CourseSalesChart
-                    label={"Doanh thu trong 30 ngày"}
-                    data={revenue}
-                    type={"line"}
-                    margin={"mt-5"}
-                  />
+                  <div className="col-md-6 col-lg-6 col-12">
+                    <h5 className="text-center mt-2">Đơn mua hàng</h5>
+                    <CourseSalesChart
+                      label={"Doanh thu trong 30 ngày"}
+                      data={revenue}
+                      type={"line"}
+                      margin={"mt-2"}
+                    />
+                  </div>
                 </div>
-                <div className="col-12 p-2">
-                  <h5>Đơn mua hàng</h5>
+                <div className="col-12 p-2 mt-3">
+                  <h5>
+                    Đơn mua hàng
+                    <button className="btn badge rounded-pill text-bg-success ms-2" title="In file Ecxel" onClick={handleExportClick}>
+                      <i className="fa-solid fa-download"></i>
+                    </button>
+
+                  </h5>
                   {/* table */}
                   <table
                     id="admin-table"
