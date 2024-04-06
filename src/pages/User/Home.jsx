@@ -63,7 +63,7 @@ function Home() {
                 <div className="custom-text">
                   <span className="text-1">Khóa học Pro</span>
                   <span className="text-2">Mới</span>
-                  <span className="btn btn-secondary float-right">
+                  <span className="btn btn-secondary float-end">
                     <Link to={"/course"} className="text-white">
                       Xem tất cả khóa học
                     </Link>
