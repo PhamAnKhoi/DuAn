@@ -67,7 +67,8 @@ function Post() {
                         <div className="row box">
                           <div className="text-div3">{post.title}</div>
                           <div className="col-lg-8">
-                            <div className="my-3">{post.content}</div>
+                            {/* <div className="my-3">{post.content}</div> */}
+                            <div dangerouslySetInnerHTML={{ __html: post.content }} />
                             <div className="my-3">
                               Lượt yêu thích: {post.likes}
                             </div>
