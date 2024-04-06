@@ -31,7 +31,7 @@ function HeaderAdmin({ page = '' }) {
   return (
     <nav className="navbar default-layout-navbar row">
       <div className="col">
-        <div className="navbar-menu-wrapper d-flex align-items-stretch p-0">
+        <div className="navbar-menu-wrapper d-flex align-items-stretch p-0 justify-content-between">
           <div className="search-field d-none d-xl-block">
             <form className="d-flex align-items-center h-100" action="#">
               {/* {isInputDisabled && (
