@@ -3,10 +3,16 @@ import { Link } from "react-router-dom";
 import Header from "./Header.jsx";
 import axios from "axios";
 import Cookies from "js-cookie";
+import ToastMessage from "../../components/notifice.jsx";
 
 function Cart(prop) {
   const [courses, setCourse] = useState([]);
   const [payment, setPayment] = useState("MOMO_ATM");
+  // show noti
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("");
+  //end shownoti
 
   var user = Cookies.get("user");
   if (user !== undefined) {
@@ -28,10 +34,10 @@ function Cart(prop) {
       .then((response) => {
         // Cập nhật danh sách khóa học trong giỏ
         let cart_items = response.data;
-        if (cart_items.status === "ok") {
+        if (cart_items.status === true) {
           setCourse(cart_items.courses);
+          // console.log(cart_items.  courses);
         }
-        console.log(cart_items.courses);
       })
       .catch((error) => {
         console.error("Error fetching courses:", error);
@@ -39,7 +45,7 @@ function Cart(prop) {
   }, [user.access_token]);
   // Gửi yêu cầu GET đến API
   function removeItem(id) {
-    console.log(user.access_token);
+    // console.log(user.access_token);
     axios
       .post(
         `http://api.course-selling.id.vn/api/cart/delete-item/${id}`,
@@ -53,7 +59,14 @@ function Cart(prop) {
       )
       .then((response) => {
         // handle response
-        console.log(response);
+        setShowToast(true);
+        setToastMessage(response.data.message);
+        let variant = response.data.status === true ? "success" : "danger";
+        setToastVariant(variant);
+        // console.log(response);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       })
       .catch((error) => {
         // handle error
@@ -74,20 +87,32 @@ function Cart(prop) {
         }
       )
       .then((response) => {
-        // handle response
-        console.log(response.data);
         if (response.data.CheckOut !== null) {
-          window.location.href = response.data.CheckOut;
+          setShowToast(true);
+          setToastMessage('Đơn hàng đã được tạo thành công. Đang chuyển hướng đến trang thanh toán...');
+          setToastVariant('success');
+          setTimeout(() => {
+            window.location.href = response.data.CheckOut;
+          }, 2000);
         }
       })
       .catch((error) => {
         // handle error
+        setShowToast(true);
+        setToastMessage('Có xẩy ra lỗi khi tạo đơn hàng vui lòng thử lại sau.');
+        setToastVariant('danger');
         console.error("Error removing item:", error);
       });
   }
 
   return (
     <div className="container-fluid">
+      <ToastMessage
+        show={showToast}
+        setShow={setShowToast}
+        message={toastMessage}
+        variant={toastVariant}
+      />
       <Header />
       <div className="container">
         <div className="Cart">

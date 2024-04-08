@@ -5,6 +5,7 @@ import Sidebar from "./Sidebar.jsx";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
+import ToastMessage from "../../components/notifice.jsx";
 
 function Course() {
   const [collapsed, setCollapsed] = useState(Array(99).fill(true));
@@ -12,7 +13,13 @@ function Course() {
   const [course, setCourse] = useState([]);
   let param = useParams();
   let courseId = param.courseId;
-  console.log(course);
+  // console.log(course);
+
+  // show noti
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("");
+  //end shownoti
 
   useEffect(() => {
     axios
@@ -32,8 +39,13 @@ function Course() {
     if (user !== undefined) {
       user = JSON.parse(user);
     } else {
-      alert("Bạn cần đăng nhập để thực hiện chức năng này.");
-      window.location.href = "/login";
+      // alert("Bạn cần đăng nhập để thực hiện chức năng này.");
+      setShowToast(true);
+      setToastMessage("Bạn cần đăng nhập để thực hiện chức năng này.");
+      setToastVariant("warning");
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1000);
     }
     axios
       .post(
@@ -49,11 +61,18 @@ function Course() {
       .then((response) => {
         // handle response
         // console.log(response.data);
-        alert(response.data.message);
+        // alert(response.data.message);
+        // console.log(response.data);
+        setShowToast(true);
+        setToastMessage(response.data.message);
+        let variant = response.data.status === true ? 'success':'danger';
+        setToastVariant(variant);
       })
       .catch((error) => {
-        // handle error
-        console.error("Error removing item:", error);
+        setShowToast(true);
+        setToastMessage('Có xẩy ra lỗi khi thêm sản phẩm vào giỏ hàng');
+        setToastVariant('danger');
+        console.error("Error to add item:", error);
       });
   };
   const toggleCollapse = (index) => {
@@ -69,6 +88,12 @@ function Course() {
   };
   return (
     <div>
+      <ToastMessage
+        show={showToast}
+        setShow={setShowToast}
+        message={toastMessage}
+        variant={toastVariant}
+      />
       <div className="container-fluid">
         <Header />
         <div className="row Sidebar">

@@ -3,10 +3,16 @@ import { Input, Space } from "antd";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import ToastMessage from "../../components/notifice";
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(null);
+  // show noti
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("");
+  //end shownoti
 
   useEffect(() => {
     const userCookie = Cookies.get("user");
@@ -27,11 +33,24 @@ function Header() {
     Cookies.remove("user");
     setIsLoggedIn(false);
     setUserData(null);
-    window.location.href = "/";
+
+    setShowToast(true);
+    setToastMessage("Đăng xuất thành công");
+    setToastVariant("success");
+
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 1000);
   };
 
   return (
     <div className="Header">
+      <ToastMessage
+        show={showToast}
+        setShow={setShowToast}
+        message={toastMessage}
+        variant={toastVariant}
+      />
       <div className="row">
         <div className="col-lg-3 custom-div height-header">
           <Link className="custom-link" to={"/"}>
@@ -60,7 +79,6 @@ function Header() {
                 onClick={handleLogout}
               >
                 Logout
-                
               </button>
             </>
           ) : (

@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
-// import React, { useEffect, useState } from "react";
 import React, { useState } from "react";
 import Cookies from "js-cookie";
+import ToastMessage from "../../components/notifice";
 
 function Login() {
+  // show noti
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("");
+  //end shownoti
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
   // const url = process.env.REACT_APP_API_URL;
   const handleLogin = async (e) => {
@@ -27,29 +31,50 @@ function Login() {
       );
 
       if (!response.ok) {
-        alert("Sai tài khoản hoặc mật khẩu! Vui lòng đăng nhập lại");
-        window.location.href = "/login";
-        // throw new Error("Login failed");
-      } else {
-        alert("Đăng nhập thành công");
-        window.location.href = "/";
+        // alert("Sai tài khoản hoặc mật khẩu! Vui lòng đăng nhập lại");
+        // window.location.href = "/login";
+
+        setShowToast(true);
+        setToastMessage("Sai tài khoản hoặc mật khẩu! Vui lòng đăng nhập lại");
+        setToastVariant("danger");
       }
+      // alert("Đăng nhập thành công");
+      // window.location.href = "/";
 
       const data = await response.json();
-
-      // Assuming the API returns a token upon successful login
-      const user = data;
-      let exprire = user.expires_in === "7200 second" ? 2/24 : 7;
-      Cookies.set("user", JSON.stringify(user), { expires: exprire });
-      // You can store the token in the state or context for future use (e.g., authentication)
+      if (data.status === true) {
+        console.log(data);
+        setShowToast(true);
+        setToastMessage("Đăng nhập thành công");
+        setToastVariant("success");
+        const user = data;
+        let exprire = user.expires_in === "7200 second" ? 2 / 24 : 7;
+        Cookies.set("user", JSON.stringify(user), { expires: exprire });
+        setTimeout(() => {
+          window.location.href = '/'
+        }, 3000);
+      } else {
+        setShowToast(true);
+        setToastMessage("Sai tài khoản hoặc mật khẩu! Vui lòng đăng nhập lại");
+        setToastVariant("danger");
+      }
     } catch (error) {
       console.error("Login failed:", error);
-      setErrorMessage("Login failed. Please check your credentials.");
+      setShowToast(true);
+      setToastMessage("Có lỗi xẩy ra khi đăng nhập!");
+      setToastVariant("danger");
     }
   };
 
   return (
     <div className="Login">
+      <ToastMessage
+        show={showToast}
+        setShow={setShowToast}
+        message={toastMessage}
+        variant={toastVariant}
+      />
+
       <div className="d-flex justify-content-center align-items-center vh-100 box-form">
         <form className="custom-form" onSubmit={handleLogin}>
           <h1 className="mb-3 custom-h1 text-center">Đăng nhập</h1>
@@ -79,7 +104,6 @@ function Login() {
           <button type="submit" className="btn btn-primary mb-3">
             Login
           </button>
-          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
           <div className="mb-3">
             <Link className="custom-link" to={"/register"}>
               <p>Bạn chưa có tài khoản?</p>

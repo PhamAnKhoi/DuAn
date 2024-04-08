@@ -188,10 +188,12 @@ function ListCourse() {
                   <tr>
                     <th className="text-nowrap text-center">#</th>
                     <th className="text-nowrap text-center">Ảnh bìa</th>
-                    <th className="text-nowrap text-center">Tên khóa học</th>
+                    <th className="text-nowrap text-center">Khóa học</th>
                     <th className="text-nowrap text-center">Giá (VNĐ)</th>
-                    <th className="text-nowrap text-center col-4">Nội dung khóa học</th>
-                    <th className="text-nowrap text-center">Tác giả</th>
+                    <th className="text-nowrap text-center col-4">
+                      Nội dung khóa học
+                    </th>
+                    {/* <th className="text-nowrap text-center">Tác giả</th> */}
                     <th className="text-nowrap text-center">Lượt xem</th>
                     <th className="text-nowrap text-center">Chức năng</th>
                   </tr>
@@ -207,7 +209,12 @@ function ListCourse() {
                           alt=""
                         />
                       </td>
-                      <td>{course.name}</td>
+                      <td>
+                        <div className="d-flex flex-column">
+                          <div>Tên: {course.name}</div>
+                          <div>Tạo bởi: {course.creator}</div>
+                        </div>
+                      </td>
                       <td className="text-end">
                         {Number(course.price).toLocaleString("vi")}
                       </td>
@@ -216,7 +223,7 @@ function ListCourse() {
                           {course.description}
                         </p>
                       </td>
-                      <td>{course.creator}</td>
+                      {/* <td>{course.creator}</td> */}
                       <td className="text-center">
                         {course.views}
                         <i className="fa fa-eye ms-1" aria-hidden="true"></i>

@@ -63,7 +63,6 @@ const CourseSalesChart = ({
                             ticks: {
                                 // display: false, // Hides only the labels of the x-axis
                                 callback: function (value) {
-                                    //   return truncateLabel(value); // Truncate label if needed
                                     // let x_label = str.substring(0, maxLength) + "...";
                                     let x_label = labels[value].length > 20 ? `${labels[value].substring(0, 15)}...` : labels[value];
                                     // console.log(labels[value]);
