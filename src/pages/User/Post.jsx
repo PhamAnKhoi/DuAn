@@ -3,9 +3,13 @@ import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import Sidebar from "./Sidebar.jsx";
 import axios from "axios";
+import ReactPaginate from "react-js-pagination";
+import { Link } from "react-router-dom";
 
 function Post() {
   const [posts, setPosts] = useState([]);
+  const [activePage, setActivePage] = useState(1);
+  const postsPerPage = 5;
 
   useEffect(() => {
     axios
@@ -18,33 +22,13 @@ function Post() {
       });
   }, []);
 
-  // const handleDelete = async (postId) => {
-  //   const confirmDelete = window.confirm(
-  //     "Bạn có chắc chắn muốn xóa bài viết này?"
-  //   );
+  const handlePageChange = (pageNumber) => {
+    setActivePage(pageNumber);
+  };
 
-  //   if (confirmDelete) {
-  //     try {
-  //       const response = await axios.post(
-  //         `http://api.course-selling.id.vn/api/post/delete/${postId}`
-  //       );
-
-  //       const { status, message } = response.data;
-
-  //       if (status) {
-  //         alert(message);
-  //         setPosts((prevPosts) =>
-  //           prevPosts.filter((post) => post.id !== postId)
-  //         );
-  //       } else {
-  //         alert("Có lỗi xảy ra khi xóa bài viết");
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-  //       alert("Có lỗi xảy ra khi xóa bài viết");
-  //     }
-  //   }
-  // };
+  const indexOfLastPost = activePage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
   return (
     <div>
@@ -62,36 +46,45 @@ function Post() {
                 </div>
                 <div className="row">
                   <div className="col">
-                    {posts.map((post) => (
+                    {currentPosts.map((post) => (
                       <div key={post.id}>
                         <div className="row box">
                           <div className="text-div3">{post.title}</div>
                           <div className="col-lg-8">
-                            {/* <div className="my-3">{post.content}</div> */}
-                            <div dangerouslySetInnerHTML={{ __html: post.content }} />
-                            <div className="my-3">
-                              Lượt yêu thích: {post.likes}
-                            </div>
-                            <div className="my-3">Lượt xem: {post.views}</div>
-                            <div className="my-3">
-                              Chỉnh sửa lần cuối:{" "}
-                              {new Date(post.updated_at).toLocaleDateString()}
-                            </div>
+                            <span
+                              dangerouslySetInnerHTML={{
+                                __html:
+                                  post.content.length > 499
+                                    ? post.content.substring(0, 700)
+                                    : post.content,
+                              }}
+                            />
+                            {post.content.length > 499 && (
+                              <span>
+                                <Link
+                                  className="custom-decoration"
+                                  to={"/detail-post/" + post.id}
+                                >
+                                  <span> ...Xem thêm</span>
+                                </Link>
+                              </span>
+                            )}
                           </div>
                           <div className="col-lg-4">
                             <img
-                              className="img-content my-3"
+                              className="img-content"
                               src={post.thumbnail}
                               alt="thumbnail"
                             />
                           </div>
                           <div className="text-div-a">
-                            <span className="custom-div">Tác giả</span>
-                            <span className="item-1">
-                              Được khởi tạo:{" "}
+                            <span className="custom-div">
+                              <strong>{post.creator}</strong>
+                            </span>
+                            <span className="custom-div ms-2">
+                              Ngày viết:{" "}
                               {new Date(post.created_at).toLocaleDateString()}
                             </span>
-                            {/* <span className="item-1">Tác giả</span> */}
                           </div>
                         </div>
                       </div>
@@ -99,6 +92,17 @@ function Post() {
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="pagination-container custom-paginate">
+              <ReactPaginate
+                activePage={activePage}
+                itemsCountPerPage={postsPerPage}
+                totalItemsCount={posts.length}
+                pageRangeDisplayed={5}
+                onChange={handlePageChange}
+                itemClass="page-item"
+                linkClass="page-link"
+              />
             </div>
           </div>
         </div>

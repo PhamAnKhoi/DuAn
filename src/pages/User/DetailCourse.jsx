@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import Sidebar from "./Sidebar.jsx";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import ToastMessage from "../../components/notifice.jsx";
@@ -14,7 +14,11 @@ function Course() {
   let param = useParams();
   let courseId = param.courseId;
   // console.log(course);
-
+  var user = Cookies.get("user");
+  if (user !== undefined) {
+    user = JSON.parse(user);
+  }
+  // console.log(user);
   // show noti
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -104,31 +108,16 @@ function Course() {
                 <div className="text-div1">{course.name}</div>
                 <div className="text-div2">{course.description}</div>
                 <div className="text-div3">
-                  Lượt xem: {course.views}{" "}
-                  <i className="fa fa-users" aria-hidden="true"></i>
+                  Lượt xem: {Number(course.views).toLocaleString("vi")} {" "}
+                  <i className="fa fa-eye" aria-hidden="true"></i>
                 </div>
                 <div className="text-div5">Nội dung khóa học</div>
-                <div className="d-flex">
-                  <span>
-                    <strong>4</strong> chương
-                  </span>
-                  <span> - </span>
-                  <span>
-                    <strong>4</strong> bài học
-                  </span>
-                  <span> - </span>
-                  <span>
-                    <strong>100</strong> phút
-                  </span>
-                  <span className="ml-auto">
-                    <button
-                      className="custom-button"
-                      onClick={toggleCollapseAll}
-                    >
-                      {allCollapsed ? "Mở rộng tất cả" : "Thu nhỏ tất cả"}
-                    </button>
-                  </span>
-                </div>
+                <button
+                  className="custom-button"
+                  onClick={toggleCollapseAll}
+                >
+                  {allCollapsed ? "Mở rộng tất cả" : "Thu nhỏ tất cả"}
+                </button>
                 <div>
                   <div>
                     <button
@@ -212,10 +201,7 @@ function Course() {
                   <img className="img-propose" src={course.thumbnail} alt="" />
                 </div>
                 <div>
-                  <div className="custom-div-1">{course.price} VND</div>
-                  <Link to={"/video"} className="text-decoration-none">
-                    <div className="custom-div-2 m-auto">Đăng ký học</div>
-                  </Link>
+                  <div className="custom-div-1">{Number(course.price).toLocaleString("vi")} VND</div>
                   <div
                     className="custom-div-2 m-auto"
                     onClick={() => addToCart(courseId)}

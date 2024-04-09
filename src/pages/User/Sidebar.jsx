@@ -13,20 +13,20 @@ function Sidebar() {
     <div className="col-lg-1">
       <div className="Sidebar">
         <ul className="list-unstyled">
-          {
-          user && (user.permission === "ADMIN" || user.permission === "TEACHER") && (
-            <li className="custom-center my-2">
-              <div className="custom-box-1">
-                <Link className="custom-link text-black" to={"/admin"}>
-                  <i
-                    className="fa fa-plus custom-center custom-icon"
-                    aria-hidden="true"
-                  ></i>
-                  <p className="custom-center custom-text">Trang ADMIN</p>
-                </Link>
-              </div>
-            </li>
-          )}
+          {user &&
+            (user.permission === "ADMIN" || user.permission === "TEACHER") && (
+              <li className="custom-center my-2">
+                <div className="custom-box-1">
+                  <Link className="custom-link text-black" to={"/admin"}>
+                    <i
+                      className="fa fa-plus custom-center custom-icon"
+                      aria-hidden="true"
+                    ></i>
+                    <p className="custom-center custom-text">Trang ADMIN</p>
+                  </Link>
+                </div>
+              </li>
+            )}
           <li className="custom-center my-2">
             <div className="custom-box-1">
               <Link className="custom-link" to={"/"}>
@@ -68,6 +68,17 @@ function Sidebar() {
                   aria-hidden="true"
                 ></i>
                 <p className="custom-center custom-text">Khóa học</p>
+              </Link>
+            </div>
+          </li>
+          <li className="custom-center my-2">
+            <div className="custom-box-1">
+              <Link className="custom-link" to={"/my-course"}>
+                <i
+                  className="fa fa-graduation-cap custom-center custom-icon"
+                  aria-hidden="true"
+                ></i>
+                <p className="custom-center custom-text-my-course">Khóa học của tôi</p>
               </Link>
             </div>
           </li>
