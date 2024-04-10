@@ -5,7 +5,7 @@ import Sidebar from "./Sidebar.jsx";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-function Course() {
+function MyCourse() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
@@ -36,15 +36,14 @@ function Course() {
           <Sidebar />
           <div className="col-lg-11 Course">
             <div className="custom-text">
-              <span className="text-1">Khóa học miễn phí</span>
-              {/* <span className="text-2">Mới</span> */}
+              <span className="text-1">Khóa học của tôi</span>
             </div>
             <div className="row">
               {courses.map((course) => (
                 <div key={course.id} className="col-lg-3 p-0 mb-2">
                   <Link
                     className="text-decoration-none"
-                    to={"/detail-course/" + course.id}
+                    to={"/"}
                   >
                     <div className="create-border mx-1">
                       <img
@@ -56,11 +55,8 @@ function Course() {
                         {course.name}
                       </div>
                       <span className="price">
-                        <span className="me-auto">
-                          {Number(course.price).toLocaleString("vi")} VND
-                        </span>
                         <span className="custom-icon-cart">
-                          Thêm vào giỏ hàng
+                          Xem video khóa học
                         </span>
                       </span>
                     </div>
@@ -76,4 +72,4 @@ function Course() {
   );
 }
 
-export default Course;
+export default MyCourse;

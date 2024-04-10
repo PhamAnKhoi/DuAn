@@ -63,26 +63,32 @@ function Home() {
                 <div className="custom-text">
                   <span className="text-1">Khóa học Pro</span>
                   <span className="text-2">Mới</span>
-                  <span className="btn btn-secondary float-end">
-                    <Link to={"/course"} className="text-white">
+                  <span className="text-3">
+                    <Link className="text-4" to={"/course"}>
                       Xem tất cả khóa học
                     </Link>
                   </span>
                 </div>
                 <div className="row">
                   {courses.slice(-8).map((course) => (
-                    <div key={course.id} className="col-lg-3 mb-3">
-                      <Link to={"/course/" + course.id}>
-                        <div>
+                    <div key={course.id} className="col-lg-3 p-0 mb-2">
+                      <Link to={"/detail-course/" + course.id}>
+                        <div className="create-border mx-1">
                           <img
                             className="img-item"
                             src={course.thumbnail}
                             alt={course.name}
                           />
-                          <div className="name-course">{course.name}</div>
+                          <div className="name-course text-center">
+                            {course.name}
+                          </div>
                           <span className="price">
-                            <span className="text-black">Giá khóa học:</span>{" "}
-                            {Number(course.price).toLocaleString("vi")} VND
+                            <span className="me-auto">
+                              {Number(course.price).toLocaleString("vi")} VND
+                            </span>
+                            <span className="custom-icon-cart">
+                              Thêm vào giỏ hàng
+                            </span>
                           </span>
                         </div>
                       </Link>

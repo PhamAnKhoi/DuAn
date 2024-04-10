@@ -10,7 +10,6 @@ import Video from "../pages/User/Video.jsx";
 import Login from "../pages/User/Login.jsx";
 import CreatePost from "../pages/Admin/CreatePost.jsx";
 import EditPost from "../pages/Admin/EditPost.jsx";
-// import AdminLogin from "../pages/Admin/AdminLogin.jsx";
 import CreateCourse from "../pages/Admin/CreateCourse.jsx";
 import EditCourse from "../pages/Admin/EditCourse.jsx";
 import Register from "../pages/User/Register.jsx";
@@ -19,6 +18,8 @@ import Admin from "../pages/Admin/Admin.jsx";
 import ListCourse from "../pages/Admin/ListCourse.jsx";
 import ListPost from "../pages/Admin/ListPost.jsx";
 import Cookies from "js-cookie";
+import MyCourse from "../pages/User/MyCourse.jsx";
+import DetailPost from "../pages/User/DetailPost.jsx";
 function Dashboard() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
@@ -42,7 +43,9 @@ function Dashboard() {
         <Route path="/video" element={<Video />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/course/:courseId" element={<CourseDetails />} />
+        <Route path="/my-course" element={<MyCourse />} />
+        <Route path="/detail-course/:courseId" element={<CourseDetails />} />
+        <Route path="/detail-post/:postId" element={<DetailPost />} />
         {/* Admin */}
         {isLoggedIn ?
           (

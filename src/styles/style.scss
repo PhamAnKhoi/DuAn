@@ -97,6 +97,11 @@
     font-size: x-small;
     color: black;
   }
+  .custom-text-my-course {
+    font-size: x-small;
+    text-align: center;
+    color: black;
+  }
 
   .custom-link {
     text-decoration: none;
@@ -152,6 +157,8 @@
 
   .custom-text {
     margin: 15px 0px;
+    display: flex;
+    align-items: center;
   }
 
   .text-1 {
@@ -160,11 +167,20 @@
   }
 
   .text-2 {
-    padding: 1px 5px;
+    padding: 5px 10px;
     margin-left: 10px;
-    background: #1473e6;
+    background: #007bff;
     color: #ffffff;
     border-radius: 5px;
+  }
+  .text-3{
+    padding: 5px 10px;
+    background: #007bff;
+    border-radius: 5px;
+    margin-left: auto;
+  }
+  .text-4{
+    color: white;
   }
 
   .name-course {
@@ -179,8 +195,24 @@
   }
 
   .price {
-    color: #f05123;
+    color: #000000;
     font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .custom-icon-cart{
+    color: white;
+    float: right;
+    background: #f05123;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  .create-border{
+    border: 1px solid #ddd;
+    padding: 10px;
+    // padding-top: 10px;
+    border-radius: 10px;
   }
 }
 
@@ -295,7 +327,10 @@
 
 .Post {
   margin-bottom: 50px;
-
+  .custom-paginate{
+    display: flex;
+    justify-content: center;
+  }
   .box {
     border: 2px solid #e8e8e8;
     border-radius: 20px;
@@ -317,17 +352,20 @@
 
   .text-div3 {
     font-weight: 500;
+    margin-bottom: 20px;
   }
 
   .img-content {
     width: 100%;
     max-height: 250px;
     border-radius: 15px;
+    object-fit: cover;
   }
 
   .img-propose {
     width: 100%;
     border-radius: 5px;
+    object-fit: cover;
   }
 
   .custom-div {
@@ -347,6 +385,48 @@
     font-size: small;
     margin: 0px 10px;
   }
+  .custom-decoration{
+    text-decoration: none;
+    font-weight: 500;
+    font-style: italic;
+    color: black;
+  }
+}
+
+.detail-post{
+  margin-bottom: 50px;
+  .text-div1 {
+    font-weight: 800;
+    font-size: x-large;
+    margin-top: 30px;
+  }
+  .text-div5 {
+    font-size: large;
+    margin-bottom: 10px;
+  }
+  .img-propose {
+    width: 100%;
+    max-height: 250px;
+    margin-top: 30px;
+    border-radius: 15px;
+    object-fit: cover;
+  }
+  .text-div3 {
+    margin-top: 15px;
+  }
+  .img-logo{
+    width: 60px;
+    border-radius: 100%;
+  }
+  .author-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .author-info {
+    margin-left: 10px;
+  }
+
 }
 
 .Course {
@@ -367,12 +447,6 @@
     background: #1473e6;
     color: #ffffff;
     border-radius: 5px;
-  }
-
-  .price {
-    color: #f05123;
-    font-weight: 500;
-    padding: 0px 15px;
   }
 
   .img-item {
@@ -464,6 +538,8 @@
     background: none;
     color: #f05123;
     font-weight: 500;
+    margin-bottom: 20px;
+    float: right;
   }
 
   .custom-button-item {
@@ -495,6 +571,26 @@
 
   .margin-top-bottom {
     margin: 10px 0px;
+  }
+  .price {
+    color: #000000;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .custom-icon-cart{
+    color: white;
+    float: right;
+    background: #f05123;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  .create-border{
+    border: 1px solid #ddd;
+    padding: 10px;
+    // padding-top: 10px;
+    border-radius: 10px;
   }
 }
 
@@ -1121,6 +1217,10 @@
         margin-bottom: 0px !important;
       }
     }
+    .custom-paginate{
+      display: flex;
+      justify-content: center;
+    }
 
   }
 
@@ -1143,6 +1243,7 @@
 
   /* Tùy chỉnh màu nền header của bảng */
 }
+
 span.hr-tag {
   border: .5px solid #dbdbdb90 !important;
   display: block;
