@@ -59,20 +59,65 @@ function Admin() {
 
   // api export
   const handleExportClick = async () => {
-    console.log('export');
     // try {
     //   const response = await axios.get(
     //     "http://api.course-selling.id.vn/api/admin?export=1",
     //     {
     //       headers: {
-    //         "Content-Type": "multipart/form-data", //upload file
+    //         "Content-Type": "text/xlsx; charset=UTF-8", 
+    //         responseType: 'blob',
     //         Authorization: `Bearer ${user.access_token}`,
     //       },
     //     }
     //   );
+    //   // const url = window.URL.createObjectURL(new Blob([response.data]));
+    //   // const link = document.createElement('a');
+    //   // link.href = url;
+    //   // link.setAttribute('download', 'data.xlsx');
+    //   // document.body.appendChild(link);
+    //   // link.click();
+    //   if (response.status === 200) {
+    //     console.log('ok');
+    //     // const url = window.URL.createObjectURL(new Blob([response.data]));
+    //     let data = new Blob([response.data], { type: "text/xlsx; charset=UTF-8" });
+    //     let url = window.URL.createObjectURL(data);
+    //     const link = document.createElement('a');
+    //     link.href = url;
+    //     link.setAttribute('download', 'data.xlsx');
+    //     document.body.appendChild(link);
+    //     link.click();
+    //   } else {
+    //     console.log('no content');
+    //   }
+
     // } catch (error) {
     //   console.error("Failed to export data: ", error);
     // }
+    try {
+      const response = await fetch("http://api.course-selling.id.vn/api/admin?export=1", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${user.access_token}`,
+        },
+      });
+      if (response.status === 200) {
+        let filename = `Order_Report_${Date.now()}.xlsx`;
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+
+      } else if (response.status === 204) {
+        console.log('No content to download');
+      }
+    } catch (error) {
+      console.error('Error downloading Excel file:', error);
+    }
   }
 
   return (
