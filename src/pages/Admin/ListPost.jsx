@@ -3,10 +3,12 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import HeaderAdmin from "./HeaderAdmin";
 import SidebarAdmin from "./SidebarAdmin";
+import ReactPaginate from "react-js-pagination";
 
 function ListPost() {
   const [posts, setPosts] = useState([]);
-  // console.log(posts);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(5);
 
   var user = Cookies.get("user");
   if (user !== undefined) {
@@ -16,6 +18,10 @@ function ListPost() {
   if (auth !== "ADMIN" && auth !== "TEACHER") {
     window.location.href = "/login";
   }
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -44,72 +50,17 @@ function ListPost() {
 
     fetchPosts();
   }, [user.access_token]);
+
   function handleEditPost(e) {
     console.log(e);
     window.location.href = `/admin/edit-post/${e}`;
   }
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
   return (
-    // <div className="Admin">
-    //    <div className="container-fluid p-0">
-    //     <div className=" HeaderAdmin SidebarAdmin">
-    //       <div className="row vh-100 mx-auto">
-    //         <div className="col-lg-2 col-md-2 p-0">
-    //           <SidebarAdmin page="listPost" />
-    //         </div>
-    //         <div className="col">
-    //         <HeaderAdmin page="2"/>
-    //           <div className="custom-border-top list-post">
-    //             <table className="table table-striped table-bordered">
-    //               <thead>
-    //                 <tr>
-    //                   <th className="text-center">#</th>
-    //                   <th className="text-center">Hình ảnh</th>
-    //                   <th className="text-center">Tên bài viết</th>
-    //                   <th className="text-center col-5">Nội dung bài viết</th>
-    //                   <th className="text-center">Chức năng</th>
-    //                 </tr>
-    //               </thead>
-    //               <tbody>
-    //                 {posts.map((post, index) => (
-    //                   <tr className="text-center" key={post.id}>
-    //                     <td>{index + 1}</td>
-    //                     <td>
-    //                       <img
-    //                         className="custom-img"
-    //                         src={post.thumbnail}
-    //                         alt=""
-    //                       />
-    //                     </td>
-    //                     <td>{post.title}</td>
-    //                     <td>
-    //                       <p style={{ height: "100px", overflow: "hidden" }}>
-    //                         {post.content}
-    //                       </p>
-    //                     </td>
-    //                     <td className="text-center ">
-    //                       <div className="d-flex align-items-center">
-    //                         <button className="btn btn-warning me-2">
-    //                           <i className="fa fa-trash" aria-hidden="true"></i>
-    //                         </button>
-    //                         <button
-    //                           className="btn btn-success"
-    //                           value={post.id}
-    //                           onClick={() => handleEditPost(post.id)}
-    //                         >
-    //                           <i className="fa fa-pencil" aria-hidden="true"></i>
-    //                         </button>
-    //                       </div>
-    //                     </td>
-    //                   </tr>
-    //                 ))}
-    //               </tbody>
-    //             </table>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
     <div className="Admin">
       <div className="container-fluid">
         <div className="row flex-nowrap">
@@ -126,12 +77,14 @@ function ListPost() {
                     <th className="text-nowrap text-center">#</th>
                     <th className="text-nowrap text-center">Hình ảnh</th>
                     <th className="text-nowrap text-center">Tên bài viết</th>
-                    <th className="text-nowrap text-center col-5">Nội dung bài viết</th>
+                    <th className="text-nowrap text-center col-5">
+                      Nội dung bài viết
+                    </th>
                     <th className="text-nowrap text-center">Chức năng</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {posts.map((post, index) => (
+                  {currentPosts.map((post, index) => (
                     <tr className="text-center" key={post.id}>
                       <td>{index + 1}</td>
                       <td>
@@ -149,7 +102,7 @@ function ListPost() {
                       </td>
                       <td className="text-center ">
                         <div className="d-flex align-items-center">
-                          <button className="btn btn-warning me-2">
+                          <button className="btn btn-primary me-2">
                             <i className="fa fa-trash" aria-hidden="true"></i>
                           </button>
                           <button
@@ -165,6 +118,17 @@ function ListPost() {
                   ))}
                 </tbody>
               </table>
+              <div className="custom-paginate">
+                <ReactPaginate
+                  activePage={currentPage}
+                  itemsCountPerPage={postsPerPage}
+                  totalItemsCount={posts.length}
+                  pageRangeDisplayed={5}
+                  onChange={handlePageChange}
+                  itemClass="page-item"
+                  linkClass="page-link"
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -61,98 +61,6 @@ function CreatePost() {
     setContent(Content);
   };
   return (
-    // <div className="Admin">
-    //   <div className="container-fluid p-0">
-    //     <div className=" HeaderAdmin SidebarAdmin">
-    //       <div className="row vh-100 w-100">
-    //         <div className="col-lg-2 col-md-2 p-0">
-    //           <SidebarAdmin page="createPost" />
-    //         </div>
-
-    //         <div className="col">
-    //         <HeaderAdmin page="create"/>
-    //           <div className="custom-border-top w-100">
-    //             <form
-    //               className="custom-form w-100 m-0 mt-3 w-100 py-3 px-4"
-    //               onSubmit={handleCreatePost}
-    //             >
-    //               <div className="row">
-    //                 <div className="col-4 ps-0">
-    //                 <div className="custom-div-1 fs-4">Tạo bài viết</div>
-    //                   <div className="mb-3">
-    //                     <label className="form-label">Tên bài viết: </label>
-    //                     <input
-    //                       className="form-control"
-    //                       placeholder="Tên bài viết"
-    //                       type="text"
-    //                       value={title}
-    //                       onChange={(e) => setTitle(e.target.value)}
-    //                       required
-    //                     />
-    //                   </div>
-
-    //                   <div className="mb-3">
-    //                     <label className="form-label">Ảnh minh họa:</label>
-    //                     <input
-    //                       className="form-control"
-    //                       type="file"
-    //                       onChange={(e) => setThumbnail(e.target.files[0])}
-    //                       required
-    //                     />
-    //                   </div>
-    //                   <div className="mb-3">
-    //                     <div className="form-label">Trạng thái: </div>
-    //                     <div className="mb-1">
-    //                       <input
-    //                         type="radio"
-    //                         value="1"
-    //                         checked={status === 1}
-    //                         onChange={() => setStatus(1)}
-    //                       />
-    //                       <span className="mx-2">Hiển thị bài viết</span>
-    //                     </div>
-    //                     <div className="mb-1">
-    //                       <input
-    //                         type="radio"
-    //                         value="0"
-    //                         checked={status === 0}
-    //                         onChange={() => setStatus(0)}
-    //                       />
-    //                       <span className="mx-2">Ẩn bài viết</span>
-    //                     </div>
-    //                   </div>
-
-    //                   <button className="btn btn-primary" type="submit">
-    //                     Lưu bài viết
-    //                   </button>
-
-    //                 </div>
-    //                 <div className="col-8 pe-0">
-    //                   <div className="mb-3 pt-4">
-    //                     <label className="form-label mt-3">Nội dung bài viết: </label>
-    //                     {/* <textarea
-    //                   className="form-control"
-    //                   placeholder="Nội dung của bài viết"
-    //                   value={content}
-    //                   onChange={(e) => setContent(e.target.value)}
-    //                   required
-    //                 /> */}
-    //                     <TinyEditor initialValue={content} onChange={handleEditorChange} height={600} />
-
-    //                   </div>
-    //                 </div>
-    //               </div>
-
-    //               {errorMessage && (
-    //                 <p style={{ color: "red" }}>{errorMessage}</p>
-    //               )}
-    //             </form>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
     <div className="Admin">
       <div className="container-fluid">
         <div className="row flex-nowrap">
@@ -162,7 +70,7 @@ function CreatePost() {
           <div className="col py-1">
             <HeaderAdmin />
 
-            <div className="custom-border-top w-100">
+            <div className="w-100">
               <form
                 className="custom-form w-100 m-0 mt-3 w-100 py-3 px-4"
                 onSubmit={handleCreatePost}

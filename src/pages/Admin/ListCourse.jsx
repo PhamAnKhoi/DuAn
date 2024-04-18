@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import HeaderAdmin from "./HeaderAdmin";
 import SidebarAdmin from "./SidebarAdmin";
 import ReactPaginate from "react-js-pagination";
+// import { Link } from "react-router-dom";
 
 function ListCourse() {
   const [courses, setCourses] = useState([]);
@@ -54,6 +55,17 @@ function ListCourse() {
     console.log(e);
     window.location.href = `/admin/edit-course/${e}`;
   }
+
+  function handleCreateSession(e) {
+    console.log(e);
+    window.location.href = `/admin/session/${e}`;
+  }
+
+  function handleListSession(e) {
+    console.log(e);
+    window.location.href = `/admin/list-course/list-session/${e}`;
+  }
+
   async function handleDelete(courseId) {
     // console.log(courseId);
     try {
@@ -104,15 +116,19 @@ function ListCourse() {
                 <thead>
                   <tr>
                     <th className="text-nowrap text-center">#</th>
-                    <th className="text-nowrap text-center">Ảnh bìa</th>
-                    <th className="text-nowrap text-center">Khóa học</th>
+                    <th className="text-nowrap text-center col-lg-2">
+                      Ảnh bìa
+                    </th>
+                    <th className="text-nowrap text-center col-lg-2">
+                      Khóa học
+                    </th>
                     <th className="text-nowrap text-center">Giá (VNĐ)</th>
                     <th className="text-nowrap text-center col-4">
                       Nội dung khóa học
                     </th>
-                    {/* <th className="text-nowrap text-center">Tác giả</th> */}
                     <th className="text-nowrap text-center">Lượt xem</th>
                     <th className="text-nowrap text-center">Chức năng</th>
+                    <th className="text-nowrap text-center">Session</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -140,7 +156,6 @@ function ListCourse() {
                           {course.description}
                         </p>
                       </td>
-                      {/* <td>{course.creator}</td> */}
                       <td className="text-center">
                         {course.views}
                         <i className="fa fa-eye ms-1" aria-hidden="true"></i>
@@ -148,7 +163,7 @@ function ListCourse() {
                       <td className="text-center">
                         <div className="d-flex">
                           <button
-                            className="btn btn-warning me-2"
+                            className="btn btn-primary me-2"
                             onClick={() => handleDelete(course.id)}
                           >
                             <i
@@ -165,20 +180,37 @@ function ListCourse() {
                           </button>
                         </div>
                       </td>
+                      <td className="text-center">
+                        <div className="d-flex">
+                          <button
+                            className="btn btn-primary me-2"
+                            onClick={() => handleCreateSession(course.id)}
+                          >
+                            <i className="fa fa-plus" aria-hidden="true"></i>
+                          </button>
+                          <button
+                            className="btn btn-success"
+                            value={course.id}
+                            onClick={() => handleListSession(course.id)}
+                          >
+                            <i className="fa fa-list" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
               <div className="custom-paginate">
-              <ReactPaginate
-                activePage={currentPage}
-                itemsCountPerPage={perPage}
-                totalItemsCount={courses.length}
-                pageRangeDisplayed={5}
-                onChange={handlePageChange}
-                itemClass="page-item"
-                linkClass="page-link"
-              />
+                <ReactPaginate
+                  activePage={currentPage}
+                  itemsCountPerPage={perPage}
+                  totalItemsCount={courses.length}
+                  pageRangeDisplayed={5}
+                  onChange={handlePageChange}
+                  itemClass="page-item"
+                  linkClass="page-link"
+                />
               </div>
             </div>
           </div>

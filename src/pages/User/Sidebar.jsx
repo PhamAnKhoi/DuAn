@@ -18,11 +18,12 @@ function Sidebar() {
               <li className="custom-center my-2">
                 <div className="custom-box-1">
                   <Link className="custom-link text-black" to={"/admin"}>
-                    <i
+                    {/* <i
                       className="fa fa-plus custom-center custom-icon"
                       aria-hidden="true"
-                    ></i>
-                    <p className="custom-center custom-text">Trang ADMIN</p>
+                    ></i> */}
+                    <i className="fa fa-user-tie custom-center custom-icon" aria-hidden="true"></i>
+                    <p className="custom-center custom-text"><strong>ADMIN</strong></p>
                   </Link>
                 </div>
               </li>

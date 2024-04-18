@@ -5,7 +5,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import ToastMessage from "../../components/notifice.jsx";
 
-function Cart(prop) {
+function Cart() {
   const [courses, setCourse] = useState([]);
   const [payment, setPayment] = useState("MOMO_ATM");
   // show noti
@@ -14,6 +14,11 @@ function Cart(prop) {
   const [toastVariant, setToastVariant] = useState("");
   //end shownoti
 
+  let totalAmount = 0;
+  for (let i = 0; i < courses.length; i++) {
+    totalAmount += courses[i].price;
+  }
+  
   var user = Cookies.get("user");
   if (user !== undefined) {
     user = JSON.parse(user);
@@ -179,23 +184,12 @@ function Cart(prop) {
                       </table>
                     </div>
                   )}
-                  {/* <div className="custom-div-span">
-                    <span className="custom-span-1">
-                      <Link to={"/"}>
-                        <a href="/#">Tiếp tục xem khóa học</a>
-                      </Link>
-                    </span>
-                    <span className="custom-span-2">
-                      <a href="/#">Cập nhật giỏ hàng</a>
-                    </span>
-                    <span>{text}</span>
-                  </div> */}
                 </div>
                 <div className="col pay-0">
                   <div className="pay-1">Cộng giỏ hàng</div>
                   <div className="pay-2">
                     <span className="pay-2-1">Tổng đơn hàng</span>
-                    <span className="pay-2-2">123123đ</span>
+                    <span className="pay-2-2">{totalAmount.toLocaleString("vi")} vnđ</span>
                   </div>
                   <div className="mt-2">
                     <div className="form-check">

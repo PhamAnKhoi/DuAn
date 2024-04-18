@@ -20,6 +20,12 @@ import ListPost from "../pages/Admin/ListPost.jsx";
 import Cookies from "js-cookie";
 import MyCourse from "../pages/User/MyCourse.jsx";
 import DetailPost from "../pages/User/DetailPost.jsx";
+import ListAccount from "../pages/Admin/ListAccount.jsx";
+import DetailAccount from "../pages/Admin/DetailAccount.jsx";
+import ProfileUser from "../pages/User/ProfileUser.jsx";
+import Session from "../pages/Admin/Session.jsx";
+import ListSession from "../pages/Admin/ListSession.jsx";
+import Lessons from "../pages/Admin/Lessons.jsx";
 function Dashboard() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
@@ -46,13 +52,19 @@ function Dashboard() {
         <Route path="/my-course" element={<MyCourse />} />
         <Route path="/detail-course/:courseId" element={<CourseDetails />} />
         <Route path="/detail-post/:postId" element={<DetailPost />} />
+        <Route path="/profile-user/:userId" element={<ProfileUser />} />
         {/* Admin */}
         {isLoggedIn ?
           (
             <>
               <Route path="/admin" element={<Admin />} />
               <Route path="/admin/list-course" element={<ListCourse />} />
+              <Route path="/admin/session/:courseId" element={<Session />} />
+              <Route path="/admin/list-course/list-session/:courseId" element={<ListSession />} />
+              <Route path="/admin/list-course/list-session/add-video/:sessionId" element={<Lessons />} />
               <Route path="/admin/list-post" element={<ListPost />} />
+              <Route path="/admin/detail-account/:userId" element={<DetailAccount />} />
+              <Route path="/admin/list-account" element={<ListAccount />} />
               <Route path="/admin/create-post" element={<CreatePost />} />
               <Route path="/admin/edit-post/:postId" element={<EditPost />} />
               <Route path="/admin/create-course" element={<CreateCourse />} />

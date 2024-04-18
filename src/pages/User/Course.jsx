@@ -3,11 +3,13 @@ import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import Sidebar from "./Sidebar.jsx";
 import { Link } from "react-router-dom";
+import ReactPaginate from "react-js-pagination";
 import axios from "axios";
 
 function Course() {
   const [courses, setCourses] = useState([]);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
   useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -28,6 +30,9 @@ function Course() {
     };
     fetchCourses();
   }, []);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const paginatedCourses = courses.slice(indexOfFirstItem, indexOfLastItem);
   return (
     <div>
       <div className="container-fluid">
@@ -37,10 +42,9 @@ function Course() {
           <div className="col-lg-11 Course">
             <div className="custom-text">
               <span className="text-1">Khóa học miễn phí</span>
-              {/* <span className="text-2">Mới</span> */}
             </div>
             <div className="row">
-              {courses.map((course) => (
+              {paginatedCourses.map((course) => (
                 <div key={course.id} className="col-lg-3 p-0 mb-2">
                   <Link
                     className="text-decoration-none"
@@ -67,6 +71,17 @@ function Course() {
                   </Link>
                 </div>
               ))}
+            </div>
+            <div className="custom-paginate">
+              <ReactPaginate
+                activePage={currentPage}
+                itemsCountPerPage={itemsPerPage}
+                totalItemsCount={courses.length}
+                pageRangeDisplayed={5}
+                onChange={setCurrentPage}
+                itemClass="page-item"
+                linkClass="page-link"
+              />
             </div>
           </div>
         </div>

@@ -31,15 +31,11 @@ function Login() {
       );
 
       if (!response.ok) {
-        // alert("Sai tài khoản hoặc mật khẩu! Vui lòng đăng nhập lại");
-        // window.location.href = "/login";
-
         setShowToast(true);
         setToastMessage("Sai tài khoản hoặc mật khẩu! Vui lòng đăng nhập lại");
         setToastVariant("danger");
       }
-      // alert("Đăng nhập thành công");
-      // window.location.href = "/";
+
 
       const data = await response.json();
       if (data.status === true) {
@@ -52,7 +48,7 @@ function Login() {
         Cookies.set("user", JSON.stringify(user), { expires: exprire });
         setTimeout(() => {
           window.location.href = '/'
-        }, 3000);
+        }, 1000);
       } else {
         setShowToast(true);
         setToastMessage("Sai tài khoản hoặc mật khẩu! Vui lòng đăng nhập lại");

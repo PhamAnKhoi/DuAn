@@ -4,30 +4,39 @@ import Footer from "./Footer.jsx";
 import Sidebar from "./Sidebar.jsx";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 function MyCourse() {
   const [courses, setCourses] = useState([]);
-
+  var user = Cookies.get("user");
+  if (user !== undefined) {
+    user = JSON.parse(user);
+  } else {
+    alert("Bạn cần đăng nhập để thực hiện chức năng này.");
+    window.location.href = "/login";
+  }
+  
   useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const response = await axios.get(
-          "http://api.course-selling.id.vn/api/course"
-        );
-
-        if (response.status !== 200) {
-          throw new Error("Failed to fetch courses");
+    axios
+      .get("http://api.course-selling.id.vn/api/course/purchased_courses/", {
+        headers: {
+          "Content-Type": "multipart/form-data", //upload file
+          Authorization: `Bearer ${user.access_token}`,
+        },
+      })
+      .then((response) => {
+        // Cập nhật danh sách khóa học trong giỏ
+        let cart_items = response.data;
+        if (cart_items.status === true) {
+          setCourses(cart_items.courses);
+          // console.log(cart_items.  courses);
         }
-
-        const coursesData = response.data.courses;
-
-        setCourses(coursesData);
-      } catch (error) {
-        console.error("Error while fetching courses:", error);
-      }
-    };
-    fetchCourses();
-  }, []);
+      })
+      .catch((error) => {
+        console.error("Error fetching courses:", error);
+      });
+  }, [user.access_token]);
+  
   return (
     <div>
       <div className="container-fluid">
@@ -43,7 +52,7 @@ function MyCourse() {
                 <div key={course.id} className="col-lg-3 p-0 mb-2">
                   <Link
                     className="text-decoration-none"
-                    to={"/"}
+                    to={"/video"}
                   >
                     <div className="create-border mx-1">
                       <img
