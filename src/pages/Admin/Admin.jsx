@@ -58,9 +58,33 @@ function Admin() {
   };
 
   const handleExportClick = async () => {
-    console.log("export");
-  };
 
+    try {
+      const response = await fetch("http://api.course-selling.id.vn/api/admin?export=1", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${user.access_token}`,
+        },
+      });
+      if (response.status === 200) {
+        let filename = `Order_Report_${Date.now()}.xlsx`;
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+
+      } else if (response.status === 204) {
+        console.log('No content to download');
+      }
+    } catch (error) {
+      console.error('Error downloading Excel file:', error);
+    }
+  }
   return (
     <div className="Admin">
       <div className="container-fluid">
