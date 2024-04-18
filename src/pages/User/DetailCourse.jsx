@@ -13,7 +13,6 @@ function Course() {
   const [course, setCourse] = useState([]);
   let param = useParams();
   let courseId = param.courseId;
-  // console.log(course);
   var user = Cookies.get("user");
   if (user !== undefined) {
     user = JSON.parse(user);
@@ -23,20 +22,30 @@ function Course() {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastVariant, setToastVariant] = useState("");
-  //end shownoti
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
 
+  const handleInputChange = (event) => {
+    setNewComment(event.target.value);
+  };
+
+  const handleAddComment = () => {
+    if (newComment.trim() !== "") {
+      setComments([...comments, newComment]);
+      setNewComment("");
+    }
+  };
+  //end shownoti
   useEffect(() => {
     axios
       .get("http://api.course-selling.id.vn/api/course/" + courseId)
       .then((response) => {
-        // Cập nhật danh sách khóa học
         setCourse(response.data.data);
       })
       .catch((error) => {
         console.error("Error fetching courses:", error);
       });
   }, [courseId]);
-  // Gửi yêu cầu GET đến API
 
   const addToCart = (id) => {
     var user = Cookies.get("user");
@@ -69,13 +78,13 @@ function Course() {
         // console.log(response.data);
         setShowToast(true);
         setToastMessage(response.data.message);
-        let variant = response.data.status === true ? 'success':'danger';
+        let variant = response.data.status === true ? "success" : "danger";
         setToastVariant(variant);
       })
       .catch((error) => {
         setShowToast(true);
-        setToastMessage('Có xẩy ra lỗi khi thêm sản phẩm vào giỏ hàng');
-        setToastVariant('danger');
+        setToastMessage("Có xẩy ra lỗi khi thêm sản phẩm vào giỏ hàng");
+        setToastVariant("danger");
         console.error("Error to add item:", error);
       });
   };
@@ -108,14 +117,11 @@ function Course() {
                 <div className="text-div1">{course.name}</div>
                 <div className="text-div2">{course.description}</div>
                 <div className="text-div3">
-                  Lượt xem: {Number(course.views).toLocaleString("vi")} {" "}
+                  Lượt xem: {Number(course.views).toLocaleString("vi")}{" "}
                   <i className="fa fa-eye" aria-hidden="true"></i>
                 </div>
                 <div className="text-div5">Nội dung khóa học</div>
-                <button
-                  className="custom-button"
-                  onClick={toggleCollapseAll}
-                >
+                <button className="custom-button" onClick={toggleCollapseAll}>
                   {allCollapsed ? "Mở rộng tất cả" : "Thu nhỏ tất cả"}
                 </button>
                 <div>
@@ -195,18 +201,129 @@ function Course() {
                     </ul>
                   </div>
                 </div>
+                <div className="evaluation">
+                  <div className="text-div5">Đánh giá khóa học</div>
+                  <div>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="inlineRadio1"
+                      >
+                        <span className="star">&#9733;</span>
+                      </label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="inlineRadio2"
+                      >
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                      </label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="inlineRadio2"
+                      >
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                      </label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="inlineRadio2"
+                      >
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                      </label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="inlineRadio2"
+                      >
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className="comment mt-4">
+                  <div className="text-div6 border-bottom">Bình luận về khóa học</div>
+                  <table>
+                    <thead>
+                      <tr>
+                        {/* <th>Tên người bl</th> */}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {comments.map((comment, index) => (
+                        <tr key={index}>
+                          <td>{comment}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <div className="col-lg-3">
+                    <input
+                      type="text"
+                      className="form-control my-2"
+                      value={newComment}
+                      onChange={handleInputChange}
+                      placeholder="Bình luận"
+                    />
+                    <button className="btn btn-primary" onClick={handleAddComment}>Gửi bình luận</button>
+                  </div>
+                </div>
               </div>
               <div className="col-lg-4 margin-top">
                 <div>
                   <img className="img-propose" src={course.thumbnail} alt="" />
                 </div>
                 <div>
-                  <div className="custom-div-1">{Number(course.price).toLocaleString("vi")} VND</div>
+                  <div className="custom-div-1">
+                    {Number(course.price).toLocaleString("vi")} VND
+                  </div>
                   <div
                     className="custom-div-2 m-auto"
                     onClick={() => addToCart(courseId)}
                   >
-                    Thêm vào giỏ hàng
+                    <a href="/cart" className="text-white text-decoration-none">
+                      Thêm vào giỏ hàng
+                    </a>
                   </div>
                   <div className="custom-div">
                     <div>

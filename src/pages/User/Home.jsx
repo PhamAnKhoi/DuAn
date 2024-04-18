@@ -1,17 +1,31 @@
 import React, { useEffect, useState } from "react";
+// import { useParams } from "react-router-dom";
 import axios from "axios";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import Sidebar from "./Sidebar.jsx";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import ToastMessage from "../../components/notifice.jsx";
 
 function Home() {
   const [courses, setCourses] = useState([]);
+  // let param = useParams();
+  // let courseId = param.courseId;
+  var user = Cookies.get("user");
+  if (user !== undefined) {
+    user = JSON.parse(user);
+  }
+  // console.log(user);
+  // show noti
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("");
+  //end shownoti
 
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        // const limit = 8;
         const response = await axios.get(
           `http://api.course-selling.id.vn/api/course?sort=["created_at","desc"]`
         );
@@ -31,8 +45,56 @@ function Home() {
     fetchCourses();
   }, []);
 
+  const addToCart = (id) => {
+    var user = Cookies.get("user");
+    if (user !== undefined) {
+      user = JSON.parse(user);
+    } else {
+      // alert("Bạn cần đăng nhập để thực hiện chức năng này.");
+      setShowToast(true);
+      setToastMessage("Bạn cần đăng nhập để thực hiện chức năng này.");
+      setToastVariant("warning");
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1000);
+    }
+    axios
+      .post(
+        `http://api.course-selling.id.vn/api/cart/add-item/${id}`,
+        {},
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", //upload file
+            Authorization: `Bearer ${user.access_token}`,
+          },
+        }
+      )
+      .then((response) => {
+        // handle response
+        // console.log(response.data);
+        // alert(response.data.message);
+        // console.log(response.data);
+        setShowToast(true);
+        setToastMessage(response.data.message);
+        let variant = response.data.status === true ? "success" : "danger";
+        setToastVariant(variant);
+      })
+      .catch((error) => {
+        setShowToast(true);
+        setToastMessage("Có xẩy ra lỗi khi thêm sản phẩm vào giỏ hàng");
+        setToastVariant("danger");
+        console.error("Error to add item:", error);
+      });
+  };
+
   return (
     <div>
+      <ToastMessage
+        show={showToast}
+        setShow={setShowToast}
+        message={toastMessage}
+        variant={toastVariant}
+      />
       <div className="container-fluid">
         <Header />
         <div className="row">
@@ -72,8 +134,8 @@ function Home() {
                 <div className="row">
                   {courses.slice(-8).map((course) => (
                     <div key={course.id} className="col-lg-3 p-0 mb-2">
-                      <Link to={"/detail-course/" + course.id}>
-                        <div className="create-border mx-1">
+                      <div className="create-border mx-1">
+                        <Link to={"/detail-course/" + course.id}>
                           <img
                             className="img-item"
                             src={course.thumbnail}
@@ -82,16 +144,19 @@ function Home() {
                           <div className="name-course text-center">
                             {course.name}
                           </div>
-                          <span className="price">
-                            <span className="me-auto">
-                              {Number(course.price).toLocaleString("vi")} VND
-                            </span>
-                            <span className="custom-icon-cart">
-                              Thêm vào giỏ hàng
-                            </span>
+                        </Link>
+                        <span className="price">
+                          <span className="me-auto">
+                            {Number(course.price).toLocaleString("vi")} VND
                           </span>
-                        </div>
-                      </Link>
+                          <span
+                            className="custom-icon-cart"
+                            onClick={() => addToCart(course.id)}
+                          >
+                            <a href="/cart" className="text-white">Thêm vào giỏ hàng</a>
+                          </span>
+                        </span>
+                      </div>
                     </div>
                   ))}
                 </div>

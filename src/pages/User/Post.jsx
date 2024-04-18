@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 function Post() {
   const [posts, setPosts] = useState([]);
   const [activePage, setActivePage] = useState(1);
-  const postsPerPage = 5;
+  const postsPerPage = 3;
 
   useEffect(() => {
     axios

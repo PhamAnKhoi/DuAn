@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import ToastMessage from "../../components/notifice";
 
 function Header() {
+  
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(null);
   // show noti
@@ -13,13 +14,14 @@ function Header() {
   const [toastMessage, setToastMessage] = useState("");
   const [toastVariant, setToastVariant] = useState("");
   //end shownoti
+  // console.log(userData.data.id);
 
   useEffect(() => {
     const userCookie = Cookies.get("user");
     if (userCookie) {
       const user = JSON.parse(userCookie);
       setIsLoggedIn(true);
-      setUserData(user.data);
+      setUserData(user);
     }
   }, []);
 
@@ -70,10 +72,24 @@ function Header() {
         <div className="col-lg-3 d-flex align-items-center justify-content-end">
           {isLoggedIn ? (
             <>
-              <button className="btn-login mx-1">
-                <i className="fa fa-user-circle-o mx-1" aria-hidden="true"></i>
-                {userData && userData.username}
-              </button>
+              {/* <div className="btn-login mx-1">
+                <img className="img-avt" src={userData.avata} alt="" />
+                {userData && userData.data.username}
+                {userData && userData.permission}
+              </div> */}
+              <Link className="text-decoration-none text-black" to={"/profile-user/" + userData.data.id}>
+              <div className="d-flex align-items-center justify-content-center">
+                <img
+                  className="img-avt"
+                  src={userData.avata}
+                  alt=""
+                />
+                <div>
+                  <p className="custom-p">Tên: <strong>{userData && userData.data.username}</strong></p>
+                  <p className="">Chức vụ: <strong>{userData && userData.permission}</strong></p>
+                </div>
+              </div>
+              </Link>
               <button
                 className="btn-register mx-1 py-1 px-3"
                 onClick={handleLogout}
