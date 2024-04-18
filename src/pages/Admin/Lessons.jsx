@@ -17,11 +17,11 @@ function Lessons() {
   if (auth !== "ADMIN" && auth !== "TEACHER") {
     window.location.href = "/login";
   }
-  const sessionId = param.courseId
+  const sessionId = param.sessionId
 //   const [courseId, setCourseId] = useState(param.courseId);
   const [name, setName] = useState("");
   const [arrange, setArrange] = useState("");
-  const [description, setDescription] = useState("description");
+//   const [description, setDescription] = useState("description");
   // const [price, setPrice] = useState("");
   // const [views, setViews] = useState("");
   // const [status, setStatus] = useState(1);
