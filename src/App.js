@@ -3,9 +3,6 @@ import "./styles/style.scss";
 import "./styles/styleAdmin.scss";
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-
-
 import Dashboard from "./components/Dashboard";
 //dotenv-webpack
 //
