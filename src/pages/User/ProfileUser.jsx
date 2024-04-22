@@ -17,8 +17,8 @@ function ProfileUser() {
     var user = Cookies.get("user");
     if (user !== undefined) {
       user = JSON.parse(user);
-      console.log(user);
-      console.log(user.data.profile);
+      // console.log(user);
+      // console.log(user.data.profile);
       setUsers(user);
       setProfile(user.data.profile);
     }

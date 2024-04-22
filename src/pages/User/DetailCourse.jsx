@@ -53,8 +53,8 @@ function Course() {
       setToastMessage("Bạn cần đăng nhập để thực hiện chức năng này.");
       setToastVariant("warning");
       setTimeout(() => {
-        window.location.href = "/";
-      }, 1000);
+        window.location.href = "/login";
+      }, 1500);
     }
     axios
       .post(
@@ -307,9 +307,11 @@ function Course() {
                     className="custom-div-2 m-auto"
                     onClick={() => addToCart(courseId)}
                   >
-                    <a href="/cart" className="text-white text-decoration-none">
-                      Thêm vào giỏ hàng
-                    </a>
+                    {/* <a href="#" >
+                      
+                    </a> */}
+                    <span>Thêm vào giỏ hàng</span>
+                    {/* <button className="text-white text-decoration-none"></button> */}
                   </div>
                   <div className="custom-div">
                     <div>
