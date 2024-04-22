@@ -58,7 +58,7 @@ function ListCourse() {
 
   function handleCreateSession(e) {
     console.log(e);
-    window.location.href = `/admin/list-course/create-session/${e}`;
+    window.location.href = `/admin/session/${e}`;
   }
 
   function handleListSession(e) {

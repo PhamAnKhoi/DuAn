@@ -4,14 +4,13 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
 import axios from "axios";
-import ReactPaginate from "react-js-pagination";
+// import ReactPaginate from "react-js-pagination";
 
 function ProfileUser() {
   const [users, setUsers] = useState(JSON.parse(Cookies.get("user")));
   const [profile, setProfile] = useState([]);
   const [data, setData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  console.log(data);
 
   useEffect(() => {
     var user = Cookies.get("user");
@@ -36,13 +35,6 @@ function ProfileUser() {
         console.error("Error fetching courses:", error);
       });
   }, []);
-
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <div>
@@ -69,9 +61,7 @@ function ProfileUser() {
                 <div>
                   <div className="row py-4 mt-5">
                     <div className="col-lg-3 box-into">
-                      <p className="custom-p">
-                        <strong>Thông tin cá nhân</strong>
-                      </p>
+                      <p className=""><strong>Giới thiệu</strong></p>
                       <p>
                         Họ và tên: {profile.lastname} {profile.firstname}
                       </p>
@@ -80,83 +70,40 @@ function ProfileUser() {
                       <p>Số điện thoại: {profile.phone}</p>
                       <p>Giới tính: {profile.gender === 1 ? "Nam" : "Nữ"}</p>
                       <p>Địa chỉ: {profile.address}</p>
-                      <p>
-                        Ngày tạo:{" "}
-                        {new Date(users.data.created_at).toLocaleDateString()}
-                      </p>
                     </div>
                     <div className="col ms-3 box-into">
                       <table class="table">
                         <thead>
                           <tr>
-                            <th scope="col" className="text-center">
-                              #
-                            </th>
-                            <th scope="col" className="text-center">
-                              Mã đơn hàng
-                            </th>
-                            <th scope="col" className="text-center">
-                              Mã giảm giá
-                            </th>
-                            <th scope="col" className="text-center">
-                              Thanh toán
-                            </th>
-                            <th scope="col" className="text-center">
-                              Tổng tiền
-                            </th>
-                            <th scope="col" className="text-center">
-                              Trạng thái
-                            </th>
+                            <th scope="col">#</th>
+                            <th scope="col">Tên</th>
+                            <th scope="col">Mã đơn hàng</th>
+                            <th scope="col">Mã giảm giá</th>
+                            <th scope="col">Trạng thái</th>
+                            <th scope="col">Thanh toán</th>
+                            <th scope="col">Tổng tiền</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {currentItems.map((order, index) => (
+                          {data.map((order, index) => (
                             <tr key={order.id}>
-                              <th className="text-center" scope="row">
-                                {(currentPage - 1) * itemsPerPage + index + 1}
-                              </th>
-                              <td className="text-center">{order.order_id}</td>
-                              <td className="text-center">{order.voucher}</td>
-                              <td className="text-center">
-                                {order.payment_method}
-                              </td>
-                              <td className="text-center">
-                                {Number(order.total_amount).toLocaleString(
-                                  "vi"
-                                )}
-                                đ
-                              </td>
-                              <td className="text-center">
+                              <th scope="row">{index + 1}</th>
+                              <td>{order.username}</td>
+                              <td>{order.order_id}</td>
+                              <td>{order.voucher}</td>
+                              <td>
                                 {order.status === 1 ? (
-                                  <div className="custom-status-1">
-                                    Đã thanh toán
-                                  </div>
+                                  <div>Đã thanh toán</div>
                                 ) : (
-                                  <div className="custom-status-2">
-                                    <a
-                                      className="text-white text-decoration-none"
-                                      href={order.checkoutUrl}
-                                    >
-                                      Chưa thanh toán
-                                    </a>
-                                  </div>
+                                  <a href={order.checkoutUrl}>Chưa thanh toán</a>
                                 )}
                               </td>
+                              <td>{order.payment_method}</td>
+                              <td>{order.total_amount}</td>
                             </tr>
                           ))}
                         </tbody>
                       </table>
-                      <div className="custom-paginate">
-                        <ReactPaginate
-                          activePage={currentPage}
-                          itemsCountPerPage={itemsPerPage}
-                          totalItemsCount={data.length}
-                          pageRangeDisplayed={5}
-                          onChange={handlePageChange}
-                          itemClass="page-item"
-                          linkClass="page-link"
-                        />
-                      </div>
                     </div>
                   </div>
                 </div>
