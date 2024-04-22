@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import Sidebar from "./Sidebar.jsx";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import ToastMessage from "../../components/notifice.jsx";
@@ -22,19 +22,12 @@ function Course() {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastVariant, setToastVariant] = useState("");
-  const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState("");
+  const [rating, setRating] = useState(0);
 
-  const handleInputChange = (event) => {
-    setNewComment(event.target.value);
+  const handleRating = (value) => {
+    setRating(value);
   };
 
-  const handleAddComment = () => {
-    if (newComment.trim() !== "") {
-      setComments([...comments, newComment]);
-      setNewComment("");
-    }
-  };
   //end shownoti
   useEffect(() => {
     axios
@@ -72,10 +65,6 @@ function Course() {
         }
       )
       .then((response) => {
-        // handle response
-        // console.log(response.data);
-        // alert(response.data.message);
-        // console.log(response.data);
         setShowToast(true);
         setToastMessage(response.data.message);
         let variant = response.data.status === true ? "success" : "danger";
@@ -99,6 +88,7 @@ function Course() {
     setCollapsed(updatedCollapsed);
     setAllCollapsed(!allCollapsed);
   };
+
   return (
     <div>
       <ToastMessage
@@ -202,110 +192,59 @@ function Course() {
                   </div>
                 </div>
                 <div className="evaluation">
-                  <div className="text-div5">Đánh giá khóa học</div>
+                  <div className="text-div5">Phản hồi của học viên</div>
                   <div>
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="inlineRadio1"
-                      >
-                        <span className="star">&#9733;</span>
-                      </label>
-                    </div>
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="inlineRadio2"
-                      >
-                        <span className="star">&#9733;</span>
-                        <span className="star">&#9733;</span>
-                      </label>
-                    </div>
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="inlineRadio2"
-                      >
-                        <span className="star">&#9733;</span>
-                        <span className="star">&#9733;</span>
-                        <span className="star">&#9733;</span>
-                      </label>
-                    </div>
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="inlineRadio2"
-                      >
-                        <span className="star">&#9733;</span>
-                        <span className="star">&#9733;</span>
-                        <span className="star">&#9733;</span>
-                        <span className="star">&#9733;</span>
-                      </label>
-                    </div>
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="inlineRadio2"
-                      >
-                        <span className="star">&#9733;</span>
-                        <span className="star">&#9733;</span>
-                        <span className="star">&#9733;</span>
-                        <span className="star">&#9733;</span>
-                        <span className="star">&#9733;</span>
-                      </label>
+                    <div>Đánh giá: {rating} sao</div>
+                    {[...Array(5)].map((_, index) => {
+                      const starValue = index + 1;
+                      return (
+                        <Link
+                          key={starValue}
+                          className={`star ${
+                            starValue <= rating ? "active" : ""
+                          } text-decoration-none`}
+                          onClick={() => handleRating(starValue)}
+                        >
+                          &#9733;
+                        </Link>
+                      );
+                    })}
+                    <div>
+                      <div className="my-2 col-lg-6">
+                        <input
+                          type="email"
+                          className="form-control"
+                          id="exampleFormControlInput1"
+                          placeholder="Đánh giá của tôi"
+                        />
+                      </div>
+
+                      <button className="btn btn-primary">Gửi đánh giá</button>
                     </div>
                   </div>
                 </div>
                 <div className="comment mt-4">
-                  <div className="text-div6 border-bottom">Bình luận về khóa học</div>
-                  <table>
-                    <thead>
-                      <tr>
-                        {/* <th>Tên người bl</th> */}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {comments.map((comment, index) => (
-                        <tr key={index}>
-                          <td>{comment}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  <div className="col-lg-3">
-                    <input
-                      type="text"
-                      className="form-control my-2"
-                      value={newComment}
-                      onChange={handleInputChange}
-                      placeholder="Bình luận"
-                    />
-                    <button className="btn btn-primary" onClick={handleAddComment}>Gửi bình luận</button>
+                  <div className="text-div6">Đánh giá</div>
+                  <div className="row border-bottom">
+                    <div className="col-lg-1">
+                      <img
+                        className="img-comment"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2NrzklKfv3rlFqGQXsGpTZfrY2Obu0cvSvvmVPMf3Xg&s"
+                        alt=""
+                      />
+                    </div>
+                    <div className="col-lg-3">
+                      <div>Khôi</div>
+                      <div>
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>{" "}
+                        <span>1 tháng trước</span>
+                      </div>
+                      <div className="mb-3">Nội dung comment</div>
+                    </div>
                   </div>
                 </div>
               </div>

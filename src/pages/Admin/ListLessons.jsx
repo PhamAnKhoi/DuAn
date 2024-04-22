@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import HeaderAdmin from "./HeaderAdmin";
 import SidebarAdmin from "./SidebarAdmin";
 import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 // import ReactPaginate from "react-js-pagination";
 
-function ListSession() {
+function ListLessons() {
   const [session, setSession] = useState([]);
   let param = useParams();
-  let courseId = param.courseId;
+  let session_id = param.session_id;
   var user = Cookies.get("user");
   if (user !== undefined) {
     user = JSON.parse(user);
@@ -18,7 +18,7 @@ function ListSession() {
     const fetchCourses = async () => {
       try {
         const response = await axios.get(
-          "http://api.course-selling.id.vn/api/course/getSession/" + courseId,
+          "http://api.course-selling.id.vn/api/course/getLesson/" + session_id,
           {
             headers: {
               "Content-Type": "multipart/form-data",
@@ -33,23 +33,15 @@ function ListSession() {
 
         const sessionsData = response.data;
 
-        setSession(sessionsData.sessions);
+        setSession(sessionsData.lessons);
       } catch (error) {
         console.error("Error while fetching courses:", error);
       }
     };
 
     fetchCourses();
-  }, [user.access_token, courseId]);
+  }, [user.access_token, session_id]);
 
-  function handleAddVideo(e) {
-    console.log(e);
-    window.location.href = `/admin/list-course/list-session/add-video/${e}`;
-  }
-  function handleListVideo(e) {
-    console.log(e);
-    window.location.href = `/admin/list-course/list-session/list-lessons/${e}`;
-  }
   return (
     <div className="Admin">
       <div className="container-fluid">
@@ -69,11 +61,10 @@ function ListSession() {
                       Số thứ tự session
                     </th>
                     <th className="text-nowrap text-center">Tên session</th>
-                    <th className="text-nowrap text-center">Nội dung</th>
                     <th className="text-nowrap text-center">
                       Ngày tạo session
                     </th>
-                    <th className="text-nowrap text-center">Chức năng</th>
+                    <th className="text-nowrap text-center">Video khóa học</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -85,29 +76,12 @@ function ListSession() {
                       </td>
                       <td className="text-center">{session.name}</td>
                       <td className="text-center">
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: session.description,
-                          }}
-                        />
-                      </td>
-
-                      <td className="text-center">
                         {new Date(session.created_at).toLocaleDateString()}
                       </td>
-                      <td className="text-center">
-                        <button
-                          className="btn btn-primary me-2"
-                          onClick={() => handleAddVideo(session.id)}
-                        >
-                          <i className="fa fa-plus" aria-hidden="true"></i>
-                        </button>
-                        <button
-                          className="btn btn-primary"
-                          onClick={() => handleListVideo(session.id)}
-                        >
-                          <i className="fa fa-list" aria-hidden="true"></i>
-                        </button>
+                      <td>
+                        <div className="text-center">
+                          <video src={session.video_url}></video>
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -121,4 +95,4 @@ function ListSession() {
   );
 }
 
-export default ListSession;
+export default ListLessons;
