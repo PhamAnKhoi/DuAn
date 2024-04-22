@@ -438,8 +438,7 @@
   }
   .img-propose {
     width: 100%;
-    // height: 100%;
-    height: 250px;
+    max-height: 250px;
     margin-top: 30px;
     border-radius: 15px;
     object-fit: cover;
@@ -455,40 +454,20 @@
     display: flex;
     align-items: center;
   }
+
   .author-info {
     margin-left: 10px;
-  }
-  .box-title{
-    padding: 10px;
-    margin: 5px 0px;
-  }
-  .border-left{
-    border-left: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-  }
-  .comment{
-    .img-comment{
-      width: 50px;
-      height: 50px;
-      border-radius: 100%;
-    }
   }
 }
 
 .Course {
   margin-bottom: 50px;
 
-  
   .custom-text {
     margin: 15px 0px;
   }
   .evaluation{
-    .star {
-      color: rgb(177, 144, 144);
-      font-size: 25px;
-    }
-    
-    .star.active {
+    .star{
       font-size: 25px;
       color: gold;
     }
@@ -507,6 +486,12 @@
     .span-date{
       color: rgb(177, 144, 144);
     }
+//     border: 1px solid #eeeeee;
+//     border-radius: 8px;
+//     // background: linear-gradient(to bottom, #c49b9b, #7e586b);
+//     background: rgb(250, 242, 242);
+//     height: 250px;
+//     overflow: auto;
   }
 
   .form-check {
@@ -576,9 +561,9 @@
   .text-div6 {
     font-weight: 500;
     font-size: large;
-    margin: 10px 0px;
-    // margin-top: 10px;
-    // margin-bottom:116px;
+    // margin: 10px 0px;
+    margin-top: 10px;
+    margin-bottom:116px;
   }
 
   .img-propose {
@@ -1428,7 +1413,6 @@ span.hr-tag {
 }
 
 .Profile{
-  margin-bottom: 50px;
   .img-profile{
     width: 200px;
     height: 200px;
@@ -1472,42 +1456,5 @@ span.hr-tag {
   }
   .box-into{
     border: 1px solid #ddd;
-  }
-  .custom-status-1{
-    border: 1px solid red;
-    color: red;
-    border-radius: 15px;
-    text-align: center;
-  }
-  .custom-status-2{
-    background: #f05123;
-    border-radius: 15px;
-  }
-  .custom-paginate {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-  }
-  .custom-paginate .page-link {
-    color: #f05123 !important;
-    background-color: #fff;
-    border-color: #f05123;
-  }
-
-  .custom-paginate .page-link:hover {
-    color: #fff !important;
-    background-color: #f05123;
-    border-color: #f05123;
-  }
-
-  .custom-paginate .page-item.active .page-link {
-    color: #fff !important;
-    background-color: #f05123;
-    border-color: #f05123;
-  }
-  .custom-p{
-    text-align: center;
-    font-size: larger;
-    margin: 10px 0px;
   }
 }
