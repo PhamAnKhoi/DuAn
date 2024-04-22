@@ -10,12 +10,12 @@ import ToastMessage from "../../components/notifice.jsx";
 
 function Home() {
   const [courses, setCourses] = useState([]);
-  // let param = useParams();
-  // let courseId = param.courseId;
+
   var user = Cookies.get("user");
   if (user !== undefined) {
     user = JSON.parse(user);
   }
+  
   // console.log(user);
   // show noti
   const [showToast, setShowToast] = useState(false);

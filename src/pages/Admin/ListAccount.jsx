@@ -87,7 +87,7 @@ function ListAccount() {
                       </td>
                       <td className="p-2 text-center">
                         <Link to={"/admin/detail-account/" + user.id}>
-                          <button className="btn btn-primary">
+                          <button className="btn bg-btn-2">
                             Xem chi tiết
                           </button>
                         </Link>
@@ -96,6 +96,19 @@ function ListAccount() {
                   ))}
                 </tbody>
               </table>
+              <div className="custom-paginate">
+                <ReactPaginate
+                  activePage={activePage}
+                  itemsCountPerPage={itemsPerPage}
+                  totalItemsCount={users.length}
+                  pageRangeDisplayed={5}
+                  onChange={handlePageChange}
+                  containerClassName={"pagination"}
+                  itemClass={"page-item"}
+                  linkClass={"page-link"}
+                />
+              </div>
+
             </div>
           </div>
         </div>

@@ -474,12 +474,24 @@
   }
 
   .comment{
-    border: 1px solid #eeeeee;
-    border-radius: 8px;
-    // background: linear-gradient(to bottom, #c49b9b, #7e586b);
-    background: rgb(250, 242, 242);
-    height: 250px;
-    overflow: auto;
+    .img-comment{
+      width: 50px;
+      height: 50px;
+      border-radius: 100%;
+    }
+    .star {
+      color: gold;
+      font-size: 25px;
+    }
+    .span-date{
+      color: rgb(177, 144, 144);
+    }
+//     border: 1px solid #eeeeee;
+//     border-radius: 8px;
+//     // background: linear-gradient(to bottom, #c49b9b, #7e586b);
+//     background: rgb(250, 242, 242);
+//     height: 250px;
+//     overflow: auto;
   }
 
   .form-check {
@@ -1213,6 +1225,17 @@
     background-color: #ff7731 !important;
   }
 
+  .bg-btn{
+    background: #ff7731;
+    color: #ffffff;
+  }
+
+  .bg-btn:hover{
+    background-color: #ffae42 !important;
+    color: #fff;
+  }
+  
+
   .custom-form {
     border: 1px solid #ced4da;
     padding: 40px;
@@ -1298,6 +1321,10 @@
   }
 
   .list-course {
+    .bg-btn-2{
+      background: #ff7731;
+      color: #ffffff;
+    }
     tr td {
       vertical-align: middle !important;
 
