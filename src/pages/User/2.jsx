@@ -12,7 +12,6 @@ function Course() {
   const [allCollapsed, setAllCollapsed] = useState(true);
   const [course, setCourse] = useState([]);
   const [sessions, setSessions] = useState([]);
-
   let param = useParams();
   let courseId = param.courseId;
   var user = Cookies.get("user");
@@ -114,86 +113,6 @@ function Course() {
                   <i className="fa fa-eye" aria-hidden="true"></i>
                 </div>
                 <div className="text-div5">Nội dung khóa học</div>
-                {/* <button className="custom-button" onClick={toggleCollapseAll}>
-                  {allCollapsed ? "Mở rộng tất cả" : "Thu nhỏ tất cả"}
-                </button>
-                <div>
-                  <div>
-                    <button
-                      className="custom-button-item"
-                      onClick={() => toggleCollapse(0)}
-                    >
-                      <div className="div-css-left">
-                        <span className="custom-span-icon">
-                          {collapsed[0] ? "\u002B" : "\u2212"}
-                        </span>
-                        <span>Khái niệm kỹ thuật cần biết</span>
-                      </div>
-                      <span className="right">Số bài học</span>
-                    </button>
-                    <ul
-                      className={`my-list ${collapsed[0] ? "collapsed" : ""}`}
-                    >
-                      <li className="margin-top-bottom">
-                        1. Mô hình Client - Server là gì?
-                      </li>
-                      <li className="margin-top-bottom">
-                        2. Domain là gì? Tên miền là gì?
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <button
-                      className="custom-button-item"
-                      onClick={() => toggleCollapse(1)}
-                    >
-                      <div className="div-css-left">
-                        <span className="custom-span-icon">
-                          {collapsed[1] ? "\u002B" : "\u2212"}
-                        </span>
-                        <span>Khái niệm kỹ thuật cần biết</span>
-                      </div>
-                      <span className="right">Số bài học</span>
-                    </button>
-                    <ul
-                      className={`my-list ${collapsed[1] ? "collapsed" : ""}`}
-                    >
-                      <li className="margin-top-bottom">
-                        1. Mô hình Client - Server là gì?
-                      </li>
-                      <li className="margin-top-bottom">
-                        2. Domain là gì? Tên miền là gì?
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <button
-                      className="custom-button-item"
-                      onClick={() => toggleCollapse(2)}
-                    >
-                      <div className="div-css-left">
-                        <span className="custom-span-icon">
-                          {collapsed[2] ? "\u002B" : "\u2212"}
-                        </span>
-                        <span>Khái niệm kỹ thuật cần biết</span>
-                      </div>
-                      <span className="right">Số bài học</span>
-                    </button>
-                    <ul
-                      className={`my-list ${collapsed[2] ? "collapsed" : ""}`}
-                    >
-                      <li className="margin-top-bottom">
-                        1. Mô hình Client - Server là gì?
-                      </li>
-                      <li className="margin-top-bottom">
-                        2. Domain là gì? Tên miền là gì?
-                      </li>
-                      <li className="margin-top-bottom">
-                        3. Domain là gì? Tên miền là gì?
-                      </li>
-                    </ul>
-                  </div>
-                </div> */}
                 {sessions.length !== 0 ? (
                   <div className="w-full">
                     <button
@@ -294,6 +213,39 @@ function Course() {
                     </div>
                   </div>
                 </div>
+                <div className="comment mt-4">
+                  <div className="text-div6 border-bottom">
+                    Bình luận về khóa học
+                  </div>
+                  <table>
+                    <thead>
+                      <tr>{/* <th>Tên người bl</th> */}</tr>
+                    </thead>
+                    <tbody>
+                      {/* {comments.map((comment, index) => (
+                        <tr key={index}>
+                          <td>{comment}</td>
+                        </tr>
+                      ))} */}
+                    </tbody>
+                  </table>
+                  <div className="col-lg-3">
+                    {/* <input
+                      type="text"
+                      className="form-control my-2"
+                      value={newComment}
+                      onChange={handleInputChange}
+                      placeholder="Bình luận"
+                    /> */}
+                    <button
+                      className="btn btn-primary"
+                      onClick={handleAddComment}
+                    >
+                      Gửi bình luận
+                    </button>
+                  </div>
+                </div>
+
               </div>
               <div className="col-lg-4 margin-top">
                 <div>
