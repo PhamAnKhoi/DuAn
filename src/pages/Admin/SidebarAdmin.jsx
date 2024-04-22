@@ -165,7 +165,7 @@ const SidebarAdmin = ({ page = "/" }) => {
         ) : null}
           <li className="nav-item w-100 mt-3">
             <Link to={"/"}>
-              <button className="btn btn-primary">
+              <button className="btn bg-btn">
               <span className="ms-1 d-none d-sm-inline">Quay về trang User</span>
               </button>
             </Link>

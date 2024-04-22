@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 
 function MyCourse() {
   const [courses, setCourses] = useState([]);
+
   var user = Cookies.get("user");
   if (user !== undefined) {
     user = JSON.parse(user);
@@ -15,7 +16,8 @@ function MyCourse() {
     alert("Bạn cần đăng nhập để thực hiện chức năng này.");
     window.location.href = "/login";
   }
-  
+  // console.log(courses[0]);
+
   useEffect(() => {
     axios
       .get("http://api.course-selling.id.vn/api/course/purchased_courses/", {
@@ -36,7 +38,7 @@ function MyCourse() {
         console.error("Error fetching courses:", error);
       });
   }, [user.access_token]);
-  
+
   return (
     <div>
       <div className="container-fluid">
@@ -50,10 +52,7 @@ function MyCourse() {
             <div className="row">
               {courses.map((course) => (
                 <div key={course.id} className="col-lg-3 p-0 mb-2">
-                  <Link
-                    className="text-decoration-none"
-                    to={"/video"}
-                  >
+                  <Link className="text-decoration-none" to={"/video/" + course.id}>
                     <div className="create-border mx-1">
                       <img
                         className="img-item"

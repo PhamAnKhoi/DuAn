@@ -500,6 +500,13 @@
       height: 50px;
       border-radius: 100%;
     }
+    .star {
+      color: gold;
+      font-size: 25px;
+    }
+    .span-date{
+      color: rgb(177, 144, 144);
+    }
   }
 
   .form-check {
@@ -1233,6 +1240,17 @@
     background-color: #ff7731 !important;
   }
 
+  .bg-btn{
+    background: #ff7731;
+    color: #ffffff;
+  }
+
+  .bg-btn:hover{
+    background-color: #ffae42 !important;
+    color: #fff;
+  }
+  
+
   .custom-form {
     border: 1px solid #ced4da;
     padding: 40px;
@@ -1318,6 +1336,10 @@
   }
 
   .list-course {
+    .bg-btn-2{
+      background: #ff7731;
+      color: #ffffff;
+    }
     tr td {
       vertical-align: middle !important;
 

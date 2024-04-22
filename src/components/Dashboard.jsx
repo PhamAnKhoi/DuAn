@@ -47,7 +47,7 @@ function Dashboard() {
         <Route path="/course" element={<Course />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/pay" element={<Pay />} />
-        <Route path="/video" element={<Video />} />
+        <Route path="/video/:courseId" element={<Video />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/my-course" element={<MyCourse />} />
