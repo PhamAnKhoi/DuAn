@@ -2,23 +2,16 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import Sidebar from "./Sidebar.jsx";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import ToastMessage from "../../components/notifice.jsx";
-import ReactPaginate from "react-js-pagination";
 
-function DetailCourse() {
+function Course() {
   const [collapsed, setCollapsed] = useState(Array(99).fill(true));
   const [allCollapsed, setAllCollapsed] = useState(true);
   const [course, setCourse] = useState([]);
   const [sessions, setSessions] = useState([]);
-  //Phân trang
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 1; // Thay đổi giá trị này tùy theo nhu cầu của bạn
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
 
   let param = useParams();
   let courseId = param.courseId;
@@ -26,46 +19,24 @@ function DetailCourse() {
   if (user !== undefined) {
     user = JSON.parse(user);
   }
-
+  // console.log(user);
+  // show noti
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastVariant, setToastVariant] = useState("");
-  const [ratings, setRating] = useState([]);
-  const [valueRating, setRatingHandle] = useState(0);
-  const [ratingValue, setRatingValue] = useState(null);
-  const [inputValue, setInputValue] = useState("");
-  const handleSendReview = () => {
-    axios
-      .post(
-        "http://api.course-selling.id.vn/api/course/rating-course/" + courseId,
-        {
-          rating: ratingValue,
-          content: inputValue,
-          course_id: courseId,
-        },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${user.access_token}`,
-          },
-        }
-      )
-      .then((response) => {
-        window.location.href = "/detail-course/" + course.id;
-      })
-      .catch((error) => {
-        console.error("Error fetching courses:", error);
-      });
-  };
-  const handleInput = (event) => {
-    setInputValue(event.target.value);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
+
+  const handleInputChange = (event) => {
+    setNewComment(event.target.value);
   };
 
-  const handleRating = (value) => {
-    setRatingHandle(value);
-    setRatingValue(value);
-  };
-
+//   const handleAddComment = () => {
+//     if (newComment.trim() !== "") {
+//       setComments([...comments, newComment]);
+//       setNewComment("");
+//     }
+//   };
   //end shownoti
   useEffect(() => {
     axios
@@ -73,7 +44,6 @@ function DetailCourse() {
       .then((response) => {
         setCourse(response.data.data);
         setSessions(response.data.sessions);
-        setRating(response.data.ratings);
       })
       .catch((error) => {
         console.error("Error fetching courses:", error);
@@ -90,8 +60,8 @@ function DetailCourse() {
       setToastMessage("Bạn cần đăng nhập để thực hiện chức năng này.");
       setToastVariant("warning");
       setTimeout(() => {
-        window.location.href = "/";
-      }, 1000);
+        window.location.href = "/login";
+      }, 1500);
     }
     axios
       .post(
@@ -105,6 +75,10 @@ function DetailCourse() {
         }
       )
       .then((response) => {
+        // handle response
+        // console.log(response.data);
+        // alert(response.data.message);
+        // console.log(response.data);
         setShowToast(true);
         setToastMessage(response.data.message);
         let variant = response.data.status === true ? "success" : "danger";
@@ -128,11 +102,6 @@ function DetailCourse() {
     setCollapsed(updatedCollapsed);
     setAllCollapsed(!allCollapsed);
   };
-
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentItems = ratings.slice(startIndex, endIndex);
-
   return (
     <div>
       <ToastMessage
@@ -266,94 +235,99 @@ function DetailCourse() {
                             } lesson-list`}
                           >
                             {session.lessons.map((lesson) => (
-                              <li
-                                className="margin-top-bottom cursor pointer"
-                                key={"ls" + lesson.lession_id}
-                              >
+                              <li className="margin-top-bottom cursor pointer" key={'ls' + lesson.lession_id}>
                                 {lesson.lession_name}
                               </li>
                             ))}
                           </ul>
                         </div>
                       ))}
+
                     </div>
                   </div>
                 ) : (
-                  "Không có nội dung"
+                  "Dell có nội dung"
                 )}
                 <div className="evaluation">
-                  <div className="text-div5">Phản hồi của học viên</div>
+                  <div className="text-div5">Đánh giá khóa học</div>
                   <div>
-                    <div>Đánh giá: {valueRating} sao</div>
-                    {[...Array(5)].map((_, index) => {
-                      const starValue = index + 1;
-                      return (
-                        <Link
-                          key={starValue}
-                          className={`star ${
-                            starValue <= ratingValue ? "active" : ""
-                          } text-decoration-none`}
-                          onClick={() => handleRating(starValue)}
-                        >
-                          &#9733;
-                        </Link>
-                      );
-                    })}
-                    <div>
-                      <div className="my-2 col-lg-6">
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Đánh giá của tôi"
-                          value={inputValue}
-                          onChange={handleInput}
-                        />
-                      </div>
-                      <button
-                        className="btn btn-primary"
-                        onClick={handleSendReview}
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="inlineRadio1"
                       >
-                        Gửi đánh giá
-                      </button>
+                        <span className="star">&#9733;</span>
+                      </label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="inlineRadio2"
+                      >
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                      </label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="inlineRadio2"
+                      >
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                      </label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="inlineRadio2"
+                      >
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                      </label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="inlineRadio2"
+                      >
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                        <span className="star">&#9733;</span>
+                      </label>
                     </div>
                   </div>
                 </div>
-                <div className="comment mt-4">
-                  <div className="text-div6">Đánh giá</div>
-                  {currentItems.map((item) => (
-                    <div className="row border-bottom mt-4" key={item.id}>
-                      <div className="col-lg-1">
-                        <img className="img-comment" src={item.avata} alt="" />
-                      </div>
-                      <div className="col-lg-3">
-                        <div>
-                          <strong>{item.user}</strong>
-                          <span className="ms-2 span-date">
-                            {new Date(item.created_at).toLocaleDateString()}
-                          </span>
-                        </div>
-                        <div></div>
-                        <div>
-                          {Array.from({ length: item.rating }, (_, index) => (
-                            <span key={index} className="star">
-                              &#9733;
-                            </span>
-                          ))}
-                        </div>
-                        <div className="mb-3">{item.content}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <ReactPaginate
-                  activePage={currentPage}
-                  itemsCountPerPage={itemsPerPage}
-                  totalItemsCount={ratings.length}
-                  pageRangeDisplayed={5} // Thay đổi giá trị này tùy theo nhu cầu của bạn
-                  onChange={handlePageChange}
-                  itemClass="page-item"
-                  linkClass="page-link"
-                />
               </div>
               <div className="col-lg-4 margin-top">
                 <div>
@@ -367,9 +341,11 @@ function DetailCourse() {
                     className="custom-div-2 m-auto"
                     onClick={() => addToCart(courseId)}
                   >
-                    <a href="/cart" className="text-white text-decoration-none">
-                      Thêm vào giỏ hàng
-                    </a>
+                    {/* <a href="#" >
+                      
+                    </a> */}
+                    <span>Thêm vào giỏ hàng</span>
+                    {/* <button className="text-white text-decoration-none"></button> */}
                   </div>
                   <div className="custom-div">
                     <div>
@@ -412,4 +388,4 @@ function DetailCourse() {
   );
 }
 
-export default DetailCourse;
+export default Course;
