@@ -41,14 +41,10 @@ function ListSession() {
 
     fetchCourses();
   }, [user.access_token, courseId]);
-
+  
   function handleAddVideo(e) {
     console.log(e);
     window.location.href = `/admin/list-course/list-session/add-video/${e}`;
-  }
-  function handleListVideo(e) {
-    console.log(e);
-    window.location.href = `/admin/list-course/list-session/list-lessons/${e}`;
   }
   return (
     <div className="Admin">
@@ -73,7 +69,7 @@ function ListSession() {
                     <th className="text-nowrap text-center">
                       Ngày tạo session
                     </th>
-                    <th className="text-nowrap text-center">Chức năng</th>
+                    <th className="text-nowrap text-center">Thêm khóa học</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -101,12 +97,6 @@ function ListSession() {
                           onClick={() => handleAddVideo(session.id)}
                         >
                           <i className="fa fa-plus" aria-hidden="true"></i>
-                        </button>
-                        <button
-                          className="btn btn-primary"
-                          onClick={() => handleListVideo(session.id)}
-                        >
-                          <i className="fa fa-list" aria-hidden="true"></i>
                         </button>
                       </td>
                     </tr>

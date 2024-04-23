@@ -49,14 +49,12 @@ function Post() {
                     {currentPosts.map((post) => (
                       <div key={post.id}>
                         <div className="row box">
-                          <div className="text-div3">
-                            <Link
-                              className="custom-decoration"
-                              to={"/detail-post/" + post.id}
-                            >
-                              {post.title}
-                            </Link>
-                          </div>
+                          <Link
+                            className="custom-decoration"
+                            to={"/detail-post/" + post.id}
+                          >
+                            <div className="text-div3">{post.title}</div>
+                          </Link>
                           <div className="col-lg-8">
                             <span
                               dangerouslySetInnerHTML={{

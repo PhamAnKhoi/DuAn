@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import Sidebar from "./Sidebar.jsx";
@@ -65,18 +66,20 @@ function DetailPost() {
       .get("http://api.course-selling.id.vn/api/post/" + postId)
       .then((response) => {
         setPost(response.data.data);
+        // setPosts(response.data.data);
         setComments(response.data.comments);
       })
       .catch((error) => {
         console.error("Error fetching courses:", error);
       });
     axios
-      .get("http://api.course-selling.id.vn/api/post/")
+      .get("http://api.course-selling.id.vn/api/post")
       .then((response) => {
         setPosts(response.data.posts);
+        // setComments(response.data.comments);
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Error fetching courses:", error);
       });
   }, [postId]);
 
@@ -155,11 +158,11 @@ function DetailPost() {
                 <div className="comment mt-4">
                   <div className="text-div6">Đánh giá</div>
                   {currentComments.map((item) => (
-                    <div className="row border-bottom mt-4" key={item.id}>
+                    <div className="row mt-4" key={item.id}>
                       <div className="col-lg-1">
                         <img className="img-comment" src={item.avata} alt="" />
                       </div>
-                      <div className="col-lg-3">
+                      <div className="col">
                         <div>
                           <strong>{item.user}</strong>
                           <span className="ms-2 span-date">
@@ -191,7 +194,7 @@ function DetailPost() {
                   />
                 </div>
               </div>
-              <div className="col">
+              <div className="col border-top-none">
                 <div style={{ marginTop: "30px" }}>
                   <div className="text-div1">Các bài viết mới</div>
                   {posts.slice(-15).map((post) => (
@@ -212,15 +215,21 @@ function DetailPost() {
                       </div>
                     </div>
                   ))}
+                  {/* <div className="text-div5 mt-4">{post.content}</div> */}
                 </div>
+                {/* <div className="col-lg-4">
+                  <div>
+                    <img className="img-propose" src={post.thumbnail} alt="" />
+                  </div>
+                </div> */}
               </div>
             </div>
           </div>
         </div>
+       
       </div>
       <Footer />
     </div>
   );
 }
-
 export default DetailPost;

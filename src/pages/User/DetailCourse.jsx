@@ -151,14 +151,10 @@ function DetailCourse() {
                 <div className="text-div1">{course.name}</div>
                 <div className="text-div2">
                   <span
-                    dangerouslySetInnerHTML=
-                    {
-                      {
-                        __html: course.description
-                      }
-                    }
-                    >
-                  </span>
+                    dangerouslySetInnerHTML={{
+                      __html: course.description,
+                    }}
+                  ></span>
                   {/* {{  }} */}
                 </div>
                 <div className="text-div3">
@@ -336,7 +332,7 @@ function DetailCourse() {
                       <div className="col-lg-1">
                         <img className="img-comment" src={item.avata} alt="" />
                       </div>
-                      <div className="col-lg-3">
+                      <div className="col">
                         <div>
                           <strong>{item.user}</strong>
                           <span className="ms-2 span-date">
@@ -368,8 +364,8 @@ function DetailCourse() {
                   />
                 </div>
               </div>
-              <div className="col-lg-4 margin-top">
-                <div>
+              <div className="col-lg-4 border-left">
+                <div className="margin-top">
                   <img className="img-propose" src={course.thumbnail} alt="" />
                 </div>
                 <div>

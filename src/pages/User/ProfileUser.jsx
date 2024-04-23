@@ -17,8 +17,8 @@ function ProfileUser() {
     var user = Cookies.get("user");
     if (user !== undefined) {
       user = JSON.parse(user);
-      console.log(user);
-      console.log(user.data.profile);
+      // console.log(user);
+      // console.log(user.data.profile);
       setUsers(user);
       setProfile(user.data.profile);
     }
@@ -69,8 +69,8 @@ function ProfileUser() {
                 <div>
                   <div className="row py-4 mt-5">
                     <div className="col-lg-3 box-into">
-                      <p className="custom-p">
-                        <strong>Thông tin cá nhân</strong>
+                      <p className="">
+                        <strong>Giới thiệu</strong>
                       </p>
                       <p>
                         Họ và tên: {profile.lastname} {profile.firstname}

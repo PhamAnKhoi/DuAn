@@ -6,10 +6,11 @@ import SidebarAdmin from "./SidebarAdmin";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-js-pagination";
 
+
 function ListAccount() {
   const [users, setUsers] = useState([]);
   const [activePage, setActivePage] = useState(1);
-  const [itemsPerPage] = useState(10);
+  const [itemsPerPage] = useState(5); // Số bài viết trên mỗi trang
 
   var user = Cookies.get("user");
   if (user !== undefined) {
@@ -19,7 +20,9 @@ function ListAccount() {
   if (auth !== "ADMIN" && auth !== "TEACHER") {
     window.location.href = "/login";
   }
-
+  const handlePageChange = (pageNumber) => {
+    setActivePage(pageNumber);
+  };
   useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -48,14 +51,6 @@ function ListAccount() {
     fetchCourses();
   }, [user.access_token]);
 
-  const handlePageChange = (pageNumber) => {
-    setActivePage(pageNumber);
-  };
-
-  const indexOfLastItem = activePage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = users.slice(indexOfFirstItem, indexOfLastItem);
-
   return (
     <div className="Admin">
       <div className="container-fluid">
@@ -80,11 +75,9 @@ function ListAccount() {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentItems.map((user, index) => (
+                  {users.map((user, index) => (
                     <tr key={user.id}>
-                      <td className="p-2 text-center">
-                        {(activePage - 1) * itemsPerPage + index + 1}
-                      </td>
+                      <td className="p-2 text-center">{index + 1}</td>
                       <td className="p-2 text-center">
                         <div>{user.email}</div>
                       </td>
@@ -120,6 +113,7 @@ function ListAccount() {
                   linkClass={"page-link"}
                 />
               </div>
+
             </div>
           </div>
         </div>

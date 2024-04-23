@@ -19,17 +19,20 @@ function Cart() {
     totalAmount += courses[i].price;
   }
   
-  var user = Cookies.get("user");
-  if (user !== undefined) {
-    user = JSON.parse(user);
-  } else {
-    alert("Bạn cần đăng nhập để thực hiện chức năng này.");
-    window.location.href = "/login";
-  }
+  // var user = Cookies.get("user");
+  // if (user !== undefined) {
+  //   user = JSON.parse(user);
+  // } else {
+  //   alert("Bạn cần đăng nhập để thực hiện chức năng này.");
+  //   window.location.href = "/login";
+  // }
   // const { text } = prop;
 
   useEffect(() => {
-    axios
+    var user = Cookies.get("user");
+    if (user !== undefined) {
+      user = JSON.parse(user);
+      axios
       .get("http://api.course-selling.id.vn/api/cart/", {
         headers: {
           "Content-Type": "multipart/form-data", //upload file
@@ -47,11 +50,22 @@ function Cart() {
       .catch((error) => {
         console.error("Error fetching courses:", error);
       });
-  }, [user.access_token]);
+    } else {
+      setShowToast(true);
+      setToastMessage("Bạn cần đăng nhập để thực hiện chức năng này.");
+      setToastVariant("danger");
+      setTimeout(() => {
+        window.location.href = '/login'
+      }, 1500);
+    }
+  }, []);
   // Gửi yêu cầu GET đến API
   function removeItem(id) {
     // console.log(user.access_token);
-    axios
+    var user = Cookies.get("user");
+    if (user !== undefined) {
+      user = JSON.parse(user);
+      axios
       .post(
         `http://api.course-selling.id.vn/api/cart/delete-item/${id}`,
         {},
@@ -77,10 +91,20 @@ function Cart() {
         // handle error
         console.error("Error removing item:", error);
       });
+    } else {
+      setShowToast(true);
+      setToastMessage("Bạn cần đăng nhập để thực hiện chức năng này.");
+      setToastVariant("danger");
+      setTimeout(() => {
+        window.location.href = '/login'
+      }, 1500);
+    }
   }
   function order(payment) {
-    // console.log(user.access_token);
-    axios
+    var user = Cookies.get("user");
+    if (user !== undefined) {
+      user = JSON.parse(user);
+      axios
       .get(
         `http://api.course-selling.id.vn/api/order/pay?payment=${payment}`,
         // {},
@@ -98,7 +122,7 @@ function Cart() {
           setToastVariant('success');
           setTimeout(() => {
             window.location.href = response.data.CheckOut;
-          }, 2000);
+          }, 1500);
         }
       })
       .catch((error) => {
@@ -108,6 +132,14 @@ function Cart() {
         setToastVariant('danger');
         console.error("Error removing item:", error);
       });
+    } else {
+      setShowToast(true);
+      setToastMessage("Bạn cần đăng nhập để thực hiện chức năng này.");
+      setToastVariant("danger");
+      setTimeout(() => {
+        window.location.href = '/login'
+      }, 1500);
+    }
   }
 
   return (
