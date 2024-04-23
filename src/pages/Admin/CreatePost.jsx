@@ -16,6 +16,8 @@ function CreatePost() {
     window.location.href = "/login";
   }
   const [title, setTitle] = useState("");
+  const [likes, setLike] = useState("");
+  const [views, setView] = useState("");
   const [content, setContent] = useState("");
   const [status, setStatus] = useState(1);
   const [thumbnail, setThumbnail] = useState(null);
@@ -28,6 +30,8 @@ function CreatePost() {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("content", content);
+      formData.append("likes", likes);
+      formData.append("views", views);
       formData.append("status", status);
       formData.append("thumbnail", thumbnail);
 
@@ -43,12 +47,13 @@ function CreatePost() {
       );
 
       if (response.data) {
-        // console.log(response.data);
         alert("Tạo bài viết thành công!");
         window.location.href = "/admin/create-post";
       }
       setTitle("");
       setContent("");
+      setLike("");
+      setView("");
       setStatus(1);
       setThumbnail(null);
       setErrorMessage("");
@@ -89,7 +94,6 @@ function CreatePost() {
                         required
                       />
                     </div>
-
                     <div className="mb-3">
                       <label className="form-label">Ảnh minh họa:</label>
                       <input
@@ -97,6 +101,26 @@ function CreatePost() {
                         type="file"
                         onChange={(e) => setThumbnail(e.target.files[0])}
                         required
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label className="form-label">Lượt yêu thích: </label>
+                      <input
+                        className="form-control"
+                        placeholder="Lượt yêu thích"
+                        type="number"
+                        value={likes}
+                        onChange={(e) => setLike(e.target.value)}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label className="form-label">Lượt xem: </label>
+                      <input
+                        className="form-control"
+                        placeholder="Lượt xem"
+                        type="number"
+                        value={views}
+                        onChange={(e) => setView(e.target.value)}
                       />
                     </div>
                     <div className="mb-3">
@@ -120,7 +144,6 @@ function CreatePost() {
                         <span className="mx-2">Ẩn bài viết</span>
                       </div>
                     </div>
-
                     <button className="btn btn-primary" type="submit">
                       Lưu bài viết
                     </button>

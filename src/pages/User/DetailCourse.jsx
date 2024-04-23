@@ -15,7 +15,7 @@ function DetailCourse() {
   const [sessions, setSessions] = useState([]);
   //Phân trang
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 1; // Thay đổi giá trị này tùy theo nhu cầu của bạn
+  const itemsPerPage = 5;
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -149,7 +149,18 @@ function DetailCourse() {
             <div className="row">
               <div className="col-lg-8">
                 <div className="text-div1">{course.name}</div>
-                <div className="text-div2">{course.description}</div>
+                <div className="text-div2">
+                  <span
+                    dangerouslySetInnerHTML=
+                    {
+                      {
+                        __html: course.description
+                      }
+                    }
+                    >
+                  </span>
+                  {/* {{  }} */}
+                </div>
                 <div className="text-div3">
                   Lượt xem: {Number(course.views).toLocaleString("vi")}{" "}
                   <i className="fa fa-eye" aria-hidden="true"></i>
@@ -345,15 +356,17 @@ function DetailCourse() {
                     </div>
                   ))}
                 </div>
-                <ReactPaginate
-                  activePage={currentPage}
-                  itemsCountPerPage={itemsPerPage}
-                  totalItemsCount={ratings.length}
-                  pageRangeDisplayed={5} // Thay đổi giá trị này tùy theo nhu cầu của bạn
-                  onChange={handlePageChange}
-                  itemClass="page-item"
-                  linkClass="page-link"
-                />
+                <div className="custom-paginate">
+                  <ReactPaginate
+                    activePage={currentPage}
+                    itemsCountPerPage={itemsPerPage}
+                    totalItemsCount={ratings.length}
+                    pageRangeDisplayed={5}
+                    onChange={handlePageChange}
+                    itemClass="page-item"
+                    linkClass="page-link"
+                  />
+                </div>
               </div>
               <div className="col-lg-4 margin-top">
                 <div>

@@ -473,6 +473,29 @@
       border-radius: 100%;
     }
   }
+  .custom-paginate {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  .custom-paginate .page-link {
+    color: #f05123 !important;
+    background-color: #fff;
+    border-color: #f05123;
+  }
+
+  .custom-paginate .page-link:hover {
+    color: #fff !important;
+    background-color: #f05123;
+    border-color: #f05123;
+  }
+
+  .custom-paginate .page-item.active .page-link {
+    color: #fff !important;
+    background-color: #f05123;
+    border-color: #f05123;
+  }
+  
 }
 
 .Course {

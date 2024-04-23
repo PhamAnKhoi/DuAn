@@ -36,6 +36,8 @@ function ListPost() {
           }
         );
 
+        
+
         if (response.status !== 200) {
           throw new Error("Failed to fetch posts");
         }
@@ -54,6 +56,29 @@ function ListPost() {
   function handleEditPost(e) {
     console.log(e);
     window.location.href = `/admin/edit-post/${e}`;
+  }
+
+  async function handleDelete(postId) {
+    try {
+      const response = await axios.post(
+        "http://api.course-selling.id.vn/api/post/delete/" + postId,
+        {},
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${user.access_token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        alert("Bạn đã xóa bài viết này");
+        window.location.href = "/admin/list-post";
+      } else {
+        throw new Error("Failed to delete course");
+      }
+    } catch (error) {
+      console.error("Error while deleting course:", error);
+    }
   }
 
   const indexOfLastPost = currentPage * postsPerPage;
@@ -97,13 +122,17 @@ function ListPost() {
                       <td>{post.title}</td>
                       <td>
                         <p style={{ height: "100px", overflow: "hidden" }}>
-                          {post.content}
+                          <span
+                              dangerouslySetInnerHTML={{
+                                __html: post.content
+                              }}
+                            />
                         </p>
                       </td>
                       <td className="text-center ">
                         <div className="d-flex align-items-center">
-                          <button className="btn btn-primary me-2">
-                            <i className="fa fa-trash" aria-hidden="true"></i>
+                          <button className="btn btn-primary me-2" onClick={() => handleDelete(post.id)}>
+                          <i className="fa fa-trash" aria-hidden="true"></i>
                           </button>
                           <button
                             className="btn btn-success"

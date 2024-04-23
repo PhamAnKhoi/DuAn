@@ -101,9 +101,7 @@ function ListAccount() {
                       </td>
                       <td className="p-2 text-center">
                         <Link to={"/admin/detail-account/" + user.id}>
-                          <button className="btn bg-btn-2">
-                            Xem chi tiết
-                          </button>
+                          <button className="btn bg-btn-2">Xem chi tiết</button>
                         </Link>
                       </td>
                     </tr>

@@ -153,7 +153,11 @@ function ListCourse() {
                       </td>
                       <td>
                         <p style={{ height: "100px", overflow: "hidden" }}>
-                          {course.description}
+                          <span
+                              dangerouslySetInnerHTML={{
+                                __html: course.description
+                              }}
+                            />
                         </p>
                       </td>
                       <td className="text-center">

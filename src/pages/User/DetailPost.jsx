@@ -6,14 +6,14 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import logo from "./logo.png";
+import ReactPaginate from "react-js-pagination";
 
 function DetailPost() {
   const [post, setPost] = useState([]);
   const [posts, setPosts] = useState([]);
-  console.log(posts);
+  const [comments, setComments] = useState([]);
   const createdDate = new Date(post.created_at);
   const currentDate = new Date();
-
   const monthsPassed =
     (currentDate.getFullYear() - createdDate.getFullYear()) * 12 +
     (currentDate.getMonth() - createdDate.getMonth());
@@ -24,11 +24,48 @@ function DetailPost() {
     user = JSON.parse(user);
   }
 
+  //Phân trang
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const [inputValue, setInputValue] = useState("");
+  const handleSendReview = () => {
+    // console.log('inputValue');
+    axios
+      .post(
+        "http://api.course-selling.id.vn/api/post/comment/" + postId,
+        {
+          content: inputValue,
+          post_id: postId,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${user.access_token}`,
+          },
+        }
+      )
+      .then((response) => {
+        window.location.href = "/detail-post/" + post.id;
+      })
+      .catch((error) => {
+        console.error("Error fetching courses:", error);
+      });
+  };
+
+  const handleInput = (event) => {
+    setInputValue(event.target.value);
+  };
+
   useEffect(() => {
     axios
       .get("http://api.course-selling.id.vn/api/post/" + postId)
       .then((response) => {
         setPost(response.data.data);
+        setComments(response.data.comments);
       })
       .catch((error) => {
         console.error("Error fetching courses:", error);
@@ -42,6 +79,13 @@ function DetailPost() {
         console.error(error);
       });
   }, [postId]);
+
+  const indexOfLastComment = currentPage * itemsPerPage;
+  const indexOfFirstComment = indexOfLastComment - itemsPerPage;
+  const currentComments = comments.slice(
+    indexOfFirstComment,
+    indexOfLastComment
+  );
 
   return (
     <div>
@@ -92,53 +136,62 @@ function DetailPost() {
                     <div>
                       <div className="my-2 col-lg-6">
                         <input
-                          type="email"
+                          type="text"
                           className="form-control"
-                          id="exampleFormControlInput1"
                           placeholder="Đánh giá của tôi"
+                          value={inputValue}
+                          onChange={handleInput}
                         />
                       </div>
-                      <button className="btn btn-primary">Gửi đánh giá</button>
+                      <button
+                        className="btn btn-primary"
+                        onClick={handleSendReview}
+                      >
+                        Gửi đánh giá
+                      </button>
                     </div>
                   </div>
                 </div>
                 <div className="comment mt-4">
                   <div className="text-div6">Đánh giá</div>
-                  <div className="row border-bottom">
-                    <div className="col-lg-1">
-                      <img
-                        className="img-comment"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2NrzklKfv3rlFqGQXsGpTZfrY2Obu0cvSvvmVPMf3Xg&s"
-                        alt=""
-                      />
-                    </div>
-                    <div className="col-lg-3">
-                      <div>Khôi</div>
-                      <div>
-                        <span>1 tháng trước</span>
+                  {currentComments.map((item) => (
+                    <div className="row border-bottom mt-4" key={item.id}>
+                      <div className="col-lg-1">
+                        <img className="img-comment" src={item.avata} alt="" />
                       </div>
-                      <div className="mb-3">Nội dung comment</div>
-                    </div>
-                  </div>
-                  <div className="row border-bottom">
-                    <div className="col-lg-1">
-                      <img
-                        className="img-comment"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2NrzklKfv3rlFqGQXsGpTZfrY2Obu0cvSvvmVPMf3Xg&s"
-                        alt=""
-                      />
-                    </div>
-                    <div className="col-lg-3">
-                      <div>Khôi</div>
-                      <div>
-                        <span>1 tháng trước</span>
+                      <div className="col-lg-3">
+                        <div>
+                          <strong>{item.user}</strong>
+                          <span className="ms-2 span-date">
+                            {new Date(item.created_at).toLocaleDateString()}
+                          </span>
+                        </div>
+                        <div></div>
+                        <div>
+                          {Array.from({ length: item.rating }, (_, index) => (
+                            <span key={index} className="star">
+                              &#9733;
+                            </span>
+                          ))}
+                        </div>
+                        <div className="mb-3">{item.content}</div>
                       </div>
-                      <div className="mb-3">Nội dung comment</div>
                     </div>
-                  </div>
+                  ))}
+                </div>
+                <div className="custom-paginate">
+                  <ReactPaginate
+                    activePage={currentPage}
+                    itemsCountPerPage={itemsPerPage}
+                    totalItemsCount={comments.length}
+                    pageRangeDisplayed={5}
+                    onChange={handlePageChange}
+                    itemClass="page-item"
+                    linkClass="page-link"
+                  />
                 </div>
               </div>
-              <div className="col border-left">
+              <div className="col">
                 <div style={{ marginTop: "30px" }}>
                   <div className="text-div1">Các bài viết mới</div>
                   {posts.slice(-15).map((post) => (
@@ -149,7 +202,6 @@ function DetailPost() {
                           to={"/detail-post/" + post.id}
                         >
                           <div className="form-control box-title">
-                            {/* {post.title} */}
                             <span
                               dangerouslySetInnerHTML={{
                                 __html: post.title,
