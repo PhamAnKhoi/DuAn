@@ -13,6 +13,7 @@ function DetailCourse() {
   const [allCollapsed, setAllCollapsed] = useState(true);
   const [course, setCourse] = useState([]);
   const [sessions, setSessions] = useState([]);
+
   //Phân trang
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -151,14 +152,10 @@ function DetailCourse() {
                 <div className="text-div1">{course.name}</div>
                 <div className="text-div2">
                   <span
-                    dangerouslySetInnerHTML=
-                    {
-                      {
-                        __html: course.description
-                      }
-                    }
-                    >
-                  </span>
+                    dangerouslySetInnerHTML={{
+                      __html: course.description,
+                    }}
+                  ></span>
                   {/* {{  }} */}
                 </div>
                 <div className="text-div3">
@@ -185,7 +182,7 @@ function DetailCourse() {
                               <span className="custom-span-icon">
                                 {collapsed[index] ? "\u002B" : "\u2212"}
                               </span>
-                              
+
                               <span>{session.session_name}</span>
                             </div>
                             <span className="right color-text">
@@ -243,10 +240,7 @@ function DetailCourse() {
                           onChange={handleInput}
                         />
                       </div>
-                      <button
-                        className="btn bg-btn"
-                        onClick={handleSendReview}
-                      >
+                      <button className="btn bg-btn" onClick={handleSendReview}>
                         Gửi đánh giá
                       </button>
                     </div>
@@ -294,7 +288,16 @@ function DetailCourse() {
               <div className="col-lg border-top-none">
                 <div>
                   <img className="img-propose" src={course.thumbnail} alt="" />
-                  {/* <video className="img-propose" src={course.video_demo_url}></video> */}
+                  {/* <video
+                    className="img-propose"
+                    src={course.video_demo_url}
+                  ></video> */}
+                  <video
+                    tabindex="-1"
+                    class="img-propose"
+                    controls
+                    src={course.video_demo_url}
+                  ></video>
                 </div>
                 <div>
                   <div className="custom-div-1">

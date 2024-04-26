@@ -5,21 +5,22 @@ import Sidebar from "./Sidebar.jsx";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
+import ToastMessage from "../../components/notifice.jsx";
 
 function MyCourse() {
   const [courses, setCourses] = useState([]);
-
-  var user = Cookies.get("user");
-  if (user !== undefined) {
-    user = JSON.parse(user);
-  } else {
-    alert("Bạn cần đăng nhập để thực hiện chức năng này.");
-    window.location.href = "/login";
-  }
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("");
+ 
+  
   // console.log(courses[0]);
 
   useEffect(() => {
-    axios
+    var user = Cookies.get("user");
+    if (user !== undefined) {
+      user = JSON.parse(user);
+      axios
       .get("http://api.course-selling.id.vn/api/course/purchased_courses/", {
         headers: {
           "Content-Type": "multipart/form-data", //upload file
@@ -37,10 +38,26 @@ function MyCourse() {
       .catch((error) => {
         console.error("Error fetching courses:", error);
       });
-  }, [user.access_token]);
+    } else {
+      // alert("Bạn cần đăng nhập để thực hiện chức năng này.");
+      setShowToast(true);
+      setToastMessage("Bạn cần đăng nhập để thực hiện chức năng này.");
+      setToastVariant("danger");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1500);
+    }
+    
+  }, []);
 
   return (
     <div>
+       <ToastMessage
+        show={showToast}
+        setShow={setShowToast}
+        message={toastMessage}
+        variant={toastVariant}
+      />
       <div className="container-fluid">
         <Header />
         <div className="row Sidebar">
