@@ -4,6 +4,7 @@ import axios from "axios";
 import HeaderAdmin from "./HeaderAdmin";
 import SidebarAdmin from "./SidebarAdmin";
 import TinyEditor from "../../components/editor";
+import ToastMessage from "../../components/notifice";
 
 function CreatePost() {
   var user = Cookies.get("user");
@@ -22,7 +23,11 @@ function CreatePost() {
   const [status, setStatus] = useState(1);
   const [thumbnail, setThumbnail] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
-
+  // show noti
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("");
+  //end shownoti
   const handleCreatePost = async (e) => {
     e.preventDefault();
 
@@ -45,10 +50,21 @@ function CreatePost() {
           },
         }
       );
-
-      if (response.data) {
-        alert("Tạo bài viết thành công!");
-        window.location.href = "/admin/create-post";
+      console.log(response.data);
+      if (response.data.status) {
+        // console.log(response.data);
+        // alert("Tạo bài viết thành công!");
+        setShowToast(true);
+        setToastMessage("Tạo bài viết thành công!");
+        setToastVariant("success");
+        // window.location.href = "/admin/create-post";
+        setTimeout(() => {
+          window.location.href = "/admin/create-post";
+        }, 1000);
+      } else {
+        setShowToast(true);
+        setToastMessage("Có lỗi xẩy ra khi đăng nhập!");
+        setToastVariant("danger");
       }
       setTitle("");
       setContent("");
@@ -59,7 +75,10 @@ function CreatePost() {
       setErrorMessage("");
     } catch (error) {
       console.error("Fail to create post: ", error);
-      setErrorMessage("Có xẩy ra lỗi khi tạo bài viết.");
+      // setErrorMessage("Có xẩy ra lỗi khi tạo bài viết.");
+      setShowToast(true);
+      setToastMessage("Có xẩy ra lỗi khi tạo bài viết");
+      setToastVariant("danger");
     }
   };
   const handleEditorChange = (Content) => {
@@ -67,6 +86,12 @@ function CreatePost() {
   };
   return (
     <div className="Admin">
+      <ToastMessage
+        show={showToast}
+        setShow={setShowToast}
+        message={toastMessage}
+        variant={toastVariant}
+      />
       <div className="container-fluid">
         <div className="row flex-nowrap">
           <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
@@ -81,8 +106,8 @@ function CreatePost() {
                 onSubmit={handleCreatePost}
               >
                 <div className="row">
+                  <div className="custom-div-1 fs-4">Tạo bài viết</div>
                   <div className="col-4 ps-0">
-                    <div className="custom-div-1 fs-4">Tạo bài viết</div>
                     <div className="mb-3">
                       <label className="form-label">Tên bài viết: </label>
                       <input
@@ -144,22 +169,13 @@ function CreatePost() {
                         <span className="mx-2">Ẩn bài viết</span>
                       </div>
                     </div>
-                    <button className="btn btn-primary" type="submit">
+                    <button className="btn bg-btn" type="submit">
                       Lưu bài viết
                     </button>
                   </div>
                   <div className="col-8 pe-0">
-                    <div className="mb-3 pt-4">
-                      <label className="form-label mt-3">
-                        Nội dung bài viết:{" "}
-                      </label>
-                      {/* <textarea
-                      className="form-control"
-                      placeholder="Nội dung của bài viết"
-                      value={content}
-                      onChange={(e) => setContent(e.target.value)}
-                      required
-                    /> */}
+                    <div className="mb-3">
+                      <label className="form-label">Nội dung bài viết: </label>
                       <TinyEditor
                         initialValue={content}
                         onChange={handleEditorChange}

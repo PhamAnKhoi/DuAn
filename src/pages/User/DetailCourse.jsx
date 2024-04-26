@@ -166,86 +166,6 @@ function DetailCourse() {
                   <i className="fa fa-eye" aria-hidden="true"></i>
                 </div>
                 <div className="text-div5">Nội dung khóa học</div>
-                {/* <button className="custom-button" onClick={toggleCollapseAll}>
-                  {allCollapsed ? "Mở rộng tất cả" : "Thu nhỏ tất cả"}
-                </button>
-                <div>
-                  <div>
-                    <button
-                      className="custom-button-item"
-                      onClick={() => toggleCollapse(0)}
-                    >
-                      <div className="div-css-left">
-                        <span className="custom-span-icon">
-                          {collapsed[0] ? "\u002B" : "\u2212"}
-                        </span>
-                        <span>Khái niệm kỹ thuật cần biết</span>
-                      </div>
-                      <span className="right">Số bài học</span>
-                    </button>
-                    <ul
-                      className={`my-list ${collapsed[0] ? "collapsed" : ""}`}
-                    >
-                      <li className="margin-top-bottom">
-                        1. Mô hình Client - Server là gì?
-                      </li>
-                      <li className="margin-top-bottom">
-                        2. Domain là gì? Tên miền là gì?
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <button
-                      className="custom-button-item"
-                      onClick={() => toggleCollapse(1)}
-                    >
-                      <div className="div-css-left">
-                        <span className="custom-span-icon">
-                          {collapsed[1] ? "\u002B" : "\u2212"}
-                        </span>
-                        <span>Khái niệm kỹ thuật cần biết</span>
-                      </div>
-                      <span className="right">Số bài học</span>
-                    </button>
-                    <ul
-                      className={`my-list ${collapsed[1] ? "collapsed" : ""}`}
-                    >
-                      <li className="margin-top-bottom">
-                        1. Mô hình Client - Server là gì?
-                      </li>
-                      <li className="margin-top-bottom">
-                        2. Domain là gì? Tên miền là gì?
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <button
-                      className="custom-button-item"
-                      onClick={() => toggleCollapse(2)}
-                    >
-                      <div className="div-css-left">
-                        <span className="custom-span-icon">
-                          {collapsed[2] ? "\u002B" : "\u2212"}
-                        </span>
-                        <span>Khái niệm kỹ thuật cần biết</span>
-                      </div>
-                      <span className="right">Số bài học</span>
-                    </button>
-                    <ul
-                      className={`my-list ${collapsed[2] ? "collapsed" : ""}`}
-                    >
-                      <li className="margin-top-bottom">
-                        1. Mô hình Client - Server là gì?
-                      </li>
-                      <li className="margin-top-bottom">
-                        2. Domain là gì? Tên miền là gì?
-                      </li>
-                      <li className="margin-top-bottom">
-                        3. Domain là gì? Tên miền là gì?
-                      </li>
-                    </ul>
-                  </div>
-                </div> */}
                 {sessions.length !== 0 ? (
                   <div className="w-full">
                     <button
@@ -265,22 +185,25 @@ function DetailCourse() {
                               <span className="custom-span-icon">
                                 {collapsed[index] ? "\u002B" : "\u2212"}
                               </span>
+                              
                               <span>{session.session_name}</span>
                             </div>
-                            <span className="right">
+                            <span className="right color-text">
                               {session.lessons.length}
                             </span>
                           </button>
                           <ul
                             className={`my-list ${
-                              collapsed[0] ? "collapsed" : ""
+                              collapsed[index] ? "collapsed" : ""
                             } lesson-list`}
                           >
                             {session.lessons.map((lesson) => (
                               <li
-                                className="margin-top-bottom cursor pointer"
+                                className="margin-top-bottom cursor pointer color-text"
                                 key={"ls" + lesson.lession_id}
                               >
+                                {/* {session.session_arrange} */}
+                                {/* {". "} */}
                                 {lesson.lession_name}
                               </li>
                             ))}
@@ -321,7 +244,7 @@ function DetailCourse() {
                         />
                       </div>
                       <button
-                        className="btn btn-primary"
+                        className="btn bg-btn"
                         onClick={handleSendReview}
                       >
                         Gửi đánh giá
@@ -332,11 +255,11 @@ function DetailCourse() {
                 <div className="comment mt-4">
                   <div className="text-div6">Đánh giá</div>
                   {currentItems.map((item) => (
-                    <div className="row border-bottom mt-4" key={item.id}>
-                      <div className="col-lg-1">
+                    <div className="row mt-4" key={item.id}>
+                      <div className="col-lg-1 border-bottom">
                         <img className="img-comment" src={item.avata} alt="" />
                       </div>
-                      <div className="col-lg-3">
+                      <div className="col-lg-10 border-bottom">
                         <div>
                           <strong>{item.user}</strong>
                           <span className="ms-2 span-date">
@@ -368,9 +291,10 @@ function DetailCourse() {
                   />
                 </div>
               </div>
-              <div className="col-lg-4 margin-top">
+              <div className="col-lg border-top-none">
                 <div>
                   <img className="img-propose" src={course.thumbnail} alt="" />
+                  {/* <video className="img-propose" src={course.video_demo_url}></video> */}
                 </div>
                 <div>
                   <div className="custom-div-1">

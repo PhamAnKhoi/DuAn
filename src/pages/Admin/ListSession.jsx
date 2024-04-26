@@ -4,10 +4,16 @@ import Cookies from "js-cookie";
 import HeaderAdmin from "./HeaderAdmin";
 import SidebarAdmin from "./SidebarAdmin";
 import { useParams } from "react-router-dom";
-// import ReactPaginate from "react-js-pagination";
+import ReactPaginate from "react-js-pagination";
 
 function ListSession() {
   const [session, setSession] = useState([]);
+  const [activePage, setActivePage] = useState(1);
+  const itemsPerPage = 10;
+
+  const handlePageChange = (pageNumber) => {
+    setActivePage(pageNumber);
+  };
   let param = useParams();
   let courseId = param.courseId;
   var user = Cookies.get("user");
@@ -50,6 +56,35 @@ function ListSession() {
     console.log(e);
     window.location.href = `/admin/list-course/list-session/list-lessons/${e}`;
   }
+
+  async function handleDelete(courseId) {
+    // console.log(courseId);
+    try {
+      const response = await axios.post(
+    "http://api.course-selling.id.vn/api/course/delete/session/" + courseId,
+        {},
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${user.access_token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        alert("Bạn đã xóa session này");
+        window.location.href = `/admin/list-course/list-session/` + courseId;
+      } else {
+        throw new Error("Failed to delete session");
+      }
+    } catch (error) {
+      console.error("Error while deleting session:", error);
+    }
+  }
+
+  const indexOfLastItem = activePage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = session.slice(indexOfFirstItem, indexOfLastItem);
+
   return (
     <div className="Admin">
       <div className="container-fluid">
@@ -73,13 +108,16 @@ function ListSession() {
                     <th className="text-nowrap text-center">
                       Ngày tạo session
                     </th>
+                    <th className="text-nowrap text-center">Lessons</th>
                     <th className="text-nowrap text-center">Chức năng</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {session.map((session, index) => (
+                  {currentItems.map((session, index) => (
                     <tr key={session.id}>
-                      <td className="text-center">{index + 1}</td>
+                      <td className="text-center">
+                        {(activePage - 1) * itemsPerPage + index + 1}
+                      </td>
                       <td>
                         <div className="text-center">{session.arrange}</div>
                       </td>
@@ -97,22 +135,42 @@ function ListSession() {
                       </td>
                       <td className="text-center">
                         <button
-                          className="btn btn-primary me-2"
+                          className="btn bg-btn me-2"
                           onClick={() => handleAddVideo(session.id)}
                         >
                           <i className="fa fa-plus" aria-hidden="true"></i>
                         </button>
                         <button
-                          className="btn btn-primary"
+                          className="btn bg-btn me-2"
                           onClick={() => handleListVideo(session.id)}
                         >
                           <i className="fa fa-list" aria-hidden="true"></i>
+                        </button>
+                      </td>
+                      <td className="text-center">
+                        <button
+                          className="btn bg-btn"
+                          // onClick={() => handleListVideo(session.id)}
+                          onClick={() => handleDelete(session.id)}
+                        >
+                          <i className="fa fa-trash" aria-hidden="true"></i>
                         </button>
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
+              <div className="custom-paginate">
+                <ReactPaginate
+                  activePage={activePage}
+                  itemsCountPerPage={itemsPerPage}
+                  totalItemsCount={session.length}
+                  pageRangeDisplayed={5}
+                  onChange={handlePageChange}
+                  itemClass="page-item"
+                  linkClass="page-link"
+                />
+              </div>
             </div>
           </div>
         </div>

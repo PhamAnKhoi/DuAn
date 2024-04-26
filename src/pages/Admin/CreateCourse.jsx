@@ -4,13 +4,13 @@ import axios from "axios";
 import HeaderAdmin from "./HeaderAdmin";
 import SidebarAdmin from "./SidebarAdmin";
 import TinyEditor from "../../components/editor";
+import ToastMessage from "../../components/notifice";
 
 function CreateCourse() {
   var user = Cookies.get("user");
   if (user !== undefined) {
     user = JSON.parse(user);
     var auth = user.permission;
-    console.log(user.access_token);
   }
   if (auth !== "ADMIN" && auth !== "TEACHER") {
     window.location.href = "/login";
@@ -21,9 +21,12 @@ function CreateCourse() {
   const [views, setViews] = useState("");
   const [status, setStatus] = useState(1);
   const [thumbnail, setThumbnail] = useState(null);
-  // const [videoDemoUrl, setVideoDemoUrl] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-
+  const [videoDemoUrl, setVideoDemoUrl] = useState("");
+  // show noti
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("");
+  //end shownoti
   const handleCreateCourse = async (e) => {
     e.preventDefault();
     // console.log(`Bearer ${user.access_token}`);
@@ -35,7 +38,7 @@ function CreateCourse() {
       formData.append("views", views);
       formData.append("status", status);
       formData.append("thumbnail", thumbnail);
-      // formData.append("video_demo_url", videoDemoUrl);
+      formData.append("video_demo_url", videoDemoUrl);
 
       const response = await axios.post(
         "http://api.course-selling.id.vn/api/course/create",
@@ -48,13 +51,19 @@ function CreateCourse() {
         }
       );
 
-      if (response.data) {
-        alert("Tạo khóa học thành công!");
-        window.location.href = "/admin/create-course";
+      if (response.data.status) {
+        setShowToast(true);
+        setToastMessage("Tạo khóa học thành công!");
+        setToastVariant("success");
+        setTimeout(() => {
+          window.location.href = "/admin/create-course";
+        }, 1000);
+      } else {
+        setShowToast(true);
+        setToastMessage("Có lỗi xảy ra khi tạo khóa học!");
+        setToastVariant("danger");
       }
     } catch (error) {
-      // console.error("Fail to create course: ", error);
-      setErrorMessage("Có xảy ra lỗi khi tạo khóa học này.");
     }
   };
 
@@ -63,6 +72,12 @@ function CreateCourse() {
   };
   return (
     <div className="Admin">
+      <ToastMessage
+        show={showToast}
+        setShow={setShowToast}
+        message={toastMessage}
+        variant={toastVariant}
+      />
       <div className="container-fluid">
         <div className="row flex-nowrap">
           <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
@@ -70,7 +85,6 @@ function CreateCourse() {
           </div>
           <div className="col py-1">
             <HeaderAdmin />
-
             <div className="w-100">
               <form
                 className="custom-form mt-3 w-100 py-3 px-4"
@@ -105,6 +119,20 @@ function CreateCourse() {
                       />
                     </div>
                   </div>
+                  <div className="col">
+                    <div className="mb-3">
+                      <label className="form-label">Lượt xem: </label>
+                      <input
+                        min={0}
+                        className="form-control"
+                        placeholder="Số lượt xem"
+                        type="number"
+                        value={views}
+                        onChange={(e) => setViews(e.target.value)}
+                        required
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div className="mb-3">
                   <label className="form-label">Mô tả: </label>
@@ -114,20 +142,7 @@ function CreateCourse() {
                     height={300}
                   />
                 </div>
-
                 <div className="row">
-                  <div className="mb-3 col">
-                    <label className="form-label">Lượt xem: </label>
-                    <input
-                      min={0}
-                      className="form-control"
-                      placeholder="Số lượt xem"
-                      type="number"
-                      value={views}
-                      onChange={(e) => setViews(e.target.value)}
-                      required
-                    />
-                  </div>
                   <div className="mb-3 col">
                     <label className="form-label">Ảnh minh họa: </label>
                     <input
@@ -137,17 +152,17 @@ function CreateCourse() {
                       required
                     />
                   </div>
+                  <div className="mb-3 col">
+                    <label className="form-label">
+                      Video giới thiệu khóa học:{" "}
+                    </label>
+                    <input
+                      className="form-control"
+                      type="file"
+                      onChange={(e) => setVideoDemoUrl(e.target.files[0])}
+                    />
+                  </div>
                 </div>
-                {/* <div className="mb-3">
-                <label className="form-label">
-                  Video giới thiệu khóa học:{" "}
-                </label>
-                <input
-                  className="form-control"
-                  type="file"
-                  onChange={(e) => setVideoDemoUrl(e.target.files[0])}
-                />
-              </div> */}
                 <div className="mb-3">
                   <div className="form-label"> Trạng thái: </div>
                   <div className="mb-1">
@@ -169,10 +184,9 @@ function CreateCourse() {
                     <span className="mx-2">Ẩn khóa học</span>
                   </div>
                 </div>
-                <button className="btn btn-primary" type="submit">
+                <button className="btn bg-btn" type="submit">
                   Lưu khóa học
                 </button>
-                {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
               </form>
             </div>
           </div>

@@ -5,21 +5,20 @@ import HeaderAdmin from "./HeaderAdmin";
 import SidebarAdmin from "./SidebarAdmin";
 import TinyEditor from "../../components/editor";
 import { useParams } from "react-router-dom";
+import ToastMessage from "../../components/notifice";
 
 function Session() {
   let param = useParams();
-
   var user = Cookies.get("user");
   if (user !== undefined) {
     user = JSON.parse(user);
     var auth = user.permission;
-    // console.log(user.access_token);
   }
   if (auth !== "ADMIN" && auth !== "TEACHER") {
     window.location.href = "/login";
   }
-  const courseId = param.courseId
-//   const [courseId, setCourseId] = useState(param.courseId);
+  const courseId = param.courseId;
+  //   const [courseId, setCourseId] = useState(param.courseId);
   const [name, setName] = useState("");
   const [arrange, setArrange] = useState("");
   const [description, setDescription] = useState("description");
@@ -28,7 +27,11 @@ function Session() {
   // const [status, setStatus] = useState(1);
   const [thumbnail, setThumbnail] = useState(null);
   // const [videoDemoUrl, setVideoDemoUrl] = useState("");
-
+  // show noti
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("");
+  //end shownoti
   const handleCreateCourse = async (e) => {
     e.preventDefault();
     // console.log(`Bearer ${user.access_token}`);
@@ -55,9 +58,17 @@ function Session() {
         }
       );
 
-      if (response.data) {
-        alert("Tạo khóa học thành công!");
-        // window.location.href = "/admin/create-course";
+      if (response.data.status) {
+        setShowToast(true);
+        setToastMessage("Tạo khóa học thành công!");
+        setToastVariant("success");
+        setTimeout(() => {
+          window.location.href = `/admin/list-course/create-session/` + courseId;
+        }, 3000);
+      } else {
+        setShowToast(true);
+        setToastMessage("Có lỗi xảy ra khi tạo khóa học!");
+        setToastVariant("danger");
       }
     } catch (error) {
       // console.error("Fail to create course: ", error);
@@ -71,6 +82,12 @@ function Session() {
 
   return (
     <div className="Admin">
+      <ToastMessage
+        show={showToast}
+        setShow={setShowToast}
+        message={toastMessage}
+        variant={toastVariant}
+      />
       <div className="container-fluid">
         <div className="row flex-nowrap">
           <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
@@ -78,7 +95,6 @@ function Session() {
           </div>
           <div className="col py-1">
             <HeaderAdmin />
-
             <div className="w-100">
               <form
                 className="custom-form mt-3 w-100 py-3 px-4"

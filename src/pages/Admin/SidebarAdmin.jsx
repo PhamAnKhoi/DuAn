@@ -8,12 +8,13 @@ const SidebarAdmin = ({ page = "/" }) => {
   }
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(null);
+  console.log(userData);
   useEffect(() => {
     const userCookie = Cookies.get("user");
     if (userCookie) {
       const user = JSON.parse(userCookie);
       setIsLoggedIn(true);
-      setUserData(user.data);
+      setUserData(user);
     }
   }, []);
 
@@ -126,14 +127,14 @@ const SidebarAdmin = ({ page = "/" }) => {
                 aria-expanded="false"
               >
                 <img
-                  src="https://web2web.fr/wp-content/uploads/2016/09/demo.webmaster541295de29059.png"
+                  src={userData.avata}
                   alt=""
                   width="30"
                   height="30"
                   className="rounded-circle me-2"
                 />
                 <span className="d-none text-black d-sm-inline mx-1">
-                  <strong>{userData && userData.username}</strong>
+                  <strong>{userData && userData.data.username}</strong>
                 </span>
               </a>
               <ul className="dropdown-menu dropdown-menu-dark text-small shadow">

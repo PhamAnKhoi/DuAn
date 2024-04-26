@@ -4,11 +4,18 @@ import Cookies from "js-cookie";
 import HeaderAdmin from "./HeaderAdmin";
 import { useParams } from "react-router-dom";
 import SidebarAdmin from "./SidebarAdmin";
+import ToastMessage from "../../components/notifice";
 
 function DetailAccount() {
   const [users, setUsers] = useState([]);
   const [profile, setProfile] = useState([]);
   const [role, setRole] = useState([]);
+  const [role_id, setRole_id] = useState(null);
+  // show noti
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("");
+  //end shownoti
 
   let param = useParams();
   let userId = param.userId;
@@ -63,8 +70,56 @@ function DetailAccount() {
     fetchCourses();
   }, [user.access_token, userId]);
 
+  const handleChangeRole = async (e) => {
+    e.preventDefault();
+    // console.log(`Bearer ${user.access_token}`);
+    console.log(role_id);
+    console.log(userId);
+
+    if (role_id === null) {
+      setShowToast(true);
+      setToastMessage("Bạn chưa chọn vai trò khác");
+      setToastVariant("danger");
+    } else {
+      try {
+        const formData = new FormData();
+        formData.append("role_id", role_id);
+        formData.append("user_id", userId);
+        const response = await axios.post(
+          "http://api.course-selling.id.vn/api/admin/set-role",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data", //upload file
+              Authorization: `Bearer ${user.access_token}`,
+            },
+          }
+        );
+
+        if (response.data.status) {
+          setShowToast(true);
+          setToastMessage(response.data.message);
+          setToastVariant("success");
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        } else {
+          setShowToast(true);
+          setToastMessage(response.data.message);
+          setToastVariant("danger");
+        }
+      } catch (error) {}
+    }
+  };
+
   return (
     <div className="Admin">
+      <ToastMessage
+        show={showToast}
+        setShow={setShowToast}
+        message={toastMessage}
+        variant={toastVariant}
+      />
       <div className="container-fluid">
         <div className="row flex-nowrap">
           <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
@@ -127,8 +182,10 @@ function DetailAccount() {
                     </td>
                     <td className="text-center custom-table">
                       <select
+                        value={role_id}
                         className="form-select"
                         aria-label="Default select example"
+                        onChange={(e) => setRole_id(e.target.value)}
                       >
                         {role.map((role, index) => (
                           <option
@@ -144,7 +201,13 @@ function DetailAccount() {
                   </tr>
                 </tbody>
               </table>
-              <button className="btn btn-primary float-end">Lưu thay đổi</button>
+              <button
+                type="button"
+                className="btn bg-btn float-end"
+                onClick={handleChangeRole}
+              >
+                Lưu thay đổi
+              </button>
             </div>
           </div>
         </div>

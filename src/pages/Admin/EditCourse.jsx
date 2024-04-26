@@ -20,7 +20,7 @@ function EditCourse() {
   const [status, setStatus] = useState(1);
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnailUrl, setThumbnailUrl] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  // const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const fetchCourse = async () => {
@@ -83,8 +83,8 @@ function EditCourse() {
         alert("Chỉnh sửa khóa học thành công!");
         window.location.href = "/admin/list-course";
       }
-      const { data } = response.data;
-      setErrorMessage(data.message);
+      // const { data } = response.data;
+      // setErrorMessage(data.message);
     } catch (error) {
       console.error(error);
     }
@@ -181,12 +181,12 @@ function EditCourse() {
                       <span className="mx-2">Ẩn khóa học</span>
                     </div>
                   </div>
-                  <button className="btn btn-primary" type="submit">
+                  <button className="btn bg-btn" type="submit">
                     Lưu chỉnh sửa
                   </button>
-                  {errorMessage && (
+                  {/* {errorMessage && (
                     <p style={{ color: "red" }}>{errorMessage}</p>
-                  )}
+                  )} */}
                 </form>
               </div>
           </div>

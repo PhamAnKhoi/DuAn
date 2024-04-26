@@ -18,7 +18,7 @@ function Cart() {
   for (let i = 0; i < courses.length; i++) {
     totalAmount += courses[i].price;
   }
-  
+
   var user = Cookies.get("user");
   if (user !== undefined) {
     user = JSON.parse(user);
@@ -94,8 +94,10 @@ function Cart() {
       .then((response) => {
         if (response.data.CheckOut !== null) {
           setShowToast(true);
-          setToastMessage('Đơn hàng đã được tạo thành công. Đang chuyển hướng đến trang thanh toán...');
-          setToastVariant('success');
+          setToastMessage(
+            "Đơn hàng đã được tạo thành công. Đang chuyển hướng đến trang thanh toán..."
+          );
+          setToastVariant("success");
           setTimeout(() => {
             window.location.href = response.data.CheckOut;
           }, 2000);
@@ -104,8 +106,8 @@ function Cart() {
       .catch((error) => {
         // handle error
         setShowToast(true);
-        setToastMessage('Có xẩy ra lỗi khi tạo đơn hàng vui lòng thử lại sau.');
-        setToastVariant('danger');
+        setToastMessage("Có xẩy ra lỗi khi tạo đơn hàng vui lòng thử lại sau.");
+        setToastVariant("danger");
         console.error("Error removing item:", error);
       });
   }
@@ -189,7 +191,9 @@ function Cart() {
                   <div className="pay-1">Cộng giỏ hàng</div>
                   <div className="pay-2">
                     <span className="pay-2-1">Tổng đơn hàng</span>
-                    <span className="pay-2-2">{totalAmount.toLocaleString("vi")} vnđ</span>
+                    <span className="pay-2-2">
+                      {totalAmount.toLocaleString("vi")} vnđ
+                    </span>
                   </div>
                   <div className="mt-2">
                     <div className="form-check">
@@ -236,9 +240,11 @@ function Cart() {
                       </label>
                     </div>
                   </div>
-                  <div className="pay-3" onClick={() => order(payment)}>
-                    Tiến hành thanh toán
-                  </div>
+                  <Link>
+                    <div className="pay-3" onClick={() => order(payment)}>
+                      Tiến hành thanh toán
+                    </div>
+                  </Link>
                   <div className="pay-1">
                     <i className="fa fa-tag" aria-hidden="true">
                       {" "}

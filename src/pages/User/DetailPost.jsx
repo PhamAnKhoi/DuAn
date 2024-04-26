@@ -14,9 +14,8 @@ function DetailPost() {
   const [comments, setComments] = useState([]);
   const createdDate = new Date(post.created_at);
   const currentDate = new Date();
-  const monthsPassed =
-    (currentDate.getFullYear() - createdDate.getFullYear()) * 12 +
-    (currentDate.getMonth() - createdDate.getMonth());
+  const timeDiff = Math.abs(currentDate.getTime() - createdDate.getTime());
+  const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
   let param = useParams();
   let postId = param.postId;
   var user = Cookies.get("user");
@@ -101,7 +100,7 @@ function DetailPost() {
                   <img className="img-logo" src={logo} alt="" />
                   <div className="author-info">
                     <div>Tác giả: {post.creator}</div>
-                    <div>{monthsPassed} tháng trước</div>
+                    <div>{daysPassed} ngày trước</div>
                   </div>
                 </div>
                 <div className="mt-2">
@@ -111,7 +110,7 @@ function DetailPost() {
                   </span>
                   <span className="">
                     Lượt yêu thích: {Number(post.likes).toLocaleString("vi")}{" "}
-                    <i className="fa fa-heart-o" aria-hidden="true"></i>
+                    <i className="fa fa-heart text-danger" aria-hidden="true"></i>
                   </span>
                 </div>
                 <div className="mt-2">
@@ -144,7 +143,7 @@ function DetailPost() {
                         />
                       </div>
                       <button
-                        className="btn btn-primary"
+                        className="btn bg-btn"
                         onClick={handleSendReview}
                       >
                         Gửi đánh giá
@@ -155,11 +154,11 @@ function DetailPost() {
                 <div className="comment mt-4">
                   <div className="text-div6">Đánh giá</div>
                   {currentComments.map((item) => (
-                    <div className="row border-bottom mt-4" key={item.id}>
-                      <div className="col-lg-1">
+                    <div className="row mt-4" key={item.id}>
+                      <div className="col-lg-1 border-bottom">
                         <img className="img-comment" src={item.avata} alt="" />
                       </div>
-                      <div className="col-lg-3">
+                      <div className="col-lg-10 border-bottom">
                         <div>
                           <strong>{item.user}</strong>
                           <span className="ms-2 span-date">
@@ -191,8 +190,8 @@ function DetailPost() {
                   />
                 </div>
               </div>
-              <div className="col">
-                <div style={{ marginTop: "30px" }}>
+              <div className="col border-top-none">
+                <div className="mb-2" style={{ marginTop: "30px" }}>
                   <div className="text-div1">Các bài viết mới</div>
                   {posts.slice(-15).map((post) => (
                     <div key={post.id}>

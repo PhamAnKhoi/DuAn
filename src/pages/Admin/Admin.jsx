@@ -95,7 +95,7 @@ function Admin() {
           <div className="col py-1">
             <HeaderAdmin />
             <div className="main-panel my-1">
-              <div className="row border border-primary rounded m-0 mt-3 p-2">
+              <div className="row border rounded m-0 mt-3 p-2">
                 <h4 className="mt-2">Tổng quan</h4>
                 <Link
                   to={"/admin/list-course"}
@@ -211,7 +211,7 @@ function Admin() {
                   </div>
                 </div>
               </div>
-              <div className="row border border-primary rounded m-0 mt-3 p-2">
+              <div className="row border rounded m-0 mt-3 p-2">
                 <div className="row d-flex">
                   <div className="col-md-6 col-lg-6 col-12">
                     <h5 className="text-center mt-2">Đã bán trong 30 ngày</h5>
@@ -244,7 +244,7 @@ function Admin() {
                   </h5>
                   <table
                     id="admin-table"
-                    className="table table-light Info table-striped table-hover rounded m-0 overflow-hidden"
+                    className="table table-bg table-light Info table-striped table-hover rounded m-0 overflow-hidden"
                   >
                     <thead>
                       <tr>

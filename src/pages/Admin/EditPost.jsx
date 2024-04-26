@@ -17,7 +17,7 @@ function EditPost() {
   const [status, setStatus] = useState(1);
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnailUrl, setThumbnailUrl] = useState("");
-  const [errorMessage, setErrorMessage] = useState([]);
+  // const [errorMessage, setErrorMessage] = useState([]);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -76,8 +76,8 @@ function EditPost() {
         alert("Chỉnh sửa bài viết thành công!");
         window.location.href = "/admin/list-post";
       }
-      const { data } = response.data;
-      setErrorMessage(data.message);
+      // const { data } = response.data;
+      // setErrorMessage(data.message);
     } catch (error) {
       console.error(error);
     }
@@ -150,10 +150,10 @@ function EditPost() {
                     <span className="mx-2">Ẩn khóa học</span>
                   </div>
                 </div>
-                <button className="btn btn-primary" type="submit">
+                <button className="btn bg-btn" type="submit">
                   Lưu chỉnh sửa
                 </button>
-                {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+                {/* {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>} */}
               </form>
             </div>
           </div>

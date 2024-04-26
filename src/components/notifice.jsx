@@ -3,7 +3,7 @@ import { Toast } from 'react-bootstrap';
 
 const ToastMessage = ({ show, setShow, message, variant }) => {
   return (
-    <Toast show={show} onClose={() => setShow(false)} delay={4000} autohide style={{ position: 'fixed', top: '20px', right: '20px' }}>
+    <Toast show={show} onClose={() => setShow(false)} delay={4000} autohide style={{ position: 'fixed', top: '20px', right: '20px', zIndex: '1000' }}>
       {/* <Toast.Header>
         <strong className="me-auto">Notification</strong>
       </Toast.Header> */}

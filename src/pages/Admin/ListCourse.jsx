@@ -133,7 +133,7 @@ function ListCourse() {
                 </thead>
                 <tbody>
                   {currentCourses.map((course, index) => (
-                    <tr key={course.id}>
+                    <tr className="text-center" key={course.id}>
                       <td>{getCourseIndex(index)}</td>
                       <td className="p-2 text-center">
                         <img
@@ -149,7 +149,7 @@ function ListCourse() {
                         </div>
                       </td>
                       <td className="text-end">
-                        {Number(course.price).toLocaleString("vi")}
+                        {Number(course.price).toLocaleString("vi")}đ
                       </td>
                       <td>
                         <p style={{ height: "100px", overflow: "hidden" }}>
@@ -167,7 +167,7 @@ function ListCourse() {
                       <td className="text-center">
                         <div className="d-flex">
                           <button
-                            className="btn btn-primary me-2"
+                            className="btn bg-btn me-2"
                             onClick={() => handleDelete(course.id)}
                           >
                             <i
@@ -176,7 +176,7 @@ function ListCourse() {
                             ></i>
                           </button>
                           <button
-                            className="btn btn-success"
+                            className="btn bg-btn"
                             value={course.id}
                             onClick={() => handleEditCourse(course.id)}
                           >
@@ -187,13 +187,13 @@ function ListCourse() {
                       <td className="text-center">
                         <div className="d-flex">
                           <button
-                            className="btn btn-primary me-2"
+                            className="btn bg-btn me-2"
                             onClick={() => handleCreateSession(course.id)}
                           >
                             <i className="fa fa-plus" aria-hidden="true"></i>
                           </button>
                           <button
-                            className="btn btn-success"
+                            className="btn bg-btn"
                             value={course.id}
                             onClick={() => handleListSession(course.id)}
                           >

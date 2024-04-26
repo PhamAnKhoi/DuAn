@@ -4,10 +4,12 @@ import HeaderAdmin from "./HeaderAdmin";
 import SidebarAdmin from "./SidebarAdmin";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-// import ReactPaginate from "react-js-pagination";
+import ReactPaginate from "react-js-pagination";
 
 function ListLessons() {
   const [session, setSession] = useState([]);
+  const [activePage, setActivePage] = useState(1);
+  const itemsPerPage = 5;
   let param = useParams();
   let session_id = param.session_id;
   var user = Cookies.get("user");
@@ -42,6 +44,37 @@ function ListLessons() {
     fetchCourses();
   }, [user.access_token, session_id]);
 
+  async function handleDelete(courseId) {
+    // console.log(courseId);
+    try {
+      const response = await axios.post(
+    "http://api.course-selling.id.vn/api/course/delete/lesson/" + courseId,
+        {},
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${user.access_token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        alert("Bạn đã xóa session này");
+        window.location.href = `/admin/list-course/list-session/list-lessons/` + courseId;
+      } else {
+        throw new Error("Failed to delete session");
+      }
+    } catch (error) {
+      console.error("Error while deleting session:", error);
+    }
+  }
+
+  const handlePageChange = (pageNumber) => {
+    setActivePage(pageNumber);
+  };
+
+  const indexOfLastItem = activePage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = session.slice(indexOfFirstItem, indexOfLastItem);
   return (
     <div className="Admin">
       <div className="container-fluid">
@@ -57,36 +90,56 @@ function ListLessons() {
                 <thead>
                   <tr>
                     <th className="text-nowrap text-center">#</th>
+                    <th className="text-nowrap text-center">Số thứ tự</th>
+                    <th className="text-nowrap text-center">Tên lessons</th>
                     <th className="text-nowrap text-center">
-                      Số thứ tự session
-                    </th>
-                    <th className="text-nowrap text-center">Tên session</th>
-                    <th className="text-nowrap text-center">
-                      Ngày tạo session
+                      Ngày tạo lessons
                     </th>
                     <th className="text-nowrap text-center">Video khóa học</th>
+                    <th className="text-nowrap text-center">Chức năng</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {session.map((session, index) => (
-                    <tr key={session.id}>
-                      <td className="text-center">{index + 1}</td>
-                      <td>
-                        <div className="text-center">{session.arrange}</div>
-                      </td>
-                      <td className="text-center">{session.name}</td>
+                  {currentItems.map((lesson, index) => (
+                    <tr key={lesson.id}>
                       <td className="text-center">
-                        {new Date(session.created_at).toLocaleDateString()}
+                        {(activePage - 1) * itemsPerPage + index + 1}
+                      </td>
+                      <td>
+                        <div className="text-center">{lesson.arrange}</div>
+                      </td>
+                      <td className="text-center">{lesson.name}</td>
+                      <td className="text-center">
+                        {new Date(lesson.created_at).toLocaleDateString()}
                       </td>
                       <td>
                         <div className="text-center">
-                          <video src={session.video_url}></video>
+                          <video src={lesson.video_url}></video>
                         </div>
+                      </td>
+                      <td className="text-center">
+                        <button
+                          className="btn bg-btn"
+                          onClick={() => handleDelete(lesson.id)}
+                        >
+                          <i className="fa fa-trash" aria-hidden="true"></i>
+                        </button>
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
+              <div className="custom-paginate">
+                <ReactPaginate
+                  activePage={activePage}
+                  itemsCountPerPage={itemsPerPage}
+                  totalItemsCount={session.length}
+                  pageRangeDisplayed={5}
+                  onChange={handlePageChange}
+                  itemClass="page-item"
+                  linkClass="page-link"
+                />
+              </div>
             </div>
           </div>
         </div>

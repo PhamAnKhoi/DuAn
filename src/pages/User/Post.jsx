@@ -57,7 +57,7 @@ function Post() {
                               {post.title}
                             </Link>
                           </div>
-                          <div className="col-lg-8">
+                          <div className="col-lg-8 mb-3">
                             <span
                               dangerouslySetInnerHTML={{
                                 __html:
@@ -77,7 +77,7 @@ function Post() {
                               </span>
                             )}
                           </div>
-                          <div className="col-lg-4">
+                          <div className="col">
                             <Link
                               className="custom-decoration"
                               to={"/detail-post/" + post.id}
@@ -94,8 +94,17 @@ function Post() {
                               <strong>{post.creator}</strong>
                             </span>
                             <span className="custom-div ms-2">
-                              Ngày viết:{" "}
-                              {new Date(post.created_at).toLocaleDateString()}
+                              {(() => {
+                                const createdDate = new Date(post.created_at);
+                                const currentDate = new Date();
+                                const timeDiff = Math.abs(
+                                  currentDate.getTime() - createdDate.getTime()
+                                );
+                                const daysPassed = Math.ceil(
+                                  timeDiff / (1000 * 3600 * 24)
+                                );
+                                return `${daysPassed} ngày trước`;
+                              })()}
                             </span>
                           </div>
                         </div>

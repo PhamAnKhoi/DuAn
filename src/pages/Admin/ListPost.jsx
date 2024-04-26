@@ -36,8 +36,6 @@ function ListPost() {
           }
         );
 
-        
-
         if (response.status !== 200) {
           throw new Error("Failed to fetch posts");
         }
@@ -100,9 +98,13 @@ function ListPost() {
                 <thead>
                   <tr>
                     <th className="text-nowrap text-center">#</th>
-                    <th className="text-nowrap text-center">Hình ảnh</th>
-                    <th className="text-nowrap text-center">Tên bài viết</th>
-                    <th className="text-nowrap text-center col-5">
+                    <th className="text-nowrap text-center col-lg-3">
+                      Hình ảnh
+                    </th>
+                    <th className="text-nowrap text-center col-lg-3">
+                      Tên bài viết
+                    </th>
+                    <th className="text-nowrap text-center col-lg-5">
                       Nội dung bài viết
                     </th>
                     <th className="text-nowrap text-center">Chức năng</th>
@@ -111,7 +113,7 @@ function ListPost() {
                 <tbody>
                   {currentPosts.map((post, index) => (
                     <tr className="text-center" key={post.id}>
-                      <td>{index + 1}</td>
+                      <td>{(currentPage - 1) * postsPerPage + index + 1}</td>
                       <td>
                         <img
                           className="custom-img"
@@ -121,21 +123,30 @@ function ListPost() {
                       </td>
                       <td>{post.title}</td>
                       <td>
-                        <p style={{ height: "100px", overflow: "hidden" }}>
+                        <p
+                          style={{
+                            height: "100px",
+                            maxWidth: "455px",
+                            overflow: "hidden",
+                          }}
+                        >
                           <span
-                              dangerouslySetInnerHTML={{
-                                __html: post.content
-                              }}
-                            />
+                            dangerouslySetInnerHTML={{
+                              __html: post.content,
+                            }}
+                          />
                         </p>
                       </td>
                       <td className="text-center ">
                         <div className="d-flex align-items-center">
-                          <button className="btn btn-primary me-2" onClick={() => handleDelete(post.id)}>
-                          <i className="fa fa-trash" aria-hidden="true"></i>
+                          <button
+                            className="btn bg-btn me-2"
+                            onClick={() => handleDelete(post.id)}
+                          >
+                            <i className="fa fa-trash" aria-hidden="true"></i>
                           </button>
                           <button
-                            className="btn btn-success"
+                            className="btn bg-btn"
                             value={post.id}
                             onClick={() => handleEditPost(post.id)}
                           >
