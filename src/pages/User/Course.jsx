@@ -39,7 +39,7 @@ function Course() {
         <Header />
         <div className="row Sidebar">
           <Sidebar />
-          <div className="col-lg-11 Course">
+          <div className="col-lg-11  Course">
             <div className="custom-text">
               <span className="text-1">Khóa học miễn phí</span>
             </div>

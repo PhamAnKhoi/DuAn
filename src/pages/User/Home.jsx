@@ -99,7 +99,7 @@ function Home() {
         <Header />
         <div className="row">
           <Sidebar />
-          <div className="col-lg-11">
+          <div className="col-lg-11 ">
             <div className="Home">
               <div className="container-fluid my-2">
                 <div className="row box">

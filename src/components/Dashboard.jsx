@@ -27,6 +27,7 @@ import Session from "../pages/Admin/Session.jsx";
 import ListSession from "../pages/Admin/ListSession.jsx";
 import Lessons from "../pages/Admin/Lessons.jsx";
 import ListLessons from "../pages/Admin/ListLessons.jsx";
+import QuizForm from "../pages/Admin/Quiz.jsx";
 function Dashboard() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
@@ -64,6 +65,7 @@ function Dashboard() {
               <Route path="/admin/list-course/list-session/:courseId" element={<ListSession />} />
               <Route path="/admin/list-course/list-session/add-video/:sessionId" element={<Lessons />} />
               <Route path="/admin/list-course/list-session/list-lessons/:session_id" element={<ListLessons />} />
+              <Route path="/admin/list-course/list-session/list-lessons/quiz-create/:lesson" element={<QuizForm />} />
               <Route path="/admin/list-post" element={<ListPost />} />
               <Route path="/admin/detail-account/:userId" element={<DetailAccount />} />
               <Route path="/admin/list-account" element={<ListAccount />} />

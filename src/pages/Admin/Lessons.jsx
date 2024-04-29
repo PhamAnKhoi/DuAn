@@ -18,16 +18,9 @@ function Lessons() {
     window.location.href = "/login";
   }
   const sessionId = param.sessionId;
-  //   const [courseId, setCourseId] = useState(param.courseId);
   const [name, setName] = useState("");
   const [arrange, setArrange] = useState("");
-  //   const [description, setDescription] = useState("description");
-  // const [price, setPrice] = useState("");
-  // const [views, setViews] = useState("");
-  // const [status, setStatus] = useState(1);
   const [video, setVideo] = useState(null);
-  // const [videoDemoUrl, setVideoDemoUrl] = useState("");
-  // show noti
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastVariant, setToastVariant] = useState("");
@@ -39,13 +32,8 @@ function Lessons() {
       const formData = new FormData();
       formData.append("name", name);
       formData.append("arrange", arrange);
-      //   formData.append("description", description);
-      // formData.append("price", price);
-      // formData.append("views", views);
-      // formData.append("status", status);
       formData.append("video_url", video);
       formData.append("session_id", sessionId);
-      // formData.append("video_demo_url", videoDemoUrl);
 
       const response = await axios.post(
         "http://api.course-selling.id.vn/api/course/create-lesson",
@@ -71,8 +59,6 @@ function Lessons() {
         setToastVariant("danger");
       }
     } catch (error) {
-      // console.error("Fail to create course: ", error);
-      // setErrorMessage("Có xảy ra lỗi khi tạo khóa học này.");
     }
   };
 

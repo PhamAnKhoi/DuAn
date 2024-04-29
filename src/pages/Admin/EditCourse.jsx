@@ -4,6 +4,7 @@ import axios from "axios";
 import HeaderAdmin from "./HeaderAdmin";
 import SidebarAdmin from "./SidebarAdmin";
 import { useParams } from "react-router-dom";
+import ToastMessage from "../../components/notifice";
 
 function EditCourse() {
   let param = useParams();
@@ -20,8 +21,14 @@ function EditCourse() {
   const [status, setStatus] = useState(1);
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnailUrl, setThumbnailUrl] = useState("");
+  const [video, setVideo] = useState(null);
+  const [videoDemoUrl, setVideoDemoUrl] = useState("");
   // const [errorMessage, setErrorMessage] = useState("");
-
+// show noti
+const [showToast, setShowToast] = useState(false);
+const [toastMessage, setToastMessage] = useState("");
+const [toastVariant, setToastVariant] = useState("");
+//end shownoti
   useEffect(() => {
     const fetchCourse = async () => {
       try {
@@ -35,6 +42,7 @@ function EditCourse() {
         setViews(courseData.views);
         setStatus(courseData.status);
         setThumbnailUrl(courseData.thumbnail);
+        setVideo(courseData.video_demo_url);
       } catch (error) {
         console.error("Failed to fetch course data: ", error);
       }
@@ -49,7 +57,19 @@ function EditCourse() {
       const reader = new FileReader();
       reader.onloadend = () => {
         setThumbnail(file);
-        setThumbnailUrl(reader.result);
+        // setThumbnailUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleVideoChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setVideoDemoUrl(file);
+        setVideo(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -64,9 +84,14 @@ function EditCourse() {
     formData.append("price", price);
     formData.append("views", views);
     formData.append("status", status);
+    // formData.append("video_demo_url", videoDemoUrl);
     if (thumbnail !== null) {
       formData.append("thumbnail", thumbnail);
     }
+    if (videoDemoUrl !== null) {
+      formData.append("video_demo_url", videoDemoUrl);
+    }
+
 
     try {
       const response = await axios.post(
@@ -79,9 +104,18 @@ function EditCourse() {
           },
         }
       );
-      if (response.data) {
-        alert("Chỉnh sửa khóa học thành công!");
-        window.location.href = "/admin/list-course";
+      if (response.data.status) {
+        // alert("Chỉnh sửa khóa học thành công!");
+        setShowToast(true);
+        setToastMessage("Chỉnh sửa khóa học thành công!");
+        setToastVariant("success");
+        // setTimeout(() => {
+        //   window.location.href = `/admin/list-course`;
+        // }, 3000);
+      }else {
+        setShowToast(true);
+        setToastMessage("Có lỗi xảy ra khi chỉnh sửa khóa học!");
+        setToastVariant("danger");
       }
       // const { data } = response.data;
       // setErrorMessage(data.message);
@@ -92,6 +126,12 @@ function EditCourse() {
 
   return (
     <div className="Admin">
+      <ToastMessage
+        show={showToast}
+        setShow={setShowToast}
+        message={toastMessage}
+        variant={toastVariant}
+      />
       <div className="container-fluid">
         <div className="row flex-nowrap">
           <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
@@ -159,6 +199,20 @@ function EditCourse() {
                       width={200}
                       style={{ objectFit: "cover" }}
                     />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label">Video chỉnh sửa: </label>
+                    <input
+                      className="form-control"
+                      type="file"
+                      onChange={handleVideoChange}
+                    />
+                    <video
+                    tabindex="-1"
+                    className="img-propose"
+                    controls
+                    src={video || videoDemoUrl}
+                  ></video>
                   </div>
                   <div className="mb-3">
                     <div className="form-label"> Trạng thái: </div>

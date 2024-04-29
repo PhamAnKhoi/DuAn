@@ -17,7 +17,7 @@ function Progress() {
                 <div className="text-div2">
                   Để bắt đầu một cách thuận lợi, bạn nên tập trung vào một lộ
                   trình học. Ví dụ: Để đi làm với vị trí "Lập trình viên
-                  Front-end" bạn nên tập trung vào lộ trình "Front-end".
+                  Front-end" bạn  nên tập trung vào lộ trình "Front-end".
                 </div>
                 <div className="row">
                   <div className="col-lg-5 box">

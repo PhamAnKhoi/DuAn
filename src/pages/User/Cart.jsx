@@ -95,7 +95,7 @@ function Cart() {
         if (response.data.CheckOut !== null) {
           setShowToast(true);
           setToastMessage(
-            "Đơn hàng đã được tạo thành công. Đang chuyển hướng đến trang thanh toán..."
+            "Đơn hàng đã được tạo thành công.  Đang chuyển hướng đến trang thanh toán..."
           );
           setToastVariant("success");
           setTimeout(() => {
@@ -124,8 +124,11 @@ function Cart() {
       <div className="container">
         <div className="Cart">
           <div className="row">
-            <div className="col-lg-12 margin-bottom-50px">
+            <div className=" col-lg-12 margin-bottom-50px">
               <p className="custom-p">Giỏ hàng</p>
+              <div className="mt-2 mb-3">
+                <Link className="text-black" to={"/"}><i className="fa fa-arrow-left me-2" aria-hidden="true"></i>Quay lại trang chủ</Link>
+              </div>
               <div className="row">
                 <div className="col-lg-7 border-cart">
                   {courses.length === 0 && (

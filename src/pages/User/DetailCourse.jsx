@@ -146,7 +146,7 @@ function DetailCourse() {
         <Header />
         <div className="row Sidebar">
           <Sidebar />
-          <div className="col-lg-11 Course">
+          <div className="col-lg-11 Course ">
             <div className="row">
               <div className="col-lg-8">
                 <div className="text-div1">{course.name}</div>
@@ -287,14 +287,14 @@ function DetailCourse() {
               </div>
               <div className="col-lg border-top-none">
                 <div>
-                  <img className="img-propose" src={course.thumbnail} alt="" />
+                  {/* <img className="img-propose" src={course.thumbnail} alt="" /> */}
                   {/* <video
                     className="img-propose"
                     src={course.video_demo_url}
                   ></video> */}
                   <video
                     tabindex="-1"
-                    class="img-propose"
+                    className="img-propose"
                     controls
                     src={course.video_demo_url}
                   ></video>

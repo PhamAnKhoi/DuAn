@@ -8,6 +8,10 @@
   background-color: #ff7731;
   color: #ffffff;
 }
+.bg-btn:hover {
+  background-color: #ffae42 !important;
+  color: #fff;
+}
 
 .my-list.collapsed li {
   display: none;
@@ -78,7 +82,7 @@
 
 .Sidebar {
   .custom-box-1 {
-    background: #e8ebed;
+    background: #ddd;
     border-radius: 10px;
     height: 65px;
     width: 65px;
@@ -240,6 +244,7 @@
     width: 35px;
     height: 35px;
     border-radius: 8px;
+    
   }
 
   .custom-text {
@@ -433,10 +438,14 @@
 
 .detail-post {
   margin-bottom: 50px;
-  // .bg-btn{
-  //   background-color: #ff7731;
-  //   color: #ffffff;
-  // }
+  .bg-btn{
+    background-color: #ff7731;
+    color: #ffffff;
+  }
+  .bg-btn:hover {
+    background-color: #ffae42 !important;
+    color: #fff;
+  }
   .text-div1 {
     font-weight: 800;
     font-size: x-large;
@@ -520,10 +529,14 @@
   .color-text{
     color: gray;
   }
-  // .bg-btn{
-  //   background: #f05123;
-  //   color: #ffffff;
-  // }
+  .bg-btn{
+    background: #f05123;
+    color: #ffffff;
+  }
+  .bg-btn:hover {
+    background-color: #ffae42 !important;
+    color: #fff;
+  }
   .custom-text {
     margin: 15px 0px;
   }
@@ -1013,6 +1026,77 @@
   .margin-top-bottom {
     margin: 10px 0px;
   }
+
+  .custom-text-video{
+    text-decoration: none;
+    font-weight: bold;
+    color: #000000;
+  }
+
+  .custom-text-namels{
+    font-weight: bold;
+    margin: 10px 0px;
+    font-size: 25px;
+  }
+
+  .video-player {
+    position: relative;
+  }
+  .border-radius-10px{
+    border-radius: 10px;
+  }
+
+  .video-overlay {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    background-color: #000;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  
+  .video-overlay img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .play-button-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .play-button {
+    font-size: 6rem;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .play-button:hover {
+    transform: scale(1.2);
+  }
+  
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    overflow: hidden;
+  }  
+
+  .bg-btn {
+    background: #ff7731;
+    color: #ffffff;
+  }
+
+  .bg-quiz{
+    background: #ddd;
+  }
 }
 
 .Login {
@@ -1391,10 +1475,14 @@
   }
 
   .list-course {
-    // .bg-btn-2 {
-    //   background: #ff7731;
-    //   color: #ffffff;
-    // }
+    .bg-btn {
+      background: #ff7731;
+      color: #ffffff;
+    }
+    .bg-btn:hover {
+      background-color: #ffae42 !important;
+      color: #fff;
+    }
     tr td {
       vertical-align: middle !important;
 
@@ -1474,6 +1562,8 @@
       vertical-align: middle;
     }
   }
+
+  
 }
 
 span.hr-tag {

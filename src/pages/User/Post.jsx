@@ -36,7 +36,7 @@ function Post() {
         <Header />
         <div className="row">
           <Sidebar />
-          <div className="col-lg-11 Post">
+          <div className=" col-lg-11 Post">
             <div className="row">
               <div className="col-lg-11">
                 <div className="text-div1">Bài viết nổi bật</div>

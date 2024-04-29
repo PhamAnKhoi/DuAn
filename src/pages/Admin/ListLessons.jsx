@@ -72,6 +72,11 @@ function ListLessons() {
     setActivePage(pageNumber);
   };
 
+  function handleCreateQuiz(e) {
+    // console.log(e);
+    window.location.href = `/admin/list-course/list-session/list-lessons/quiz-create/${e}`;
+  }
+
   const indexOfLastItem = activePage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = session.slice(indexOfFirstItem, indexOfLastItem);
@@ -84,7 +89,6 @@ function ListLessons() {
           </div>
           <div className="col py-1">
             <HeaderAdmin />
-
             <div className="custom-border-top list-course">
               <table className="table table-striped table-bordered">
                 <thead>
@@ -123,6 +127,12 @@ function ListLessons() {
                           onClick={() => handleDelete(lesson.id)}
                         >
                           <i className="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                        <button
+                          className="btn bg-btn"
+                          onClick={() => handleCreateQuiz(lesson.id)}
+                        >
+                          <i className="fa fa-plus" aria-hidden="true"></i>
                         </button>
                       </td>
                     </tr>

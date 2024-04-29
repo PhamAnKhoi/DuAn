@@ -107,7 +107,7 @@ function CreatePost() {
               >
                 <div className="row">
                   <div className="custom-div-1 fs-4">Tạo bài viết</div>
-                  <div className="col-4 ps-0">
+                  <div className="col-lg-4 ps-0">
                     <div className="mb-3">
                       <label className="form-label">Tên bài viết: </label>
                       <input
@@ -173,7 +173,7 @@ function CreatePost() {
                       Lưu bài viết
                     </button>
                   </div>
-                  <div className="col-8 pe-0">
+                  <div className="col-lg pe-0">
                     <div className="mb-3">
                       <label className="form-label">Nội dung bài viết: </label>
                       <TinyEditor
@@ -184,7 +184,6 @@ function CreatePost() {
                     </div>
                   </div>
                 </div>
-
                 {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
               </form>
             </div>
