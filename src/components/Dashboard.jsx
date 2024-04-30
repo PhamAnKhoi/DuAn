@@ -76,8 +76,23 @@ function Dashboard() {
             </>
           ) : ('')
         }
-      </Routes>
-    </BrowserRouter>
+
+        {/* <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/list-course" element={<ListCourse />} />
+        <Route path="/admin/list-course/create-session/:courseId" element={<Session />} />
+        <Route path="/admin/list-course/list-session/:courseId" element={<ListSession />} />
+        <Route path="/admin/list-course/list-session/add-video/:sessionId" element={<Lessons />} />
+        <Route path="/admin/list-course/list-session/list-lessons/:session_id" element={<ListLessons />} />
+        <Route path="/admin/list-course/list-session/list-lessons/quiz-create/:lesson" element={<QuizForm />} />
+        <Route path="/admin/list-post" element={<ListPost />} />
+        <Route path="/admin/detail-account/:userId" element={<DetailAccount />} />
+        <Route path="/admin/list-account" element={<ListAccount />} />
+        <Route path="/admin/create-post" element={<CreatePost />} />
+        <Route path="/admin/edit-post/:postId" element={<EditPost />} />
+        <Route path="/admin/create-course" element={<CreateCourse />} />
+        <Route path="/admin/edit-course/:courseId" element={<EditCourse />} /> */}
+    </Routes>
+    </BrowserRouter >
   );
 }
 

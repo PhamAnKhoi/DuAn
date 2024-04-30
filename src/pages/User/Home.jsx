@@ -15,7 +15,7 @@ function Home() {
   if (user !== undefined) {
     user = JSON.parse(user);
   }
-  
+
   // console.log(user);
   // show noti
   const [showToast, setShowToast] = useState(false);
@@ -25,9 +25,21 @@ function Home() {
 
   useEffect(() => {
     const fetchCourses = async () => {
+      var header = {};
+      var user = Cookies.get("user");
+      if (user !== undefined) {
+        user = JSON.parse(user);
+        header = {
+          headers: {
+            // "Content-Type": "multipart/form-data", //upload file
+            Authorization: `Bearer ${user.access_token}`,
+          },
+        }
+      }
       try {
         const response = await axios.get(
-          `http://api.course-selling.id.vn/api/course?sort=["created_at","desc"]`
+          `http://api.course-selling.id.vn/api/course?sort=["created_at","desc"]`,
+          header
         );
 
         if (response.status !== 200) {
@@ -56,7 +68,7 @@ function Home() {
       setToastVariant("warning");
       setTimeout(() => {
         window.location.href = "/";
-      }, 1000);
+      }, 1500);
     }
     axios
       .post(

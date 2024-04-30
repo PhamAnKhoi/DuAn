@@ -17,7 +17,7 @@ function Pay() {
                     id="floatingName"
                     placeholder="Name"
                   />
-                  <label for="floatingName">Tên khách hàng</label>
+                  <label htmlFor="floatingName">Tên khách hàng</label>
                 </div>
                 <div className="form-floating mb-3">
                   <input
@@ -26,7 +26,7 @@ function Pay() {
                     id="floatingInput"
                     placeholder="name@example.com"
                   />
-                  <label for="floatingInput">Địa chỉ Email</label>
+                  <label htmlFor="floatingInput">Địa chỉ Email</label>
                 </div>
                 <div className="form-floating">
                   <input
@@ -35,7 +35,7 @@ function Pay() {
                     id="floatingPassword"
                     placeholder="Password"
                   />
-                  <label for="floatingPassword">Mật khẩu</label>
+                  <label htmlFor="floatingPassword">Mật khẩu</label>
                 </div>
               </div>
             </div>

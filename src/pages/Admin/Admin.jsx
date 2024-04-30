@@ -6,18 +6,23 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import ReactPaginate from "react-js-pagination";
+import ToastMessage from "../../components/notifice";
 
 function Admin() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [user, setUser] = useState('');
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("");
   const itemsPerPage = 5;
-  var user = Cookies.get("user");
-  if (user !== undefined) {
-    user = JSON.parse(user);
-    var auth = user.permission;
-  }
-  if (auth !== "ADMIN" && auth !== "TEACHER") {
-    window.location.href = "/login";
-  }
+  // var user = Cookies.get("user");
+  // if (user !== undefined) {
+  //   user = JSON.parse(user);
+  //   var auth = user.permission;
+  // }
+  // // if (auth !== "ADMIN" && auth !== "TEACHER") {
+  // //   window.location.href = "/login";
+  // // }
 
   const [overview, setOverviewData] = useState([]);
   const [orders, setOrdersData] = useState([]);
@@ -25,10 +30,39 @@ function Admin() {
   const [revenue, setRevenueData] = useState([]);
 
   useEffect(() => {
-    fetchData();
+    getUser()
+    if (user.access_token) {
+      fetchData()
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  }, [user.access_token]);
+  function getUser() {
+    var user = Cookies.get("user");
+    var auth = 'GUEST';
+    console.log('getUser');
+    if (user !== undefined) {
+      user = JSON.parse(user);
+      // console.log(user);
+      auth = user.permission;
+      setUser(user)
+      if (auth !== "ADMIN" && auth !== "TEACHER") {
+        // window.location.href = "/login";
+        setShowToast(true);
+        setToastMessage("Tài khoản của bạn không có quyền thực hiện thao tác này!");
+        setToastVariant("danger");
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 1500);
+      }
+    } else {
+      setShowToast(true);
+      setToastMessage("Hãy đăng nhập để thực hiện thao tác này!");
+      setToastVariant("danger");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1500);
+    }
+  }
   const fetchData = async () => {
     try {
       const response = await axios.get(
@@ -87,6 +121,12 @@ function Admin() {
   }
   return (
     <div className="Admin">
+      <ToastMessage
+        show={showToast}
+        setShow={setShowToast}
+        message={toastMessage}
+        variant={toastVariant}
+      />
       <div className="container-fluid">
         <div className="row flex-nowrap">
           <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 shadow">

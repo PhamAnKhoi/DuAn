@@ -79,6 +79,10 @@ function Video() {
       });
   }, [courseId]);
 
+  // function handleCurrentLesson(lesson) {
+  //   setCurrentLesson(lesson);
+  // }
+
   return (
     <div className="container-fluid Video">
       <ToastMessage
@@ -131,38 +135,38 @@ function Video() {
             <div className="custom-text-namels">
               {currentLesson.lession_name}
             </div>
-            <div className="bg-quiz border-radius-10px">
-              <div className="ms-3">
-                <div className="custom-text-namels pt-2">Bài tập Quiz</div>
-                <label className="form-check-label">
-                  Câu hỏi 1
-                </label>
-                <div className="form-check">
-                  <input className="form-check-input" type="radio" name="flexRadioDefault" />
-                  <label className="form-check-label">
-                    Đáp án 1
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input className="form-check-input" type="radio" name="flexRadioDefault" />
-                  <label className="form-check-label">
-                    Đáp án 2
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input className="form-check-input" type="radio" name="flexRadioDefault" />
-                  <label className="form-check-label">
-                    Đáp án 3
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input className="form-check-input" type="radio" name="flexRadioDefault" />
-                  <label className="form-check-label">
-                    Đáp án 4
-                  </label>
-                </div>
-                <button className="btn bg-btn mt-3 mb-3">Gửi câu trả lời</button>
-              </div>
+            <div className="bg-quiz border-radius-10px p-2">
+              {
+                (currentLesson.quizs) ? (
+                  (currentLesson.quizs.length) ?
+                    (
+                      <div className="ms-3">
+                        {currentLesson.quizs}
+                        <div className="custom-text-namels pt-2">Bài tập Quiz</div>
+                        {
+                          currentLesson.quizs.map((quiz, index) => (
+                            <div key={`quiz_${index}`}>
+                              <label className="form-check-label">
+                                {quiz.question}
+                              </label>
+                              {quiz.answers.map((answers, index) => (
+                                <div className="form-check" key={`answer_${index}`}>
+                                  <label className="form-check-label">
+                                    <input className="form-check-input" type="radio" name="flexRadioDefault" />
+                                    {answers.answer}
+                                  </label>
+                                </div>
+                              ))}
+                            </div>
+                          ))
+                        }
+                        <button className="btn bg-btn mt-3 mb-3">Gửi câu trả lời</button>
+                      </div>
+                    ) : ('Không có Quiz cho bài học này')
+                ) : ('Không có Quiz cho bài học này')
+
+
+              }
             </div>
           </div>
         </div>
@@ -203,7 +207,7 @@ function Video() {
                 ))}
               </div>
             ) : (
-              "Không có nội dung"
+              "Không có quiz cho bài học này"
             )}
           </div>
         </div>

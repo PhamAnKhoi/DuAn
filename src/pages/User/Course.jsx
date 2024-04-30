@@ -5,6 +5,8 @@ import Sidebar from "./Sidebar.jsx";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-js-pagination";
 import axios from "axios";
+import Cookies from "js-cookie";
+
 
 function Course() {
   const [courses, setCourses] = useState([]);
@@ -12,9 +14,23 @@ function Course() {
   const itemsPerPage = 8;
   useEffect(() => {
     const fetchCourses = async () => {
+      var header = {};
+      var user = Cookies.get("user");
+      if (user !== undefined) {
+        user = JSON.parse(user);
+        header = {
+          headers: {
+            // "Content-Type": "multipart/form-data", //upload file
+            Authorization: `Bearer ${user.access_token}`,
+          },
+        }
+      }
+
+
       try {
         const response = await axios.get(
-          "http://api.course-selling.id.vn/api/course"
+          `http://api.course-selling.id.vn/api/course`,
+          header
         );
 
         if (response.status !== 200) {
@@ -41,7 +57,7 @@ function Course() {
           <Sidebar />
           <div className="col-lg-11  Course">
             <div className="custom-text">
-              <span className="text-1">Khóa học miễn phí</span>
+              <span className="text-1">Tất cả khóa học</span>
             </div>
             <div className="row">
               {paginatedCourses.map((course) => (

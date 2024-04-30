@@ -36,6 +36,12 @@ function DetailCourse() {
   const [ratingValue, setRatingValue] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const handleSendReview = () => {
+    if (!ratingValue) {
+      setShowToast(true);
+      setToastMessage("Bạn đánh giá khóa học bao nhiêu sao.");
+      setToastVariant("warning");
+      return;
+    }
     axios
       .post(
         "http://api.course-selling.id.vn/api/course/rating-course/" + courseId,
@@ -52,7 +58,19 @@ function DetailCourse() {
         }
       )
       .then((response) => {
-        window.location.href = "/detail-course/" + course.id;
+        console.log(response.data);
+        if (response.data.status) {
+          setShowToast(true);
+          setToastMessage(response.data.message);
+          setToastVariant("success");
+          setTimeout(() => {
+            window.location.href = "/detail-course/" + course.id;
+          }, 1500);
+        } else {
+          setShowToast(true);
+          setToastMessage(response.data.message);
+          setToastVariant("danger");
+        }
       })
       .catch((error) => {
         console.error("Error fetching courses:", error);
@@ -147,11 +165,11 @@ function DetailCourse() {
         <div className="row Sidebar">
           <Sidebar />
           <div className="col-lg-11 Course ">
-            <div className="row">
+            <div className="row flex-wrap-reverse">
               <div className="col-lg-8">
                 <div className="text-div1">{course.name}</div>
-                <div className="text-div2">
-                  <span
+                <div className="w-100">
+                  <span className="text-break"
                     dangerouslySetInnerHTML={{
                       __html: course.description,
                     }}
@@ -190,9 +208,8 @@ function DetailCourse() {
                             </span>
                           </button>
                           <ul
-                            className={`my-list ${
-                              collapsed[index] ? "collapsed" : ""
-                            } lesson-list`}
+                            className={`my-list ${collapsed[index] ? "collapsed" : ""
+                              } lesson-list`}
                           >
                             {session.lessons.map((lesson) => (
                               <li
@@ -221,9 +238,8 @@ function DetailCourse() {
                       return (
                         <Link
                           key={starValue}
-                          className={`star ${
-                            starValue <= ratingValue ? "active" : ""
-                          } text-decoration-none`}
+                          className={`star ${starValue <= ratingValue ? "active" : ""
+                            } text-decoration-none`}
                           onClick={() => handleRating(starValue)}
                         >
                           &#9733;

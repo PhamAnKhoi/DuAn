@@ -13,42 +13,70 @@ function Cart() {
   const [toastMessage, setToastMessage] = useState("");
   const [toastVariant, setToastVariant] = useState("");
   //end shownoti
+  const [user, setUser] = useState('');
 
   let totalAmount = 0;
-  for (let i = 0; i < courses.length; i++) {
-    totalAmount += courses[i].price;
+  if (courses.length) {
+    for (let i = 0; i < courses.length; i++) {
+      totalAmount += courses[i].price;
+    }
   }
 
-  var user = Cookies.get("user");
-  if (user !== undefined) {
-    user = JSON.parse(user);
-  } else {
-    alert("Bạn cần đăng nhập để thực hiện chức năng này.");
-    window.location.href = "/login";
-  }
+  // var user = Cookies.get("user");
+  // if (user !== undefined) {
+  //   user = JSON.parse(user);
+  // } else {
+  //   alert("Bạn cần đăng nhập để thực hiện chức năng này.");
+  //   window.location.href = "/login";
+  // }
   // const { text } = prop;
 
   useEffect(() => {
-    axios
-      .get("http://api.course-selling.id.vn/api/cart/", {
-        headers: {
-          "Content-Type": "multipart/form-data", //upload file
-          Authorization: `Bearer ${user.access_token}`,
-        },
-      })
-      .then((response) => {
-        // Cập nhật danh sách khóa học trong giỏ
-        let cart_items = response.data;
-        if (cart_items.status === true) {
-          setCourse(cart_items.courses);
-          // console.log(cart_items.  courses);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching courses:", error);
-      });
+    getUser()
+
+    // console.log(user);
+    if (user.access_token) {
+      axios
+        .get("http://api.course-selling.id.vn/api/cart/", {
+          headers: {
+            "Content-Type": "multipart/form-data", //upload file
+            Authorization: `Bearer ${user.access_token}`,
+          },
+        })
+        .then((response) => {
+          // Cập nhật danh sách khóa học trong giỏ
+          let cart_items = response.data;
+          if (cart_items.status === true) {
+            setCourse(cart_items.courses);
+            // console.log(cart_items.  courses);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching courses:", error);
+        });
+    }
   }, [user.access_token]);
   // Gửi yêu cầu GET đến API
+  function getUser() {
+    var user = Cookies.get("user");
+    // var auth = 'GUEST';
+
+    if (user !== undefined) {
+      user = JSON.parse(user);
+      console.log(user);
+      // auth = user.permission;
+      setUser(user)
+    } else {
+      setShowToast(true);
+      setToastMessage("Hãy đăng nhập để thực hiện thao tác này!");
+      setToastVariant("danger");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1500);
+    }
+  }
+  // 
+
   function removeItem(id) {
     // console.log(user.access_token);
     axios
@@ -101,6 +129,15 @@ function Cart() {
           setTimeout(() => {
             window.location.href = response.data.CheckOut;
           }, 2000);
+        } else {
+          setShowToast(true);
+          setToastMessage(
+            "Có xẩy ra lỗi từ đơn vị thanh toán."
+          );
+          setToastVariant("danger");
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
         }
       })
       .catch((error) => {
@@ -210,7 +247,7 @@ function Cart() {
                       />
                       <label
                         className="form-check-label"
-                        for="momoatm"
+                        htmlFor="momoatm"
                         onChange={() => setPayment("MOMO_ATM")}
                       >
                         MOMO ATM
@@ -225,7 +262,7 @@ function Cart() {
                         checked={payment === "VNPAY"}
                         onChange={() => setPayment("VNPAY")}
                       />
-                      <label className="form-check-label" for="vnpatm">
+                      <label className="form-check-label" htmlFor="vnpatm">
                         VNPAY ATM
                       </label>
                     </div>
@@ -238,7 +275,7 @@ function Cart() {
                         checked={payment === "MOMO"}
                         onChange={() => setPayment("MOMO")}
                       />
-                      <label className="form-check-label" for="momoqr">
+                      <label className="form-check-label" htmlFor="momoqr">
                         MOMO QR
                       </label>
                     </div>

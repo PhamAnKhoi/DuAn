@@ -1,33 +1,76 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import ToastMessage from "../../components/notifice";
 
 const SidebarAdmin = ({ page = "/" }) => {
-  if (Cookies.get("user") === undefined) {
-    window.location.href = "/login";
-  }
+  // if (Cookies.get("user") === undefined) {
+  //   window.location.href = "/login";
+  // }
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(null);
-  console.log(userData);
-  useEffect(() => {
-    const userCookie = Cookies.get("user");
-    if (userCookie) {
-      const user = JSON.parse(userCookie);
-      setIsLoggedIn(true);
-      setUserData(user);
-    }
-  }, []);
+  // const [user, setUser] = useState('');
 
+  // console.log(userData);
+  useEffect(() => {
+    getUser()
+    // const userCookie = Cookies.get("user");
+    // if (userCookie) {
+    //   const user = JSON.parse(userCookie);
+    //   setIsLoggedIn(true);
+    //   setUserData(user);
+    // }
+  }, []);
+  function getUser() {
+    var user = Cookies.get("user");
+    var auth = 'GUEST';
+    console.log('getUser');
+    if (user !== undefined) {
+      user = JSON.parse(user);
+      console.log(user);
+      auth = user.permission;
+      setIsLoggedIn(true);
+      setUserData(user)
+      if (auth !== "ADMIN" && auth !== "TEACHER") {
+        // window.location.href = "/login";
+        setShowToast(true);
+        setToastMessage("Tài khoản của bạn không có quyền thực hiện thao tác này!");
+        setToastVariant("danger");
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 1500);
+      }
+    } else {
+      setShowToast(true);
+      setToastMessage("Hãy đăng nhập để thực hiện thao tác này!");
+      setToastVariant("danger");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1500);
+    }
+  }
   const handleLogout = () => {
     Cookies.remove("user");
     setIsLoggedIn(false);
     setUserData(null);
+    setShowToast(true);
+    setToastMessage("Đăng xuất thành công!");
+    setToastVariant("success");
     setTimeout(() => {
       window.location.href = "/";
-    }, 1000);
+    }, 1500);
   };
   return (
     <>
+      <ToastMessage
+        show={showToast}
+        setShow={setShowToast}
+        message={toastMessage}
+        variant={toastVariant}
+      />
       <div className="d-flex flex-column align-items-center align-items-sm-start p-0 text-white min-vh-100">
         <Link
           to={"/admin"}
@@ -44,9 +87,8 @@ const SidebarAdmin = ({ page = "/" }) => {
           <li className="nav-item w-100">
             <Link
               to={"/admin"}
-              className={`nav-link px-0 align-middle ps-2 ${
-                page === "/" ? "active" : ""
-              }`}
+              className={`nav-link px-0 align-middle ps-2 ${page === "/" ? "active" : ""
+                }`}
             >
               <i className="fas fa-tachometer-alt"></i>
               <span className="ms-1 d-none d-sm-inline">Bảng điều khiển</span>
@@ -56,9 +98,8 @@ const SidebarAdmin = ({ page = "/" }) => {
           <li className="nav-item w-100">
             <Link
               to={"/admin/create-course"}
-              className={`nav-link px-0 align-middle ps-2 ${
-                page === "createCourse" ? "active" : ""
-              }`}
+              className={`nav-link px-0 align-middle ps-2 ${page === "createCourse" ? "active" : ""
+                }`}
             >
               <i className="fas fa-book"></i>
               <span className="ms-1 d-none d-sm-inline">Tạo khóa học</span>
@@ -67,9 +108,8 @@ const SidebarAdmin = ({ page = "/" }) => {
           <li className="nav-item w-100">
             <Link
               to={"/admin/list-course"}
-              className={`nav-link px-0 align-middle ps-2 ${
-                page === "listCourse" ? "active" : ""
-              }`}
+              className={`nav-link px-0 align-middle ps-2 ${page === "listCourse" ? "active" : ""
+                }`}
             >
               <i className="fas fa-list"></i>
               <span className="ms-1 d-none d-sm-inline">
@@ -81,9 +121,8 @@ const SidebarAdmin = ({ page = "/" }) => {
           <li className="nav-item w-100">
             <Link
               to={"/admin/create-post"}
-              className={`nav-link px-0 align-middle ps-2 ${
-                page === "createPost" ? "active" : ""
-              }`}
+              className={`nav-link px-0 align-middle ps-2 ${page === "createPost" ? "active" : ""
+                }`}
             >
               <i className="fas fa-blog"></i>
               <span className="ms-1 d-none d-sm-inline">Tạo bài viết</span>
@@ -92,9 +131,8 @@ const SidebarAdmin = ({ page = "/" }) => {
           <li className="nav-item w-100">
             <Link
               to={"/admin/list-post"}
-              className={`nav-link px-0 align-middle ps-2 ${
-                page === "listPost" ? "active" : ""
-              }`}
+              className={`nav-link px-0 align-middle ps-2 ${page === "listPost" ? "active" : ""
+                }`}
             >
               <i className="fas fa-clipboard-list"></i>
               <span className="ms-1 d-none d-sm-inline">
@@ -106,9 +144,8 @@ const SidebarAdmin = ({ page = "/" }) => {
           <li className="nav-item w-100">
             <Link
               to={"/admin/list-account"}
-              className={`nav-link px-0 align-middle ps-2 ${
-                page === "listUser" ? "active" : ""
-              }`}
+              className={`nav-link px-0 align-middle ps-2 ${page === "listUser" ? "active" : ""
+                }`}
             >
               <i className="fas fa-users"></i>
               <span className="ms-1 d-none d-sm-inline">Tài khoản</span>
@@ -164,13 +201,13 @@ const SidebarAdmin = ({ page = "/" }) => {
             </div>
           </>
         ) : null}
-          <li className="nav-item w-100 mt-3">
-            <Link to={"/"}>
-              <button className="btn bg-btn">
+        <li className="nav-item w-100 mt-3">
+          <Link to={"/"}>
+            <button className="btn bg-btn">
               <span className="ms-1 d-none d-sm-inline">Quay về trang User</span>
-              </button>
-            </Link>
-          </li>
+            </button>
+          </Link>
+        </li>
       </div>
     </>
   );
