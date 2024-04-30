@@ -1207,6 +1207,30 @@
   .bg-quiz {
     background: #ddd;
   }
+
+  #progress-course {
+    width: 100% !important;
+  }
+  @media (min-width: 576px) {
+    #progress-course {
+      width: 50% !important;
+    }
+  }
+  
+  /* Medium devices (tablets, 768px and up) */
+  @media (min-width: 768px) {
+    #progress-course {
+      width: 60% !important;
+    }
+    
+  }
+  
+  /* Large devices (desktops, 992px and up) */
+  @media (min-width: 992px) {
+    #progress-course {
+      width: 70% !important;
+    }
+  }
 }
 
 .Login {
@@ -1776,3 +1800,6 @@ span.hr-tag {
     margin: 10px 0px;
   }
 }
+
+
+

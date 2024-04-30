@@ -109,9 +109,9 @@ const [toastVariant, setToastVariant] = useState("");
         setShowToast(true);
         setToastMessage("Chỉnh sửa khóa học thành công!");
         setToastVariant("success");
-        // setTimeout(() => {
-        //   window.location.href = `/admin/list-course`;
-        // }, 3000);
+        setTimeout(() => {
+          window.location.href = `/admin/list-course`;
+        }, 1500);
       }else {
         setShowToast(true);
         setToastMessage("Có lỗi xảy ra khi chỉnh sửa khóa học!");

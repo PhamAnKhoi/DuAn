@@ -11,10 +11,26 @@ function Login() {
   //end shownoti
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
+  const [remember_token, setRemember_token] = useState(false);
 
   // const url = process.env.REACT_APP_API_URL;
   const handleLogin = async (e) => {
     e.preventDefault();
+    // 
+    if (!account || account === '') {
+      setShowToast(true);
+      setToastMessage("Tài khoản không được để trống");
+      setToastVariant("danger");
+      return;
+    }
+    if (!password || password === '') {
+      setShowToast(true);
+      setToastMessage("Mật khẩu không được để trống");
+      setToastVariant("danger");
+      return;
+    }
+
+    // 
     try {
       const response = await fetch(
         `http://api.course-selling.id.vn/api/account/loginp`,
@@ -26,6 +42,7 @@ function Login() {
           body: JSON.stringify({
             account,
             password,
+            remember_token
           }),
         }
       );
@@ -44,8 +61,8 @@ function Login() {
         setToastMessage("Đăng nhập thành công");
         setToastVariant("success");
         const user = data;
-        let exprire = user.expires_in === "7200 second" ? 2 / 24 : 7;
-        Cookies.set("user", JSON.stringify(user), { expires: exprire });
+        // let exprire = user.expires_in === "7200 second" ? 2 / 24 : 7;
+        Cookies.set("user", JSON.stringify(user), { expires: user.expires_in });
         setTimeout(() => {
           window.location.href = '/'
         }, 1000);
@@ -82,7 +99,7 @@ function Login() {
               value={account}
               onChange={(e) => setAccount(e.target.value)}
             />
-            <label htmlFor="">Username</label>
+            <label htmlFor="">Username hoặc email</label>
           </div>
           <div className="form-floating mb-3">
             <input
@@ -95,7 +112,8 @@ function Login() {
             <label htmlFor="">Password</label>
           </div>
           <div className="form-floating mb-3">
-            <input type="checkbox" /> Remember me
+            <input type="checkbox" id="remember_token" value={true} onClick={(e) => setRemember_token(e.target.value)} /> 
+              Remember me
           </div>
           <button type="submit" className="btn btn-primary mb-3">
             Login

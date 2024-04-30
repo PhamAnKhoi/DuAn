@@ -30,6 +30,8 @@ function Video() {
   const [toastMessage, setToastMessage] = useState("");
   const [toastVariant, setToastVariant] = useState("");
   const [currentLesson, setCurrentLesson] = useState("");
+  const [quiz_progress, setQuiz_progress] = useState(0);
+  const [learned_progress, setLearned_progress] = useState(0);
   // console.log(currentLesson.quizs);
   const [collapsed, setCollapsed] = useState(defaultCollapsed);
   const toggleCollapse = (index) => {
@@ -57,7 +59,7 @@ function Video() {
     axios
       .get(
         "http://api.course-selling.id.vn/api/course/purchased_courses/" +
-          courseId,
+        courseId,
         {
           headers: {
             "Content-Type": "multipart/form-data", //upload file
@@ -71,6 +73,8 @@ function Video() {
         if (response.data.status) {
           // setCourse(response.data.data);
           setSessions(response.data.sessions);
+          setQuiz_progress(response.data.quiz_progress)
+          setLearned_progress(response.data.learned_progress)
           setCurrentLesson(response.data.sessions[0].lessons[0]); //lession_video_url
         } else {
           setShowToast(true);
@@ -94,40 +98,40 @@ function Video() {
   function submitQuiz() {
     console.log(quiz_id, question_id, answer_id);
     axios
-    .post(
-      "http://api.course-selling.id.vn/api/course/do-quiz",
-      {
-        quiz_id: quiz_id,
-        answer_id: answer_id,
-        course_id: courseId,
-        question_id: question_id,
-      },
-      {
-        headers: {
-          "Content-Type": "multipart/form-data", //upload file
-          Authorization: `Bearer ${user.access_token}`,
+      .post(
+        "http://api.course-selling.id.vn/api/course/do-quiz",
+        {
+          quiz_id: quiz_id,
+          answer_id: answer_id,
+          course_id: courseId,
+          question_id: question_id,
         },
-      }
-    )
-    .then((response) => {
-      // console.log(response.data);
-      //lession_video_url
-      if (response.data.status) {
-        setShowToast(true);
-        setToastMessage(response.data.message);
-        setToastVariant("success");
-      } else {
-        setShowToast(true);
-        setToastMessage(response.data.message);
-        setToastVariant("danger");
-        // setTimeout(() => {
-        //   window.location.reload;
-        // }, 1500);
-      }
-    })
-    .catch((error) => {
-      console.error("Error do quiz:", error);
-    });
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", //upload file
+            Authorization: `Bearer ${user.access_token}`,
+          },
+        }
+      )
+      .then((response) => {
+        // console.log(response.data);
+        //lession_video_url
+        if (response.data.status) {
+          setShowToast(true);
+          setToastMessage(response.data.message);
+          setToastVariant("success");
+        } else {
+          setShowToast(true);
+          setToastMessage(response.data.message);
+          setToastVariant("danger");
+          // setTimeout(() => {
+          //   window.location.reload;
+          // }, 1500);
+        }
+      })
+      .catch((error) => {
+        console.error("Error do quiz:", error);
+      });
   }
 
 
@@ -141,11 +145,27 @@ function Video() {
         variant={toastVariant}
       />
       <Header />
-      <div className="mt-2 mb-2">
-        <Link className="custom-text-video" to={"/my-course"}>
+      <div className="mt-2 mb-2 d-flex justify-content-between align-items-center">
+        <Link className="custom-text-video text-nowrap" to={"/my-course"}>
           <i className="fa fa-arrow-left me-2" aria-hidden="true"></i>Quay lại
           khóa học
         </Link>
+        <div className="d-flex w-100 gap-1" id="progress-course">
+          <div className="d-flex w-50 p-2 ">
+            <span className="fw-medium text-nowrap pe-2">Tiến độ học:</span>
+            <div className="h-full w-100 border rounded-pill overflow-hidden">
+              <div className="bg-success text-center text-white fw-medium d-lg-block d-md-block d-sm-block d-none" style={{ width: `${learned_progress}%` }}>{`${learned_progress}%`}</div>
+              <div className="fw-medium d-lg-none d-md-none d-sm-none d-block">{`${learned_progress}%`}</div>
+            </div>
+          </div>
+          <div className="d-flex w-50 p-2 ">
+            <span className="fw-medium text-nowrap pe-2">Tiến độ quiz:</span>
+            <div className="h-full w-100 border rounded-pill overflow-hidden">
+              <div className="bg-primary text-center text-white fw-medium d-lg-block d-md-block d-sm-block d-none" style={{ width: `${quiz_progress}%` }}>{`${quiz_progress}%`}</div>
+              <div className="fw-medium d-lg-none d-md-none d-sm-none d-block">{`${quiz_progress}%`}</div>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="row">
         {/* <div className="col-lg-8 p-2">
@@ -209,9 +229,10 @@ function Video() {
                               <input
                                 className="form-check-input"
                                 type="radio"
-                                name="flexRadioDefault"
+                                name={`answer_${index}`}
                                 value={anwsers.id}
                                 disabled={anwsers.status}
+                                checked={quiz.correct_answer === anwsers.answer}
                                 onClick={(e) => handleQuiz(quiz.quiz_id, anwsers.question_id, (e.target.value))}
                               />
                               {anwsers.answer}
@@ -220,12 +241,12 @@ function Video() {
                         ))}
 
                         {
-                          (quiz.correct_answer)?(
+                          (quiz.correct_answer) ? (
                             <div className="text-success fw-bold">Đáp án: '{quiz.correct_answer}'</div>
-                          ): (
-                          <button className="btn bg-btn mt-3 mb-3" onClick={() => submitQuiz()}>
-                            Gửi câu trả lời
-                          </button>
+                          ) : (
+                            <button className="btn bg-btn mt-3 mb-3" onClick={() => submitQuiz()}>
+                              Gửi câu trả lời
+                            </button>
                           )
                         }
                       </div>
@@ -260,9 +281,8 @@ function Video() {
                     </button>
 
                     <ul
-                      className={`my-list${
-                        collapsed[index] ? " collapsed " : " "
-                      }lesson-list`}
+                      className={`my-list${collapsed[index] ? " collapsed " : " "
+                        }lesson-list`}
                     >
                       {session.lessons.map((lesson) => (
                         <li
