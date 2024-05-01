@@ -33,7 +33,13 @@ const [toastVariant, setToastVariant] = useState("");
     const fetchCourse = async () => {
       try {
         const response = await axios.get(
-          "http://api.course-selling.id.vn/api/course/" + courseId
+          "http://api.course-selling.id.vn/api/course/show-edit/" + courseId,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${user.access_token}`,
+            },
+          }
         );
         const courseData = response.data.data;
         setName(courseData.name);
