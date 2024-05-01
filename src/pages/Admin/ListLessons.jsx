@@ -48,7 +48,7 @@ function ListLessons() {
     // console.log(courseId);
     try {
       const response = await axios.post(
-    "http://api.course-selling.id.vn/api/course/delete/lesson/" + courseId,
+        "http://api.course-selling.id.vn/api/course/delete/lesson/" + courseId,
         {},
         {
           headers: {
@@ -59,7 +59,8 @@ function ListLessons() {
       );
       if (response.status === 200) {
         alert("Bạn đã xóa session này");
-        window.location.href = `/admin/list-course/list-session/list-lessons/` + courseId;
+        window.location.href =
+          `/admin/list-course/list-session/list-lessons/` + courseId;
       } else {
         throw new Error("Failed to delete session");
       }
@@ -101,6 +102,7 @@ function ListLessons() {
                     </th>
                     <th className="text-nowrap text-center">Video khóa học</th>
                     <th className="text-nowrap text-center">Chức năng</th>
+                    <th className="text-nowrap text-center">Quiz</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -118,16 +120,24 @@ function ListLessons() {
                       </td>
                       <td>
                         <div className="text-center">
-                          <video src={lesson.video_url}></video>
+                          <iframe title="Video" src={lesson.video_url}></iframe>
                         </div>
                       </td>
                       <td className="text-center">
+                        {/* <button
+                          className="btn bg-btn me-2"
+                          onClick={() => handleCreateQuiz(lesson.id)}
+                        >
+                          <i className="fa fa-pencil" aria-hidden="true"></i>
+                        </button> */}
                         <button
                           className="btn bg-btn"
                           onClick={() => handleDelete(lesson.id)}
                         >
                           <i className="fa fa-trash" aria-hidden="true"></i>
                         </button>
+                      </td>
+                      <td className="text-center">
                         <button
                           className="btn bg-btn"
                           onClick={() => handleCreateQuiz(lesson.id)}

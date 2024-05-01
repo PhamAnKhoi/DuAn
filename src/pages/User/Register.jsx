@@ -20,6 +20,68 @@ function Register() {
   const [toastMessage, setToastMessage] = useState("");
   const [toastVariant, setToastVariant] = useState("");  const handleLogin = async (e) => {
     e.preventDefault();
+    if (!email || email === '') {
+      setShowToast(true);
+      setToastMessage("Email không được để trống");
+      setToastVariant("danger");
+      return;
+    }
+    if (!username || username === '') {
+      setShowToast(true);
+      setToastMessage("Username không được để trống");
+      setToastVariant("danger");
+      return;
+    }
+    if (!password || password === '') {
+      setShowToast(true);
+      setToastMessage("Mật khẩu không được để trống");
+      setToastVariant("danger");
+      return;
+    }else{
+      if (password.length < 6) {
+        setShowToast(true);
+        setToastMessage("Mật khẩu phải 6 kí tự");
+        setToastVariant("danger");
+        return;
+      }
+    }
+    if (!phone || phone === '') {
+      setShowToast(true);
+      setToastMessage("Mật khẩu không được để trống");
+      setToastVariant("danger");
+      return;
+    }else{
+      if (phone.length < 6) {
+        setShowToast(true);
+        setToastMessage("Số điện thoại phải 10 số");
+        setToastVariant("danger");
+        return;
+      }
+    }
+    if (!avata || avata === '') {
+      setShowToast(true);
+      setToastMessage("Hình đại diện không được để trống");
+      setToastVariant("danger");
+      return;
+    }
+    if (!firstname || firstname === '') {
+      setShowToast(true);
+      setToastMessage("Tên không được để trống");
+      setToastVariant("danger");
+      return;
+    }
+    if (!lastname || lastname === '') {
+      setShowToast(true);
+      setToastMessage("Họ không được để trống");
+      setToastVariant("danger");
+      return;
+    }
+    if (!address || address === '') {
+      setShowToast(true);
+      setToastMessage("Địa chỉ không được để trống");
+      setToastVariant("danger");
+      return;
+    }
 
     try {
       const formData = new FormData();
@@ -53,9 +115,9 @@ function Register() {
         }, 1000);
       } else {
         setShowToast(true);
-        setToastMessage(response.data.message);
+        setToastMessage(response.data.message );
         setToastVariant("danger");
-        console.log(response.data.errors);
+        // console.log(response.data.errors);
       }
     } catch (error) {
       console.error("Fail to create Account: ", error);
@@ -116,6 +178,8 @@ function Register() {
                       className="form-control"
                       placeholder="Phone"
                       value={phone}
+                      minLength={10}
+                      min={0}
                       onChange={(e) => setPhone(e.target.value)}
                     />
                     <label htmlFor="">Số điện thoại</label>
@@ -127,7 +191,7 @@ function Register() {
                       placeholder="Avata_img"
                       onChange={(e) => setAvata(e.target.files[0])}
                     />
-                    <label htmlFor="">Avatar</label>
+                    <label htmlFor="">Hình đại diện</label>
                   </div>
                 </div>
                 <div className="col">
@@ -159,7 +223,7 @@ function Register() {
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
                     />
-                    <label htmlFor="">Address</label>
+                    <label htmlFor="">Địa chỉ</label>
                   </div>
                   <div className="form-floating custom-input-radio">
                     <span className="custom-span">Giới tính:</span>
@@ -210,9 +274,9 @@ function Register() {
                   <div className="form-floating mb-3">
                     <button
                       type="submit"
-                      className="btn btn-primary custom-button"
+                      className="btn bg-btn custom-button"
                     >
-                      Register
+                      Đăng ký
                     </button>
                   </div>
                   <div className="mb-3">

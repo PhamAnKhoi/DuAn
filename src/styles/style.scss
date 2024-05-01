@@ -4,15 +4,15 @@
   box-sizing: border-box;
 }
 
-.bg-btn {
-  background-color: #ff7731;
-  color: #ffffff;
-}
+// .bg-btn {
+//   background-color: #ff7731;
+//   color: #ffffff;
+// }
 
-.bg-btn:hover {
-  background-color: #ffae42 !important;
-  color: #fff;
-}
+// .bg-btn:hover {
+//   background-color: #ffae42 !important;
+//   color: #fff;
+// }
 
 .my-list.collapsed li {
   display: none;
@@ -1245,6 +1245,16 @@
     color: #000000;
   }
 
+  .bg-btn {
+    background-color: #ff7731;
+    color: #ffffff;
+  }
+
+  .bg-btn:hover {
+    background-color: #ffae42 !important;
+    color: #fff;
+  }
+
   .custom-p {
     margin-bottom: 0px;
   }
@@ -1275,6 +1285,16 @@
     padding: 1rem 0.75rem;
     font-size: 1rem;
     height: 58px;
+  }
+
+  .bg-btn {
+    background-color: #ff7731;
+    color: #ffffff;
+  }
+
+  .bg-btn:hover {
+    background-color: #ffae42 !important;
+    color: #fff;
   }
 
   .custom-span {

@@ -153,6 +153,9 @@ const QuizForm = () => {
                     setShowToast(true);
                     setToastMessage(response.data.message);
                     setToastVariant("success");
+                    setTimeout(() => {
+                        window.location.href = `/admin/list-course/list-session/list-lessons/quiz-create/` + lesson_id;
+                      }, 2000);
                 } else {
                     setShowToast(true);
                     setToastMessage(response.data.message);
@@ -188,17 +191,17 @@ const QuizForm = () => {
                                 <div className="row">
                                     <div className="custom-div-1 fs-4">Tạo câu hỏi Quiz</div>
                                     <div className="mb-3">
-                                        <label className="form-label">Question: </label>
+                                        <label className="form-label">Câu hỏi: </label>
                                         <input
                                             className="form-control"
-                                            placeholder="Tên bài viết"
+                                            placeholder="Tên câu hỏi"
                                             type="text" value={question} onChange={(e) => setQuestion(e.target.value)}
                                         />
                                     </div>
                                     {answers.map((answer, index) => (
                                         <div key={index}>
                                             <div className="mb-3">
-                                                <label className="form-label">Answer {index + 1}: </label>
+                                                <label className="form-label">Câu trả lời {index + 1}: </label>
                                                 <input
                                                     className="form-control"
                                                     placeholder={`Đáp án ${index + 1}`}

@@ -96,7 +96,7 @@ function Video() {
     setQuestion_id(question_id)
   }
   function submitQuiz() {
-    console.log(quiz_id, question_id, answer_id);
+    // console.log(quiz_id, question_id, answer_id);
     axios
       .post(
         "http://api.course-selling.id.vn/api/course/do-quiz",
@@ -276,6 +276,7 @@ function Video() {
                         <span className="custom-span-icon">
                           {collapsed[index] ? "\u002B" : "\u2212"}
                         </span>
+                        <span>{index + 1}{". "}</span>
                         <span>{session.session_name}</span>
                       </div>
                     </button>
@@ -291,6 +292,8 @@ function Video() {
                           onClick={() => setCurrentLesson(lesson)}
                         >
                           <Link className="text-black text-decoration-none">
+                          {lesson.lession_arrange}
+                                {". "}
                             {lesson.lession_name}
                           </Link>
                         </li>

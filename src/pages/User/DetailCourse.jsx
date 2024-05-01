@@ -200,7 +200,8 @@ function DetailCourse() {
                               <span className="custom-span-icon">
                                 {collapsed[index] ? "\u002B" : "\u2212"}
                               </span>
-
+                              <span>{index+1}
+                                {". "}</span>
                               <span>{session.session_name}</span>
                             </div>
                             <span className="right color-text">
@@ -216,8 +217,8 @@ function DetailCourse() {
                                 className="margin-top-bottom cursor pointer color-text"
                                 key={"ls" + lesson.lession_id}
                               >
-                                {/* {session.session_arrange} */}
-                                {/* {". "} */}
+                                {lesson.lession_arrange}
+                                {". "}
                                 {lesson.lession_name}
                               </li>
                             ))}

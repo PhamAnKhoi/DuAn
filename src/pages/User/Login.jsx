@@ -113,9 +113,9 @@ function Login() {
           </div>
           <div className="form-floating mb-3">
             <input type="checkbox" id="remember_token" value={true} onClick={(e) => setRemember_token(e.target.value)} /> 
-              Remember me
+              <span className="ms-1">Remember me</span>
           </div>
-          <button type="submit" className="btn btn-primary mb-3">
+          <button type="submit" className="btn bg-btn mb-3">
             Login
           </button>
           <div className="mb-3">
