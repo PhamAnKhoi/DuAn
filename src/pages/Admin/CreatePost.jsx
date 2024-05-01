@@ -52,8 +52,6 @@ function CreatePost() {
       );
       console.log(response.data);
       if (response.data.status) {
-        // console.log(response.data);
-        // alert("Tạo bài viết thành công!");
         setShowToast(true);
         setToastMessage("Tạo bài viết thành công!");
         setToastVariant("success");

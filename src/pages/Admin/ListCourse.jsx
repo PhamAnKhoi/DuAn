@@ -4,13 +4,15 @@ import Cookies from "js-cookie";
 import HeaderAdmin from "./HeaderAdmin";
 import SidebarAdmin from "./SidebarAdmin";
 import ReactPaginate from "react-js-pagination";
-// import { Link } from "react-router-dom";
+import ToastMessage from "../../components/notifice";
 
 function ListCourse() {
   const [courses, setCourses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage] = useState(5); // Số lượng khóa học hiển thị trên mỗi trang
-
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("");
   var user = Cookies.get("user");
   if (user !== undefined) {
     user = JSON.parse(user);
@@ -79,16 +81,33 @@ function ListCourse() {
           },
         }
       );
-      if (response.status === 200) {
+      // if (response.status === 200) {
+      //   setCourses((prevCourses) =>
+      //     prevCourses.filter((course) => course.id !== courseId)
+      //   );
+      //   alert("Bạn sẽ ẩn khóa học này");
+      //   window.location.href = "/admin/list-course";
+      //   // console.log("Course deleted successfully");
+      // } else {
+      //   throw new Error("Failed to delete course");
+      // }
+
+      if (response.data.status) {
         setCourses((prevCourses) =>
           prevCourses.filter((course) => course.id !== courseId)
         );
-        alert("Bạn sẽ ẩn khóa học này");
-        window.location.href = "/admin/list-course";
-        // console.log("Course deleted successfully");
+        setShowToast(true);
+        setToastMessage("Bạn đã xóa khóa học này");
+        setToastVariant("success");
+        setTimeout(() => {
+          window.location.href = "/admin/list-course";
+        }, 1000);
       } else {
-        throw new Error("Failed to delete course");
+        setShowToast(true);
+        setToastMessage("Có lỗi trong quá trình xóa khóa học");
+        setToastVariant("danger");
       }
+
     } catch (error) {
       console.error("Error while deleting course:", error);
     }
@@ -103,6 +122,12 @@ function ListCourse() {
   };
   return (
     <div className="Admin">
+      <ToastMessage
+        show={showToast}
+        setShow={setShowToast}
+        message={toastMessage}
+        variant={toastVariant}
+      />
       <div className="container-fluid">
         <div className="row flex-nowrap">
           <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">

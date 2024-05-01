@@ -5,11 +5,15 @@ import SidebarAdmin from "./SidebarAdmin";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-js-pagination";
+import ToastMessage from "../../components/notifice";
 
 function ListLessons() {
   const [session, setSession] = useState([]);
   const [activePage, setActivePage] = useState(1);
   const itemsPerPage = 5;
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("");
   let param = useParams();
   let session_id = param.session_id;
   var user = Cookies.get("user");
@@ -57,12 +61,17 @@ function ListLessons() {
           },
         }
       );
-      if (response.status === 200) {
-        alert("Bạn đã xóa session này");
-        window.location.href =
-          `/admin/list-course/list-session/list-lessons/` + courseId;
+      if (response.data.status) {
+        setShowToast(true);
+        setToastMessage("Bạn đã xóa lesson này");
+        setToastVariant("success");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       } else {
-        throw new Error("Failed to delete session");
+        setShowToast(true);
+        setToastMessage("Có lỗi trong quá trình xóa lesson");
+        setToastVariant("danger");
       }
     } catch (error) {
       console.error("Error while deleting session:", error);
@@ -83,6 +92,12 @@ function ListLessons() {
   const currentItems = session.slice(indexOfFirstItem, indexOfLastItem);
   return (
     <div className="Admin">
+      <ToastMessage
+        show={showToast}
+        setShow={setShowToast}
+        message={toastMessage}
+        variant={toastVariant}
+      />
       <div className="container-fluid">
         <div className="row flex-nowrap">
           <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">

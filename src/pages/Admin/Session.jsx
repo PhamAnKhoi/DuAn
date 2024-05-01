@@ -148,7 +148,7 @@ function Session() {
                     height={300}
                   />
                 </div>
-                <button className="btn btn-primary" type="submit">
+                <button className="btn bg-btn" type="submit">
                   Tạo session
                 </button>
               </form>

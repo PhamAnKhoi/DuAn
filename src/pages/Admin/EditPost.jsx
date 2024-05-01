@@ -4,6 +4,7 @@ import axios from "axios";
 import HeaderAdmin from "./HeaderAdmin";
 import SidebarAdmin from "./SidebarAdmin";
 import { useParams } from "react-router-dom";
+import ToastMessage from "../../components/notifice";
 
 function EditPost() {
   let param = useParams();
@@ -18,6 +19,9 @@ function EditPost() {
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   // const [errorMessage, setErrorMessage] = useState([]);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("");
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -72,12 +76,22 @@ function EditPost() {
           },
         }
       );
-      if (response.data) {
-        alert("Chỉnh sửa bài viết thành công!");
-        window.location.href = "/admin/list-post";
+      // if (response.data) {
+      //   alert("Chỉnh sửa bài viết thành công!");
+      //   window.location.href = "/admin/list-post";
+      // }
+      if (response.data.status) {
+        setShowToast(true);
+        setToastMessage("Bạn đã chỉnh sửa bài viết này");
+        setToastVariant("success");
+        setTimeout(() => {
+          window.location.href = "/admin/list-post";
+        }, 1500);
+      } else {
+        setShowToast(true);
+        setToastMessage("Có lỗi trong quá trình chỉnh sửa bài viết");
+        setToastVariant("danger");
       }
-      // const { data } = response.data;
-      // setErrorMessage(data.message);
     } catch (error) {
       console.error(error);
     }
@@ -85,6 +99,12 @@ function EditPost() {
 
   return (
     <div className="Admin">
+      <ToastMessage
+        show={showToast}
+        setShow={setShowToast}
+        message={toastMessage}
+        variant={toastVariant}
+      />
       <div className="container-fluid">
         <div className="row flex-nowrap">
           <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">

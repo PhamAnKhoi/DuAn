@@ -4,12 +4,15 @@ import Cookies from "js-cookie";
 import HeaderAdmin from "./HeaderAdmin";
 import SidebarAdmin from "./SidebarAdmin";
 import ReactPaginate from "react-js-pagination";
+import ToastMessage from "../../components/notifice";
 
 function ListPost() {
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(5);
-
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("");
   var user = Cookies.get("user");
   if (user !== undefined) {
     user = JSON.parse(user);
@@ -68,11 +71,17 @@ function ListPost() {
           },
         }
       );
-      if (response.status === 200) {
-        alert("Bạn đã xóa bài viết này");
-        window.location.href = "/admin/list-post";
+      if (response.data.status) {
+        setShowToast(true);
+        setToastMessage("Bạn đã xóa bài viết này");
+        setToastVariant("success");
+        setTimeout(() => {
+          window.location.href = "/admin/list-post";
+        }, 1500);
       } else {
-        throw new Error("Failed to delete course");
+        setShowToast(true);
+        setToastMessage("Có lỗi trong quá trình xóa bài viết");
+        setToastVariant("danger");
       }
     } catch (error) {
       console.error("Error while deleting course:", error);
@@ -85,6 +94,12 @@ function ListPost() {
 
   return (
     <div className="Admin">
+      <ToastMessage
+        show={showToast}
+        setShow={setShowToast}
+        message={toastMessage}
+        variant={toastVariant}
+      />
       <div className="container-fluid">
         <div className="row flex-nowrap">
           <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">

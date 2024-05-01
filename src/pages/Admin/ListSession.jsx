@@ -5,12 +5,15 @@ import HeaderAdmin from "./HeaderAdmin";
 import SidebarAdmin from "./SidebarAdmin";
 import { useParams } from "react-router-dom";
 import ReactPaginate from "react-js-pagination";
+import ToastMessage from "../../components/notifice";
 
 function ListSession() {
   const [session, setSession] = useState([]);
   const [activePage, setActivePage] = useState(1);
   const itemsPerPage = 10;
-
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("");
   const handlePageChange = (pageNumber) => {
     setActivePage(pageNumber);
   };
@@ -61,7 +64,7 @@ function ListSession() {
     // console.log(courseId);
     try {
       const response = await axios.post(
-    "http://api.course-selling.id.vn/api/course/delete/session/" + courseId,
+        "http://api.course-selling.id.vn/api/course/delete/session/" + courseId,
         {},
         {
           headers: {
@@ -70,11 +73,17 @@ function ListSession() {
           },
         }
       );
-      if (response.status === 200) {
-        alert("Bạn đã xóa session này");
-        window.location.href = `/admin/list-course/list-session/` + courseId;
+      if (response.data.status) {
+        setShowToast(true);
+        setToastMessage("Bạn đã xóa session này");
+        setToastVariant("success");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       } else {
-        throw new Error("Failed to delete session");
+        setShowToast(true);
+        setToastMessage("Có lỗi trong quá trình xóa session");
+        setToastVariant("danger");
       }
     } catch (error) {
       console.error("Error while deleting session:", error);
@@ -87,6 +96,12 @@ function ListSession() {
 
   return (
     <div className="Admin">
+      <ToastMessage
+        show={showToast}
+        setShow={setShowToast}
+        message={toastMessage}
+        variant={toastVariant}
+      />
       <div className="container-fluid">
         <div className="row flex-nowrap">
           <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
@@ -104,7 +119,7 @@ function ListSession() {
                       Số thứ tự session
                     </th>
                     <th className="text-nowrap text-center">Tên session</th>
-                    <th className="text-nowrap text-center">Nội dung</th>
+                    <th className="text-nowrap text-center col-lg-5">Nội dung</th>
                     <th className="text-nowrap text-center">
                       Ngày tạo session
                     </th>
@@ -118,8 +133,8 @@ function ListSession() {
                       <td className="text-center">
                         {(activePage - 1) * itemsPerPage + index + 1}
                       </td>
-                      <td>
-                        <div className="text-center">{session.arrange}</div>
+                      <td className="text-center">
+                        {session.arrange}
                       </td>
                       <td className="text-center">{session.name}</td>
                       <td className="text-center">
@@ -129,7 +144,6 @@ function ListSession() {
                           }}
                         />
                       </td>
-
                       <td className="text-center">
                         {new Date(session.created_at).toLocaleDateString()}
                       </td>
@@ -141,7 +155,7 @@ function ListSession() {
                           <i className="fa fa-plus" aria-hidden="true"></i>
                         </button>
                         <button
-                          className="btn bg-btn me-2"
+                          className="btn bg-btn"
                           onClick={() => handleListVideo(session.id)}
                         >
                           <i className="fa fa-list" aria-hidden="true"></i>

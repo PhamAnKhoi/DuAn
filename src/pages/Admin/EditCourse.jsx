@@ -105,7 +105,6 @@ const [toastVariant, setToastVariant] = useState("");
         }
       );
       if (response.data.status) {
-        // alert("Chỉnh sửa khóa học thành công!");
         setShowToast(true);
         setToastMessage("Chỉnh sửa khóa học thành công!");
         setToastVariant("success");
