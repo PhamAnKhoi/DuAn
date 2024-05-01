@@ -14,7 +14,7 @@ function Progress() {
             <div className="row">
               <div className="col-lg-11">
                 <div className="text-div1">Lộ trình học</div>
-                <div className="text-div2">
+                <div className="">
                   Để bắt đầu một cách thuận lợi, bạn nên tập trung vào một lộ
                   trình học. Ví dụ: Để đi làm với vị trí "Lập trình viên
                   Front-end" bạn  nên tập trung vào lộ trình "Front-end".

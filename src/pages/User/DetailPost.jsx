@@ -39,6 +39,19 @@ function DetailPost() {
   const [inputValue, setInputValue] = useState("");
   const handleSendReview = () => {
     // console.log('inputValue');
+    var user = Cookies.get("user");
+    if (user !== undefined) {
+      user = JSON.parse(user);
+    } else {
+      // alert("Bạn cần đăng nhập để thực hiện chức năng này.");
+      setShowToast(true);
+      setToastMessage("Bạn cần đăng nhập để thực hiện chức năng này.");
+      setToastVariant("warning");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1500);
+      return;
+    }
     axios
       .post(
         "http://api.course-selling.id.vn/api/post/comment/" + postId,
@@ -54,7 +67,18 @@ function DetailPost() {
         }
       )
       .then((response) => {
-        window.location.href = "/detail-post/" + post.id;
+        if (response.data.status) {
+          setShowToast(true);
+          setToastMessage(response.data.message);
+          setToastVariant("success");
+          setTimeout(() => {
+            window.location.reload()
+          }, 1500);
+        } else {
+          setShowToast(true);
+          setToastMessage(response.data.message);
+          setToastVariant("warning");
+        }
       })
       .catch((error) => {
         console.error("Error fetching courses:", error);

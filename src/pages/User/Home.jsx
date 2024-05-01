@@ -67,8 +67,9 @@ function Home() {
       setToastMessage("Bạn cần đăng nhập để thực hiện chức năng này.");
       setToastVariant("warning");
       setTimeout(() => {
-        window.location.href = "/";
+        window.location.href = "/login";
       }, 1500);
+      return;
     }
     axios
       .post(

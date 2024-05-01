@@ -36,6 +36,18 @@ function DetailCourse() {
   const [ratingValue, setRatingValue] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const handleSendReview = () => {
+    var user = Cookies.get("user");
+    if (user !== undefined) {
+      user = JSON.parse(user);
+    } else {
+      // alert("Bạn cần đăng nhập để thực hiện chức năng này.");
+      setShowToast(true);
+      setToastMessage("Bạn cần đăng nhập để thực hiện chức năng này.");
+      setToastVariant("warning");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1000);
+    }
     if (!ratingValue) {
       setShowToast(true);
       setToastMessage("Bạn đánh giá khóa học bao nhiêu sao.");
@@ -119,8 +131,9 @@ function DetailCourse() {
       setToastMessage("Bạn cần đăng nhập để thực hiện chức năng này.");
       setToastVariant("warning");
       setTimeout(() => {
-        window.location.href = "/";
-      }, 1000);
+        window.location.href = "/login";
+      }, 1500);
+      return;
     }
     axios
       .post(
