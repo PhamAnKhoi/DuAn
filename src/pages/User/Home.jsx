@@ -165,7 +165,7 @@ function Home() {
                             className="custom-icon-cart"
                             onClick={() => addToCart(course.id)}
                           >
-                            <a href="/cart" className="text-white">Thêm vào giỏ hàng</a>
+                            <Link className="text-white">Thêm vào giỏ hàng</Link>
                           </span>
                         </span>
                       </div>

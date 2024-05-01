@@ -71,7 +71,7 @@ function ListAccount() {
                   <tr>
                     <th className="text-nowrap text-center">#</th>
                     <th className="text-nowrap text-center">Email</th>
-                    <th className="text-nowrap text-center">Username</th>
+                    <th className="text-nowrap text-center">Tên tài khoản </th>
                     <th className="text-nowrap text-center">Ngày tạo</th>
                     <th className="text-nowrap text-center">Vai trò</th>
                     <th className="text-nowrap text-center">

@@ -467,7 +467,7 @@
   .text-div2 {
     margin-top: 10px;
     margin-bottom: 30px;
-    width: 700px;
+    // width: 700px;
   }
 
   .text-div3 {
@@ -1204,6 +1204,11 @@
     color: #ffffff;
   }
 
+  .bg-btn:hover {
+    background-color: #ffae42 !important;
+    color: #fff;
+  }
+
   .bg-quiz {
     background: #ddd;
   }
@@ -1715,7 +1720,7 @@
       width: 80px;
       height: 80px;
     }
-
+    
     .custom-table {
       vertical-align: middle;
     }
@@ -1741,6 +1746,16 @@ span.hr-tag {
 
   .box-wrapper {
     position: relative;
+  }
+
+  .bg-btn {
+    background-color: #ff7731;
+    color: #ffffff;
+  }
+
+  .bg-btn:hover {
+    background-color: #ffae42 !important;
+    color: #fff;
   }
 
   .box-1 {

@@ -324,9 +324,9 @@ function DetailCourse() {
                     className="custom-div-2 m-auto"
                     onClick={() => addToCart(courseId)}
                   >
-                    <a href="/cart" className="text-white text-decoration-none">
+                    <Link className="text-white text-decoration-none">
                       Thêm vào giỏ hàng
-                    </a>
+                    </Link>
                   </div>
                   <div className="custom-div">
                     <div>

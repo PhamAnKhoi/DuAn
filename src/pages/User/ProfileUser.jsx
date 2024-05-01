@@ -271,7 +271,7 @@ function ProfileUser() {
                           />
                         </div>
                         <div>
-                          <button type="button" onClick={handleChangePass} className="mb-3 mx-3 btn-center btn btn-primary">
+                          <button type="button" onClick={handleChangePass} className="mb-3 mx-3 btn-center btn bg-btn">
                             Đổi mật khẩu
                           </button>
                         </div>

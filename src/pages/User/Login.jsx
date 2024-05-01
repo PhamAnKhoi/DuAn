@@ -113,10 +113,10 @@ function Login() {
           </div>
           <div className="form-floating mb-3">
             <input type="checkbox" id="remember_token" value={true} onClick={(e) => setRemember_token(e.target.value)} /> 
-              <span className="ms-1">Remember me</span>
+              <span className="ms-1">Ghi nhớ tài khoản</span>
           </div>
           <button type="submit" className="btn bg-btn mb-3">
-            Login
+            Đăng nhập
           </button>
           <div className="mb-3">
             <Link className="custom-link" to={"/register"}>

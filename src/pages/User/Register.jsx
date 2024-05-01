@@ -28,7 +28,7 @@ function Register() {
     }
     if (!username || username === '') {
       setShowToast(true);
-      setToastMessage("Username không được để trống");
+      setToastMessage("Tên đăng nhập không được để trống");
       setToastVariant("danger");
       return;
     }
@@ -47,11 +47,11 @@ function Register() {
     }
     if (!phone || phone === '') {
       setShowToast(true);
-      setToastMessage("Mật khẩu không được để trống");
+      setToastMessage("Số điện thoại không được để trống");
       setToastVariant("danger");
       return;
     }else{
-      if (phone.length < 6) {
+      if (phone.length < 9) {
         setShowToast(true);
         setToastMessage("Số điện thoại phải 10 số");
         setToastVariant("danger");

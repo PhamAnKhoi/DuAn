@@ -189,7 +189,7 @@ const [toastVariant, setToastVariant] = useState("");
                   <div className="mb-3">
                     <label className="form-label">Hình ảnh chỉnh sửa: </label>
                     <input
-                      className="form-control"
+                      className="form-control mb-3"
                       type="file"
                       onChange={handleThumbnailChange}
                     />
@@ -197,13 +197,13 @@ const [toastVariant, setToastVariant] = useState("");
                       src={thumbnailUrl || thumbnail}
                       alt=""
                       width={200}
-                      style={{ objectFit: "cover" }}
+                      style={{ width: "100%", objectFit: "cover" }}
                     />
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Video chỉnh sửa: </label>
                     <input
-                      className="form-control"
+                      className="form-control mb-3"
                       type="file"
                       onChange={handleVideoChange}
                     />
@@ -212,6 +212,7 @@ const [toastVariant, setToastVariant] = useState("");
                     className="img-propose"
                     controls
                     src={video || videoDemoUrl}
+                    style={{ width: "100%", objectFit: "cover" }}
                   ></video>
                   </div>
                   <div className="mb-3">

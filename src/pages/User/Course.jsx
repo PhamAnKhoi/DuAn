@@ -80,7 +80,7 @@ function Course() {
                           {Number(course.price).toLocaleString("vi")} VND
                         </span>
                         <span className="custom-icon-cart">
-                          Thêm vào giỏ hàng
+                          Chi tiết khóa học
                         </span>
                       </span>
                     </div>
