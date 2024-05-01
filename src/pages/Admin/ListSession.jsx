@@ -119,7 +119,7 @@ function ListSession() {
                       Số thứ tự session
                     </th>
                     <th className="text-nowrap text-center">Tên session</th>
-                    <th className="text-nowrap text-center col-lg-5">Nội dung</th>
+                    <th className="text-nowrap text-center">Nội dung</th>
                     <th className="text-nowrap text-center">
                       Ngày tạo session
                     </th>

@@ -7,8 +7,14 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import logo from "./logo.png";
 import ReactPaginate from "react-js-pagination";
+import ToastMessage from "../../components/notifice";
 
 function DetailPost() {
+    // show noti
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
+    const [toastVariant, setToastVariant] = useState("");
+    //end shownoti
   const [post, setPost] = useState([]);
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
@@ -63,8 +69,17 @@ function DetailPost() {
     axios
       .get("http://api.course-selling.id.vn/api/post/" + postId)
       .then((response) => {
-        setPost(response.data.data);
-        setComments(response.data.comments);
+        if (response.data.status) {
+          setPost(response.data.data);
+          setComments(response.data.comments);
+        } else {
+          setShowToast(true);
+          setToastMessage(response.data.message);
+          setToastVariant("danger");
+          setTimeout(() => {
+            window.location.href = '/post'
+          }, 1500);
+        }
       })
       .catch((error) => {
         console.error("Error fetching courses:", error);
@@ -88,6 +103,12 @@ function DetailPost() {
 
   return (
     <div>
+      <ToastMessage
+        show={showToast}
+        setShow={setShowToast}
+        message={toastMessage}
+        variant={toastVariant}
+      />
       <div className="container-fluid">
         <Header />
         <div className="row Sidebar">

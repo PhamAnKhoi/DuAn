@@ -27,7 +27,13 @@ function EditPost() {
     const fetchPost = async () => {
       try {
         const response = await axios.get(
-          "http://api.course-selling.id.vn/api/post/" + postId
+          "http://api.course-selling.id.vn/api/post/show-edit/" + postId,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${user.access_token}`,
+            },
+          }
         );
         const postData = response.data.data;
         if (response.data.status) {
@@ -167,7 +173,7 @@ function EditPost() {
                       checked={status === 1}
                       onChange={() => setStatus(1)}
                     />
-                    <span className="mx-2">Hiển thị khóa học</span>
+                    <span className="mx-2">Hiển thị bài viết</span>
                   </div>
                   <div className="mb-1">
                     <input
@@ -176,7 +182,7 @@ function EditPost() {
                       checked={status === 0}
                       onChange={() => setStatus(0)}
                     />
-                    <span className="mx-2">Ẩn khóa học</span>
+                    <span className="mx-2">Ẩn bài viết</span>
                   </div>
                 </div>
                 <button className="btn bg-btn" type="submit">
