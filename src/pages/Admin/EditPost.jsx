@@ -30,10 +30,19 @@ function EditPost() {
           "http://api.course-selling.id.vn/api/post/" + postId
         );
         const postData = response.data.data;
-        setTitle(postData.title);
-        setContent(postData.content);
-        setStatus(postData.status);
-        setThumbnailUrl(postData.thumbnail);
+        if (response.data.status) {
+          setTitle(postData.title);
+          setContent(postData.content);
+          setStatus(postData.status);
+          setThumbnailUrl(postData.thumbnail);
+        } else {
+          setShowToast(true);
+          setToastMessage(response.data.message);
+          setToastVariant("danger");
+          setTimeout(() => {
+            window.location.href = "/admin/list-post";
+          }, 1500);
+        }
       } catch (error) {
         console.error("Failed to fetch post data: ", error);
       }

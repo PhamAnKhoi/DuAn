@@ -58,7 +58,7 @@ function DetailCourse() {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         if (response.data.status) {
           setShowToast(true);
           setToastMessage(response.data.message);
@@ -90,9 +90,19 @@ function DetailCourse() {
     axios
       .get("http://api.course-selling.id.vn/api/course/" + courseId)
       .then((response) => {
-        setCourse(response.data.data);
-        setSessions(response.data.sessions);
-        setRating(response.data.ratings);
+        if (response.data.status) {
+          setCourse(response.data.data);
+          setSessions(response.data.sessions);
+          setRating(response.data.ratings);
+        } else {
+          setShowToast(true);
+          setToastMessage(response.data.message);
+          setToastVariant("danger");
+          setTimeout(() => {
+            window.location.href = '/'
+          }, 1500);
+        }
+
       })
       .catch((error) => {
         console.error("Error fetching courses:", error);
@@ -200,7 +210,7 @@ function DetailCourse() {
                               <span className="custom-span-icon">
                                 {collapsed[index] ? "\u002B" : "\u2212"}
                               </span>
-                              <span>{index+1}
+                              <span>{index + 1}
                                 {". "}</span>
                               <span>{session.session_name}</span>
                             </div>
